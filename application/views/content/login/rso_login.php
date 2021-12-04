@@ -5,27 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/logo.jpg" />
 
     <link rel="stylesheet" href="hrp_login/fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="hrp_login/css/owl.carousel.min.css">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="hrp_login/css/bootstrap.min.css">
-    
     <!-- Style -->
     <link rel="stylesheet" href="hrp_login/css/style.css">
-
     <title>RSO Login</title>
   </head>
   <body>
   
 
-  
   <div class="content" style="margin-top:100px;margin-left:70px">
     <div class="container">
       <div class="row">
-        <div class="col-md-6" style="background-image: url('assets/img/xeva.png'); background-repeat: no-repeat;background-size:110%;">
+        <div class="col-md-6" style="background-image: url('assets/img/avanza-rm.png'); background-repeat: no-repeat;background-size:110%;">
           
         </div>
         <div class="col-md-6 contents">

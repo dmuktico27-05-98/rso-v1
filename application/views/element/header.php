@@ -6,6 +6,7 @@
   <title><?=$title;?> | Admin</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="icon" type="image/png" href="assets/img/logo.jpg" />
   <!-- Bootstrap 3.3.6 -->
  <link rel="stylesheet" href="<?=base_url('assets/lte/sweetalert/sweetalert.css') ?>"/> 
   <link rel="stylesheet" href="<?=base_url('assets/lte/jquery/themes/smoothness/jquery-ui.css');?>">  
@@ -25,6 +26,12 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?=base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- overlayScrollbars -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?=base_url('dist/css/adminlte.min.css')?>">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="<?=base_url('plugins/fontawesome-free/css/all.min.css')?>">
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url('dist/css/adminlte.min.css')?>">
   <script type="text/javascript">
@@ -54,17 +61,15 @@
 </script>
 
 </head>
-<body class="hold-transition dark-mode sidebar-collapse sidebar-mini" onLoad="setInterval('displayServerTime()',500);">
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
-
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark" style="background-color: #1f1f2e">
-
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
   <?php
         foreach ($menu_mother as $row1) { if($row1->nav!='Security' AND $row1->nav!='Dashboard'){ ?>
   <div class="dropdown <?=$row1->mother;?>">
@@ -93,17 +98,13 @@
         </div>
         </div>
       <?php } } ?>
-    
-   
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-     
-
       <li class="nav-item">
      
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button" style="color:black;">
           <i class="fas fa-expand-arrows-alt"></i> &nbsp;-&nbsp; <?=$nama;?>&nbsp;-&nbsp; <?=$shop;?>
         </a>
       </li>
@@ -117,7 +118,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #1f1f2e">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?=base_url('home')?>" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" style="padding:10px;" class="brand-image img-circle elevation-3">
@@ -126,8 +127,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-   
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -175,9 +174,7 @@
             </a>
           </li>
 
-        
-
-     
+             
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -186,7 +183,7 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background-color: #1f1f2e">
+  <div class="content-wrapper" style="background-color: #f0f0f0">
   <div id="isi"></div>
    
 

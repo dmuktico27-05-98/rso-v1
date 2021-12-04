@@ -1,6 +1,6 @@
 
   <!-- Main Footer -->
-  <footer class="main-footer" style="background-color: #1f1f2e">
+  <footer class="main-footer" style="background-color: white">
     <strong>Copyright &copy; 2021 <a href="https://rahayu-web.my.id"><?=$detail;?></a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
@@ -8,9 +8,7 @@
     </div>
   </footer>
 </div>
-<!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="<?=base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap -->
@@ -22,7 +20,7 @@
 <!-- ChartJS -->
 <script src="<?=base_url('plugins/chart.js/Chart.min.js')?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?=base_url('dist/js/pages/dashboard2.js')?>"></script>
+<script src="<?=base_url('dist/js/pages/dashboard3.js')?>"></script>
 
 <!-- jQuery 2.2.3 -->
 <script src="<?=base_url('assets/lte/jquery/jquery-2.1.3.min.js')?>"></script>
