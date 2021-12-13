@@ -72,8 +72,8 @@
     </ul>
   <?php
         foreach ($menu_mother as $row1) { if($row1->nav!='Security' AND $row1->nav!='Dashboard'){ ?>
-  <div class="dropdown <?=$row1->mother;?>">
-        <?php if($row1->url!="-"){ 
+          <div class="dropdown <?=$row1->mother;?>">
+           <?php if($row1->url!="-"){ 
                 if($row1->mother=='andon'){ ?>
                     <button onclick="window.open ('<?=site_url($row1->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"></i>
                     <?=$row1->nav;?>
@@ -88,14 +88,14 @@
                 <?=$row1->nav;?>
                   <span class="caret"></span>
             </button>&nbsp;&nbsp;
-       <?php }?>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <?php foreach ($menu_parent as $row2) { if($row1->mother==$row2->mother) { if($row2->mother=='andon'){ ?>
-                <li class="<?=$row2->parent;?>"><a onclick="window.open ('<?=site_url($row2->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
-                  <?php }else{?>
-                <li class="<?=$row2->parent;?>"><a onclick="return menu('<?=base_url($row2->url); ?>','<?=$row2->nav;?>','<?=$row2->tabel.'-'.$row2->add_level.'-'.$row2->edit_level.'-'.$row2->delete_level;?>','<?=$row2->user_level;?>')"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
-             <?php }} } ?>
-        </div>
+            <?php }?>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <?php foreach ($menu_parent as $row2) { if($row1->mother==$row2->mother) { if($row2->mother=='andon'){ ?>
+                    <li class="<?=$row2->parent;?>"><a onclick="window.open ('<?=site_url($row2->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
+                      <?php }else{?>
+                    <li class="<?=$row2->parent;?>"><a onclick="return menu('<?=base_url($row2->url); ?>','<?=$row2->nav;?>','<?=$row2->tabel.'-'.$row2->add_level.'-'.$row2->edit_level.'-'.$row2->delete_level;?>','<?=$row2->user_level;?>')"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
+                <?php }} } ?>
+                </div>
         </div>
       <?php } } ?>
 

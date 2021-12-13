@@ -49,9 +49,8 @@ function index(){
 					'tbl_ppc'=>'tbl_input_ppc',
 					'tbl_subassy'=>'tbl_input_subassy',
 					'tbl_docking'=>'tbl_input_docking',
-					'ppc'=>$this->db->query("select * from tbl_input_ppc order by id asc")->result(),
-					'docking'=>$this->db->query("select * from tbl_input_docking order by id asc")->result(),
-					'subassy'=>$this->db->query("select * from tbl_input_subassy order by id asc")->result(),
+					'chart_ppc'=>$this->db->query("select * from tbl_input_ppc order by ss_p1+ss_p4+ss_kap+ss_ppl+ss_process asc limit 5")->result(),
+					'chart_general'=>$this->db->query("select * from tbl_input_general order by ss_p1+ss_p4+ss_kap+ss_ppl+ss_process asc limit 5")->result(),
 					);
 				
 					$this->load->view('element/header',$data1);

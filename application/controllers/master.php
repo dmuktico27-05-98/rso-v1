@@ -636,6 +636,27 @@ function reset(){
 			$persen=round($progress/$total,2) * 100;
 			echo json_encode(array('persen'=>$persen,'total'=>$total,'success'=>$success,'failed'=>$failed));
 	}
+
+	public function generate_patan()
+	{		
+							date_default_timezone_set('Asia/Jakarta');
+							// $nowtime = date('Y-m-d H:i:s');	
+							// echo $nowtime;	
+		$nowtime = date('Y-m-d H:i:s');		
+		$start = date('Y-m-d').' 07:15:00';
+		$end = date('Y-m-d').' 20:30:00';		
+
+		$now = date('Y-m-d');
+		$past = date('Y-m-d',strtotime($now . "-1 days"));
+		$query = "";
+
+		if($start <= $nowtime && $nowtime <= $end) {
+			$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+		}else{
+			$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";							
+		}
+		echo $this->db->query("$query")->row()->patan;
+	}
 //    ========================== UPLOAD =======================
     function upload(){
 		ini_set('memory_limit','1024M');
@@ -684,7 +705,7 @@ function reset(){
 					'success'=>0,
 				);
 		$this->db->insert('tbl_upload',$datainsert);		
-   
+		
 				if($table=='tbl_user'){
 					$i=1;
 					for ($row = 2; $row <= $highestRow; $row++) {
@@ -748,19 +769,37 @@ function reset(){
 								$i=$i+1;
 								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
 						}
-					}elseif($table=='tbl_input_ppc' || $table=='tbl_input_docking' || $table=='tbl_input_subassy'){
+					}elseif($table=='tbl_input_ppc' || $table=='tbl_input_general'){
+							date_default_timezone_set('Asia/Jakarta');
+							$nowtime = date('Y-m-d H:i:s');	
+							echo $nowtime;	
+							$start = date('Y-m-d').' 07:15:00';
+							$end = date('Y-m-d').' 20:30:00';		
+					
+							$now = date('Y-m-d');
+							$past = date('Y-m-d',strtotime($now . "-1 days"));
+							$query = "";
+					
+							if($start <= $nowtime && $nowtime <= $end) {
+								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+							}else{
+								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";							
+							}
+							$patan =  $this->db->query("$query")->row()->patan;
 						$i=1;
 						for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 							$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 							$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
 							$t_t = 465/$master['id']->maks_shift;
 							$t_t = round($t_t,2);
+							
 						$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
 							"job_no"=>$rowData[0][1],
 							"part_no"=>$master['id']->part_no,
 							"part_name"=>$master['id']->part_name,
 							"maks_shift"=>$master['id']->maks_shift,
-							"patan"=>$master['id']->patan,
+							"ps"=>$master['id']->patan,
+							"patan"=>$patan,
 							"t_t"=>$t_t,
 							"shift"=>$this->shift,
 							"shop_name"=>$this->shop,
@@ -777,10 +816,11 @@ function reset(){
 							"area"=>$master['id']->area,
 							"proses"=>$master['id']->proses,
 							"model"=>$master['id']->model,
+							"machine"=>$master['id']->machine,
 							"create_by"=>$this->nama,
 							"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
 							);
-					
+							
 							$this->db->insert($table, $data1);                    
 								$no=$no+1;
 								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
@@ -809,6 +849,28 @@ function reset(){
 								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
 			
 								);
+								$insert = $this->db->insert($table, $data1);                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
+								$no=$no+1;
+								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
+								$i=$i+1;
+								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+			
+						}
+					}elseif($table=='tbl_master_patan'){
+						$this->db->truncate($table);
+						
+						$i=1;
+							$no=1;
+							for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
+							   $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+							     $dates=gmdate('Y-m-d',PHPExcel_Shared_Date::ExcelToPHP($rowData[0][1]));
+							  
+							   $data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
+								"dates"=>$dates,
+								"patan"=>$rowData[0][2],
+								"shift"=>$rowData[0][3],
+								);
+							
 								$insert = $this->db->insert($table, $data1);                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
 								$no=$no+1;
 								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 

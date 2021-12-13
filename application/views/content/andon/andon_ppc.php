@@ -98,9 +98,6 @@
 <link rel="stylesheet" href="<?=base_url('assets/lte/datatables/extensions/FixedColumns/css/dataTables.fixedColumns.min.css')?>">
 <link rel="stylesheet" href="<?=base_url('assets/lte/jquery/dataTables.jqueryui.min.css');?>">
 
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" /> -->
-
 
 </head>
 <body>
@@ -114,7 +111,7 @@
                 <tr>
                   <td rowspan="2" style="width: 10%;border:1px solid #000">
                     <img src="<?=base_url('assets/img/logo.jpg');?>" style="width:100%;height:50%;vertical-align: middle;"></td>
-                  <td align="center" style="border-bottom:none;font-size:200%;border-top:1px solid #000">ANDON RSO PPC 2A</td>
+                  <td align="center" style="border-bottom:none;font-size:200%;border-top:1px solid #000">ANDON RSO</td>
                   <td rowspan="2" style="width:20%;font-size:150%;border:1px solid #000">
                     <?=strtoupper(gmdate('d-m-Y',time()+60*60*7));?>
                     <span id="clock"><?=gmdate('H:i:s',time()+60*60*7);?></span>
@@ -248,8 +245,9 @@
   </tr>
   
 </table>
-<!-- <script src="<?=base_url('assets/lte/jquery/jquery-2.1.3.min.js')?>"></script> -->
-<script src="<?=base_url('assets/lte/apexcharts/apexcharts.min.js')?>"></script>
+<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.min.js')?>"></script>
+<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.js')?>"></script>
+
 <script src="<?=base_url('assets/lte/jquery/jquery.dataTables.min.js')?>"></script>
 <script src="<?=base_url('assets/lte/jquery/dataTables.jqueryui.min.js')?>"></script>
 <script src="<?=base_url('assets/lte/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js')?>"></script>
@@ -258,98 +256,75 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 
-<script>
- var options = {
+  <script>
+  var options = {
           series: [{
-          data: [  <?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($input_ppc as $row){ ?>
-        <?=$row->ss_p1;?>,
-        <?php } if($x<15){ $j=15-$x+1;
-                            for($s=$x;$s<=15;$s++){?>
-                            '',
-                            <?php }} ?>
-        ]
+          name: 'Marine Sprite',
+          data: [44, 55, 41, 37, 22, 43, 21]
+        }, {
+          name: 'Striking Calf',
+          data: [53, 32, 33, 52, 13, 43, 32]
+        }, {
+          name: 'Tank Picture',
+          data: [12, 17, 11, 9, 15, 11, 20]
+        }, {
+          name: 'Bucket Slope',
+          data: [9, 7, 5, 8, 6, 9, 4]
+        }, {
+          name: 'Reborn Kid',
+          data: [25, 12, 19, 32, 25, 24, 10]
         }],
           chart: {
           type: 'bar',
-          foreColor: 'white',
-          height: 385
+          height: 350,
+          stacked: true,
         },
         plotOptions: {
           bar: {
-            borderRadius: 10,
             horizontal: true,
-          }
+          },
         },
-        dataLabels: {
-          enabled: true
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        title: {
+          text: 'Fiction Books Sales'
         },
         xaxis: {
-          categories: [
-            <?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($input_ppc as $row){ ?>
-            '<?=$row->job_no;?>',
-            <?php }  if($x<15){ $j=15-$x+1;
-                            for($s=$x;$s<=15;$s++){ ?>
-                             '<?=$s;?>',
-                             <?php }} ?>
-          ],
+          categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
+          labels: {
+            formatter: function (val) {
+              return val + "K"
+            }
+          }
+        },
+        yaxis: {
+          title: {
+            text: undefined
+          },
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + "K"
+            }
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 40
         }
         };
 
         var chart = new ApexCharts(document.querySelector("#chart_ppc"), options);
         chart.render();
-      </script>
-<!-- 
-<script>
-   $(document).ready(function() {
-     var table = $('#ppc').DataTable( {
-            "processing": true, 
-            "serverSide": false, 
-            "bSort": false,
-            "order": [], 
-            "scrollY":($(window).height()-400),
-            "scrollX":true,
-            "pagingType": "full_numbers",
-            "bPaginate":true,
-            "bJQueryUI":true,
-            "scrollCollapse":true,
-            "paging":true,
-            "fixedColumns":true,
-            "AutoWidth": true,
-            "LengthChange": true,
-            "pageResize": true,
-            "pageLength" :20,
-             "targets": 'no-sort',             
-          });
-          $("#ppc_filter.dataTables_filter").append($("#categoryFilter"));
-          var categoryIndex = 0;
-      $("#ppc th").each(function (i) {
-        if ($($(this)).html() == "MODEL") {
-          categoryIndex = i; return false;
-        }
-      });
-
-      $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-          var selectedItem = $('#categoryFilter').val()
-          var model = data[categoryIndex];
-          if (selectedItem === "" || model.includes(selectedItem)) {
-            return true;
-          }
-          return false;
-        }
-      );
-
-      $("#categoryFilter").change(function (e) {
-        $('#ppc').DataTable().draw();
-      });
-      $('#ppc').DataTable().draw();
-});  
-$(window).resize(function(){
-   var tinggi = ($(window).height()-410);
-    $('#ppc').closest('.dataTables_scrollBody').css('height',tinggi);
-    $('#ppc').DataTable().draw();
-  });
-</script>   -->
+    
+</script>
 
 <script>
     $("document").ready(function () {
