@@ -71,7 +71,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-item"><a href="#">Excel</a></li>
-                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["model"]) ? base_url("andon/report?model=") . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/report"); ?>">PDF</a></li>
+                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["model"]) ? base_url("andon/pdf?model=") . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdf"); ?>" target="_blank">PDF</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-2">
