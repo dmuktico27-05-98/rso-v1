@@ -1,9 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('Hacking Attempt : Keluar dari sistem..!!');
-require('./excel/vendor/autoload.php');
+// require('./excel/vendor/autoload.php');
 
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\IOFactory;
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Andon extends CI_Controller
 {
 	public $tanggal;
@@ -382,7 +382,7 @@ class Andon extends CI_Controller
 			$where = $where." and `ps` = '$ps'";
 		}		
 
-		$query = "select * from tbl_input_general$where  order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
+		$query = "select * from tbl_input_general $where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
 		$hasil = $this->db->query("$query")->result();
 
 

@@ -143,6 +143,7 @@ while(count($List)!=0){
 
 const print = this.document.getElementById("print");
 html2pdf().set(opt).from(print).save();
+window.close();
 </script>
 
 
