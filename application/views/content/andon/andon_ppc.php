@@ -1,85 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style type="text/css">
- html,body { 
-      height: 100%;
-      width: 100%;
-      padding:0px;
-      margin:0px;
-      font-family: sans-serif;
-      background-color:white; 
-      font-size: 10px; 
-      text-align:center;
-      font-weight: bold;     
-    }
-    @media (max-width: 899px) {
-      .header{
-        font-size: 12px;
-      }
-    }
-    @media (min-width: 900px) and (max-width: 1500px) {
-      .header{
-        font-size: 22px;
-      }
-    }
-     @media (min-width: 1000px) {
-      .header{
-        font-size: 20px;
-      }
-    }
-    table{
-      height: 100%;
-      width:100%;
-    }
+  <title><?php echo $title;?></title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>plugins/fontawesome-free/css/all.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">  
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>dist/css/adminlte.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">  
   
-    .list {
-		  border-collapse: collapse;
-		  border-spacing: 0px;
-		  border-top: 1px solid #8B7958;
-		  border-bottom: 1px solid #8B7958;
-		  width: 100%;
-		}
-
-
-		tr.list_row>td {
-		  background-color: #1f1f2e;
-		  border-bottom: 1px dotted #8B7958;
-		  font-size: 12;
-		}
-
-		tr.list_row:hover td {
-		  background-color: black;
-		}
-
-		.thread>tr { display: none; }
-
-		/* Lists
-		-----------------------------------------------------------------------*/
-		tr.list_row:hover td {
-		  background-color: grey;
-		}
-
-     
-    select.form-control{
-    display: inline;
-    width: 150px;
-    margin-left: 25px;
-  }
-
-</style>
-  <!-- Ionicons -->
- <script type="text/javascript">
-    //set timezone
+</head>
+<body>
+<div class="wrapper">
+<section class="content">
+<div class="container-fluid p-2" id="print">
+<script type="text/javascript">
     <?php date_default_timezone_set('Asia/Jakarta'); ?>
-    //buat object date berdasarkan waktu di server
     var serverTime = new Date(<?php print date('Y, m, d, H, i, s, 0'); ?>);
     //buat object date berdasarkan waktu di client
     var clientTime = new Date();
     //hitung selisih
-    var Diff = serverTime.getTime() - clientTime.getTime();    
+    var Diff = serverTime.getTime() - clientTime.getTime();
     //fungsi displayTime yang dipanggil di bodyOnLoad dieksekusi tiap 1000ms = 1detik
-    function displayServerTime(){
+    function displayServerTime() {
         //buat object date berdasarkan waktu di client
         var clientTime = new Date();
         //buat object date dengan menghitung selisih waktu client dan server
@@ -91,348 +40,281 @@
         //ambil nilai detik
         var ss = time.getSeconds().toString();
         //tampilkan jam:menit:detik dengan menambahkan angka 0 jika angkanya cuma satu digit (0-9)
-        $("#clock").text((sh.length==1?"0"+sh:sh) + ":" + (sm.length==1?"0"+sm:sm) + ":" + (ss.length==1?"0"+ss:ss));
+        $("#clock").text((sh.length == 1 ? "0" + sh : sh) + ":" + (sm.length == 1 ? "0" + sm : sm) + ":" + (ss.length == 1 ? "0" + ss : ss));
     }
-    setInterval('displayServerTime()',500);
+    setInterval('displayServerTime()', 500);
 </script>
-<link rel="stylesheet" href="<?=base_url('assets/lte/datatables/extensions/FixedColumns/css/dataTables.fixedColumns.min.css')?>">
-<link rel="stylesheet" href="<?=base_url('assets/lte/jquery/dataTables.jqueryui.min.css');?>">
 
-
-</head>
-<body>
-<table style="width: 100%;height: 100%;border-spacing: 1px;padding: 0px;background-color: black;" class="header">
-  <tr>
-    <th>    
-      <table style="height: 100%;width: 100%;border-spacing: 1px;border-collapse: separate;border:2px solid #fff;">
-       <tr>
-          <td style="height: 10%;">
-            <table style="border-spacing: 0px;background-color:#eee;color: black;">
-                <tr>
-                  <td rowspan="2" style="width: 10%;border:1px solid #000">
-                    <img src="<?=base_url('assets/img/logo.jpg');?>" style="width:100%;height:50%;vertical-align: middle;"></td>
-                  <td align="center" style="border-bottom:none;font-size:200%;border-top:1px solid #000">ANDON RSO</td>
-                  <td rowspan="2" style="width:20%;font-size:150%;border:1px solid #000">
-                    <?=strtoupper(gmdate('d-m-Y',time()+60*60*7));?>
-                    <span id="clock"><?=gmdate('H:i:s',time()+60*60*7);?></span>
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center" style="border-bottom:1px solid #000;vertical-align: top">PT. Astra Daihatsu Motor Stamping Plant</td>
-                </tr>
-              </table>
-
+<table style="width: 100%;">
+    <tr>
+        <td style="height: 12%;width: 10%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
         </td>
-      </tr>
-        <tr style="background-color: #000;">
-          <td style="border: 1px solid #fff;padding:1px;">
-            <!-- 1.bungkus -->
-            <table style="width: 100%;height:100%;border-spacing: 0px;border: 0px solid #fff;text-shadow: 1px 1px black">
-              <!-- bagi tinggi-->
-              <tr>
-                <td style="padding: 0px;">
-                  <!-- isi-->
-                  <table style="width: 100%;height:100%;border-spacing: 0px;">
-                  <tr>
-                      <!-- bagi kolom -->
-                      <td>
-                           <table style="width:100%;height:100%;color:white;text-align: center;background-color: black;font-weight: bold;border-spacing: 1px;border:1px solid #000;">
-                            <tr style="background-color:teal;color: black;">
-                              <td id="chart_ppc"> </td>  
-                            </tr>
-                          </table>
-                      </td>
-                       <!-- bagi kolom -->         
-                    </tr>
-                    <tr>
-                      <!-- bagi kolom -->
-                      <td>
-                        <div class="category-filter">
-                        <select id="categoryFilter" class="form-control">
-                         <option value="">Show All</option>
-                          <option value="D55L">D55L</option>
-                          <option value="D40D">D40D</option>
-                          <option value="D26A">D26A</option>
+        <td class="bg-dark">
+            <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"])?$_GET["machine"]:""; ?></h2>
+            <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
+        </td>
+        <td width="15%" style="word-wrap: break-word;" class="bg-danger">
+            <h2 class="display-5 text-center">
+                <?= strtoupper(gmdate('d-m-Y', time() + 60 * 60 * 7)); ?>
+                <span id="clock"><?= gmdate('H:i:s', time() + 60 * 60 * 7); ?></span>
+            </h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="p-0">
+            <div class="row mt-2">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-warning dropdown-toggle w-100" data-toggle="dropdown">
+                        Download
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a href="#">Excel</a></li>
+                        <li class="dropdown-item"><a href="<?php echo isset($_GET["model"])? base_url("andon/report?model=").$_GET["model"]."&machine=".$_GET["machine"]."&ps=".$_GET["ps"]."&date=".$_GET["date"]."&shift=".$_GET["shift"]:base_url("andon/report"); ?>">PDF</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select id="Model" class="form-control">
+                            <option value="">Model</option>
+                            <option>D14N</option>
+                            <option>D17D</option>
+                            <option>D26A</option>
+                            <option>D30D</option>
+                            <option>D40D</option>
+                            <option>D55L</option>
                         </select>
-                      </div>
-                      <table id="ppc" class="nowrap compact" style="width:100%;font-size: 10px;color:white">
-                          <input type="hidden" name="table1" value="<?=$table;?>">
-                          <input type="hidden" name="filter" id="filter" value="">
-                          
-                          <thead>
-                            <tr style="">
-                              <th>JOB_NO</th>
-                              <th>PART_NO</th>
-                              <th>PART_NAME</th>
-                              <th>MAX_SHIFT</th>
-                              <th>PATAN</th>
-                              <th>T_T</th>
-                              <th>SHIFT</th>
-                              <th>SHOP_NAME</th>
-                              <th>STO_P1</th>
-                              <th>STO_P4</th>
-                              <th>STO_KAP</th>
-                              <th>STO_PPL</th>
-                              <th>STO_PROCESS</th>
-                              <th>SS_P1</th>
-                              <th>SS_P4</th>
-                              <th>SS_KAP</th>
-                              <th>SS_PPL</th>
-                              <th>SS_PROCESS</th>
-                              <th>AREA</th>
-                              <th>PROSES</th>
-                              <th>MODEL</th>
-                              <th>CREATE_BY</th>
-                              <th>CREATE_DATE</th>
-
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select id="PS" class="form-control">
+                            <option value="">Patan Schedule</option>
+                            <option>ABCD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select class="form-control" id="Machine">
+                            <option value="">Machine</option>
+                            <option>2A</option>
+                            <option>3B</option>
+                            <option>4A</option>
+                            <option>5A</option>
+                            <option>6A</option>
+                            <option>7A</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group date" id="Date" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#Date" placeholder="Date" />
+                        <div class="input-group-append" data-target="#Date" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select id="Shift" class="form-control">
+                            <option value="">Shift</option>
+                            <option>Day</option>
+                            <option>Night</option>
+                        </select>
+                    </div>
+                </div>
+                <?php foreach($Group as $g){?>
+                <div class="col-md-12">
+                    Last Update : <?= $g->create_date ?>
+                    <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
+                        <thead class="thead-light">
+                            <tr class="text-center">
+                                <th rowspan="2" width="3%">No</th>
+                                <th rowspan="2" width="5%" style="word-wrap: break-word;">Job No</th>
+                                <th rowspan="2" width="6%" style="word-wrap: break-word;">Patan Schedule</th>
+                                <th rowspan="2" width="6%" style="word-wrap: break-word;">Pcs/Shift (Max)</th>
+                                <th rowspan="2" width="3%">T/T</th>
+                                <th colspan="5" width="22%">Stock</th>
+                                <th rowspan="2" width="7%" style="word-wrap: break-word;">Total Stock Strength</th>
+                                <th rowspan="2" width="6%"><?= $pat[0] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[1] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[2] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[3] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[0] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[1] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[2] ?></th>
+                                <th rowspan="2" width="6%"><?= $pat[3] ?></th>
                             </tr>
-                          </thead>
-                          <tbody>
-                            <?php 
-                                foreach ($input_ppc as $key) { ?>
-                                <tr class="list_row">
-                                  
-                                     <td><?=$key->job_no;?></td>
-                                     <td><?=$key->part_no;?></td>
-                                     <td><?=$key->part_name;?></td>
-                                     <td><?=$key->maks_shift;?></td>
-                                     <td><?=$key->patan;?></td>
-                                     <td><?=$key->t_t;?></td>
-                                     <td><?=$key->shift;?></td>
-                                     <td><?=$key->shop_name;?></td>
-                                     <td><?=$key->sto_p1;?></td>
-                                     <td><?=$key->sto_p4;?></td>
-                                     <td><?=$key->sto_kap;?></td>
-                                     <td><?=$key->sto_ppl;?></td>
-                                     <td><?=$key->sto_process;?></td>
-                                     <td><?=$key->ss_p1;?></td>
-                                     <td><?=$key->ss_p4;?></td>
-                                     <td><?=$key->ss_kap;?></td>
-                                     <td><?=$key->ss_ppl;?></td>
-                                     <td><?=$key->ss_process;?></td>
-                                    <td><?=$key->area;?></td>
-                                    <td><?=$key->proses;?></td>
-                                    <td><?=$key->model;?></td>
-                                     <td><?=$key->create_by;?></td>
-                                     <td><?=$key->create_date;?></td>
-              
+                            <tr class="text-center">
+                                <th class="bg-primary">P1</th>
+                                <th class="bg-success">P4</th>
+                                <th class="bg-warning">KAP</th>
+                                <th class="bg-danger">PPL</th>
+                                <th class="bg-dark" style="word-wrap: break-word;">Repair</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1;
+                            foreach ($List as $key) { if($key->create_date==$g->create_date){
+                                $p1 = 0.734375 * $key->ss_p1;
+                                $p4 = 0.734375 * ($key->ss_p1 + $key->ss_p4);
+                                $kap = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap);
+                                $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
+                                $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
+                            ?>
+                                <tr class="text-center">
+                                    <td><?= $i; ?></td>
+                                    <td><?= $key->job_no; ?></td>
+                                    <td><?= $key->ps; ?></td>
+                                    <td><?= $key->maks_shift; ?></td>
+                                     <td><?= $key->t_t; ?></td>
+                                     <td><?= $key->sto_p1; ?></td>
+                                     <td><?= $key->sto_p4; ?></td>
+                                     <td><?= $key->sto_kap; ?></td>
+                                     <td><?= $key->sto_ppl; ?></td>
+                                     <td><?= $key->sto_process; ?></td>
+                                     <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
+                                    <td class="pl-0">
+                                        <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
+                                        <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
+                                        <div class="bg-warning text-right pr-1 position-absolute" style="width: <?= $kap > 47 ? 47 : $kap; ?>%;z-index: -1;"><?= $key->ss_kap; ?></div>
+                                        <div class="bg-success  text-right pr-1 position-absolute" style="width: <?= $p4 > 47 ? 47 : $p4; ?>%;z-index: -1;"><?= $key->ss_p4; ?></div>
+                                        <div class="bg-primary  text-right pr-1 position-absolute " style="width: <?= $p1 > 47 ? 47 : $p1; ?>%;z-index: -1;"><?= $key->ss_p1; ?></div>
+                                    </td>
                                 </tr>
-                              <?php } ?>
                         </tbody>
-                      </table>     
-
-                    </td>
-                       <!-- bagi kolom -->         
-                    </tr>
-                  </table>
-                  <!-- isi-->
-                </td>
-              </tr>
-              
-              <!-- bagi tinggi-->             
-            </table>
-            <!-- 1.bungkus -->
-
-          </td>         
-        </tr>
-      </table>
-    </th>
-  </tr>  
-  <tr style="height: 4%;">
-    <td>
-      <marquee style="font-size: 20px;vertical-align: middle;color:yellow"><i>ANDON RSO PPC !!!</i></marquee>
-    </td>
-  </tr>
-  
+                    <?php $i++;
+                           } } ?>
+                    </table>
+                    </span>
+                </div>
+                <?php }?>
+            </div>
+        </td>
+    </tr>
 </table>
-<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.min.js')?>"></script>
-<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.js')?>"></script>
+</div>
+</section>
+</div>
 
-<script src="<?=base_url('assets/lte/jquery/jquery.dataTables.min.js')?>"></script>
-<script src="<?=base_url('assets/lte/jquery/dataTables.jqueryui.min.js')?>"></script>
-<script src="<?=base_url('assets/lte/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js')?>"></script>
+<script src="<?php echo base_url() ?>plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo base_url() ?>plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="<?php echo base_url() ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url() ?>dist/js/adminlte.js"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url() ?>plugins/moment/moment.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?php echo base_url() ?>plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url() ?>plugins/select2/js/select2.full.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 
-  <script>
-  var options = {
-          series: [{
-          name: 'Marine Sprite',
-          data: [44, 55, 41, 37, 22, 43, 21]
-        }, {
-          name: 'Striking Calf',
-          data: [53, 32, 33, 52, 13, 43, 32]
-        }, {
-          name: 'Tank Picture',
-          data: [12, 17, 11, 9, 15, 11, 20]
-        }, {
-          name: 'Bucket Slope',
-          data: [9, 7, 5, 8, 6, 9, 4]
-        }, {
-          name: 'Reborn Kid',
-          data: [25, 12, 19, 32, 25, 24, 10]
-        }],
-          chart: {
-          type: 'bar',
-          height: 350,
-          stacked: true,
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
-          },
-        },
-        stroke: {
-          width: 1,
-          colors: ['#fff']
-        },
-        title: {
-          text: 'Fiction Books Sales'
-        },
-        xaxis: {
-          categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
-          labels: {
-            formatter: function (val) {
-              return val + "K"
-            }
-          }
-        },
-        yaxis: {
-          title: {
-            text: undefined
-          },
-        },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              return val + "K"
-            }
-          }
-        },
-        fill: {
-          opacity: 1
-        },
-        legend: {
-          position: 'top',
-          horizontalAlign: 'left',
-          offsetX: 40
-        }
-        };
+<script>  
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+    //Date picker
+    $('#Date').datetimepicker({          
+          format: 'DD/MM/YYYY'
+           <?php 
+          if(isset($_GET["date"] ) && $_GET["date"] != ""){          
+            echo ",defaultDate:'".date('m/d/Y',strtotime($_GET["date"]))."'";
+          }else{
+            echo ' ';
+          }  
 
-        var chart = new ApexCharts(document.querySelector("#chart_ppc"), options);
-        chart.render();
-    
-</script>
-
-<script>
-    $("document").ready(function () {
-      $("#ppc").dataTable({
-        "searching": true,
-        "pageLength" :10,
-       
-           
+          ?> 
+              
       });
-      //Get a reference to the new datatable
-      var table = $('#ppc').DataTable();
-      //Take the category filter drop down and append it to the datatables_filter div. 
-      //You can use this same idea to move the filter anywhere withing the datatable that you want.
-      $("#ppc_filter.dataTables_filter").append($("#categoryFilter"));
-      
-      //Get the column index for the Category column to be used in the method below ($.fn.dataTable.ext.search.push)
-      //This tells datatables what column to filter on when a user selects a value from the dropdown.
-      //It's important that the text used here (Category) is the same for used in the header of the column to filter
-      var categoryIndex = 0;
-      $("#ppc th").each(function (i) {
-        if ($($(this)).html() == "MODEL") {
-          categoryIndex = i; return false;
+
+      $('#Model').on('change', function() {
+        var url = "<?= base_url() . 'andon/docking?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
         }
-      });
-      //Use the built in datatables API to filter the existing rows by the Category column
-      $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-          var selectedItem = $('#categoryFilter').val()
-          var category = data[categoryIndex];
-          if (selectedItem === "" || category.includes(selectedItem)) {
-            return true;
-          }
-          return false;
+        return false;
+      }); 
+
+      $('#Machine').on('change', function() {
+        var url = "<?= base_url() . 'andon/docking?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
         }
-      );
-      //Set the change event for the Category Filter dropdown to redraw the datatable each time
-      //a user selects a new filter.
-      $("#categoryFilter").change(function (e) {
-        table.draw();
+        return false;
       });
-      table.draw();
-    });
-  </script> 
 
-
-
-<script type="text/javascript">
-$.ajaxSetup ({
-    cache: false
-});
-$(document).ready(function() {
-    doesConnectionExist();
-       selesai();
-       
+      var dates = ""; 
+      $("#Date").on("change.datetimepicker",function(e){
+        if(dates!=""){
+        var url = "<?= base_url() . 'andon/docking?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
+        }}
+        dates = e.date;
+        return false; 
+        });
      
-});
-function selesai() {
-  setTimeout(function() {
-    doesConnectionExist();
-    selesai();
-  }, 5000);
-}
 
-function doesConnectionExist() {
-    var xhr = new XMLHttpRequest();
-    var file = "#";
-    var randomNum = Math.round(Math.random() * 10000);
-    var test = 'test';
-
-    xhr.open('HEAD', file + "?nocache=" + randomNum, true);
-    xhr.send();
-    
-    xhr.addEventListener("readystatechange", processRequest, false);
-
-    function processRequest(e) {
-      if (xhr.readyState == 4) {
-        if (xhr.status >= 200 && xhr.status < 304) {
-        $('#test').load('<?=base_url('andon/test/'); ?>', 'f' + (Math.random()*1000000));
-          $(document).ready(function(){
-               
-            updateChart()
-            updateChart1()
-           });
-
-        } else {
-            tempAlert("KONEKSI ERROR <br><br><br>Silakan Periksa Koneksi Jaringan / Network Anda !!",4000);
+      $('#Shift').on('change', function() {
+        var url = "<?= base_url() . 'andon/docking?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
         }
-      }
-    }
-}
+        return false;
+      });
 
-function tempAlert(msg,duration)
-{
- var el = document.createElement("div");
- el.setAttribute("style","position:absolute;top:15%;left:25%;background-color:yellow");
- el.innerHTML = msg;
- el.style.width = "670px";
-el.style.height = "530px";
-el.style.textAlign = "center";
-el.style.fontSize = "50px";
- setTimeout(function(){
-  el.parentNode.removeChild(el);
- },duration);
- document.body.appendChild(el);
-}
-setTimeout(function () { 
-      location.reload();
-    }, (5 * 60) * 1000);
+      $('#PS').on('change', function() {
+        var url = "<?= base_url() . 'andon/docking?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
+        }
+        return false;
+      });
+
+      function querybuilder(url) {            
+        var fomat = " ";
+        if($('#Date').datetimepicker('viewDate') != " "){
+          var formattedDate = new Date($('#Date').datetimepicker('viewDate'));
+          var d = formattedDate.getDate();
+          var M = formattedDate.getMonth()+1;
+          var y = formattedDate.getFullYear();
+          var h = formattedDate.getHours();
+          var s = formattedDate.getSeconds();
+          var m = formattedDate.getMinutes();          
+          format = y + "-" + M + "-" + d;
+        }
+        return url + "model=" + $("#Model").val() + "&machine=" + $("#Machine").val()+ "&ps=" + $("#PS").val() + "&date=" + format + "&shift="+$("#Shift").val();
+      }
+
+      
+  })
+
+  <?php 
+        if(isset($_GET["model"] ) && $_GET["model"] != ""){          
+          echo "$('#Model').val('".$_GET['model']."').change();";
+        }
+
+        if(isset($_GET["ps"] ) && $_GET["ps"] != ""){          
+          echo "$('#PS').val('".$_GET['ps']."').change();";
+        }
+
+        if(isset($_GET["machine"] ) && $_GET["machine"] != ""){          
+          echo "$('#Machine').val('".$_GET['machine']."').change();";
+        }
+
+        if(isset($_GET["shift"] ) && $_GET["shift"] != ""){          
+          echo "$('#Shift').val('".$_GET['shift']."').change();";
+        }               
+      ?>
 </script>
+
 </body>
 </html>
