@@ -20,7 +20,7 @@
 <!-- ChartJS -->
 <script src="<?=base_url('plugins/chart.js/Chart.min.js')?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?=base_url('dist/js/pages/dashboard3.js')?>"></script>
+<script src="<?=base_url('dist/js/pages/dashboard2.js')?>"></script>
 
 <!-- jQuery 2.2.3 -->
 <script src="<?=base_url('assets/lte/jquery/jquery-2.1.3.min.js')?>"></script>
@@ -39,6 +39,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url('assets/js/select2.min.js')?>"></script>
 <script src="<?=base_url('assets/js/select2.js')?>"></script>
+<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.min.js')?>"></script>
+<script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.js')?>"></script>
 
 <!-- page script -->
 <script type="text/javascript"> 
