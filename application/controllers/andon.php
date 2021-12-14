@@ -573,10 +573,7 @@ class Andon extends CI_Controller
 		$hasil = $this->db->query("$query")->result();					
 		$querys = "select create_date from tbl_input_ppc$where group by create_date";						
 		$group = $this->db->query("$querys")->result();		
-		
-		print_r($group);
-
-
+	
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
