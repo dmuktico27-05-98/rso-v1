@@ -1147,9 +1147,10 @@ function reset(){
             	if($value->name!='id_check'){ if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
 				if($value->name!='maks_shift'){if($value->name!='patan'){if($value->name!='t_t'){if($value->name!='shift'){if($value->name!='shop_name'){if($value->name!='ss_p1'){
 					if($value->name!='ss_p4'){if($value->name!='ss_kap'){if($value->name!='ss_ppl'){if($value->name!='ss_process'){if($value->name!='create_by'){if($value->name!='create_date'){
+						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){
 	            	$ef->setCellValue($abjad[$i].'1', $value->name);
 	            	$i=$i+1;
-           		 }}}}}}}}}}}}}}}
+           		 }}}}}}}}}}}}}}}}}}}}
            		}
             }
         
@@ -1164,9 +1165,10 @@ function reset(){
 				if($low->name!='id_check'){ if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
 					if($low->name!='maks_shift'){if($low->name!='patan'){if($low->name!='t_t'){if($low->name!='shift'){if($low->name!='shop_name'){if($low->name!='ss_p1'){
 						if($low->name!='ss_p4'){if($low->name!='ss_kap'){if($low->name!='ss_ppl'){if($low->name!='ss_process'){if($low->name!='create_by'){if($low->name!='create_date'){
+							if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){
 			  		 $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
 	            	$i=$i+1;
-            	}}}}}}}}}}}}}}}}
+            	}}}}}}}}}}}}}}}}}}}}}
 		  	 }
 		  	 $counter = $counter+1;
 		  	 $no = $no+1;

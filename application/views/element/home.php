@@ -207,9 +207,6 @@
                                 <!-- ./card-body -->
                                 <div class="card-footer">
                                   <div class="row">
-                                    
-                                <marquee>dah lah </marquee>
-                                
                                   </div>
                                   <!-- /.row -->
                                 </div>
@@ -311,9 +308,6 @@
                                 <!-- ./card-body -->
                                 <div class="card-footer">
                                   <div class="row">
-                                    
-                                <marquee>dah lah </marquee>
-                                
                                   </div>
                                   <!-- /.row -->
                                 </div>

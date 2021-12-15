@@ -368,7 +368,10 @@ class Andon extends CI_Controller
 			}		
 		}	
 
-		
+		$models = $this->db->query("select model from tbl_input_general$where group by model")->result();
+		$machines = $this->db->query("select machine from tbl_input_general$where group by machine")->result();
+		$pss = $this->db->query("select ps from tbl_input_general$where group by ps")->result();		
+				
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
@@ -409,6 +412,9 @@ class Andon extends CI_Controller
 		$data = array('title' => 'Andon',							
 			'List' => $hasil,			
 			'Shift' => $shift,
+			'Models' => $models,
+			'Machines' => $machines,
+			'PSs' => $pss,
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),
 			'Tanggal' => $Tanggal,
@@ -555,6 +561,10 @@ class Andon extends CI_Controller
 			}		
 		}	
 		
+		$models = $this->db->query("select model from tbl_input_ppc$where group by model")->result();
+		$machines = $this->db->query("select machine from tbl_input_ppc$where group by machine")->result();
+		$pss = $this->db->query("select ps from tbl_input_ppc$where group by ps")->result();		
+		
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
@@ -571,11 +581,14 @@ class Andon extends CI_Controller
 		$query = "select * from tbl_input_ppc$where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";	
 		$hasil = $this->db->query("$query")->result();					
 		$querys = "select create_date from tbl_input_ppc$where group by create_date";						
-		$group = $this->db->query("$querys")->result();		
+		$group = $this->db->query("$querys")->result();	
+		
+		$machine = $this->db->query("select machine from tbl_input_ppc$where group by machine")->result();
+		$ps = $this->db->query("select ps from tbl_input_ppc$where group by ps")->result();
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
-		
+				
 		$patern = "";
 		switch ($patan) {
 			case 'A':
@@ -596,6 +609,9 @@ class Andon extends CI_Controller
 			'List' => $hasil,			
 			'Shift' => $shift,
 			'Group' => $group,
+			'Models' => $models,
+			'Machines' => $machines,
+			'PSs' => $pss,
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),
 			'Tanggal' => $Tanggal,

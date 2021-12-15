@@ -52,7 +52,7 @@
                         <td style="height: 12%;width: 10%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
                         </td>
                         <td class="bg-dark">
-                            <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?></h2>
+                            <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h2>
                             <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
                         </td>
                         <td width="15%" style="word-wrap: break-word;" class="bg-danger">
@@ -78,12 +78,9 @@
                                     <div class="form-group">
                                         <select id="Model" class="form-control">
                                             <option value="">Model</option>
-                                            <option>D14N</option>
-                                            <option>D17D</option>
-                                            <option>D26A</option>
-                                            <option>D30D</option>
-                                            <option>D40D</option>
-                                            <option>D55L</option>
+                                            <?php foreach ($Models as $k) {?>
+                                                <option><?= $k->model ?></option>
+                                            <?php }?>
                                         </select>
                                     </div>
                                 </div>
@@ -91,7 +88,9 @@
                                     <div class="form-group">
                                         <select id="PS" class="form-control">
                                             <option value="">Patan Schedule</option>
-                                            <option>ABCD</option>
+                                            <?php foreach ($PSs as $k) {?>
+                                                <option><?= $k->ps ?></option>
+                                            <?php }?>
                                         </select>
                                     </div>
                                 </div>
@@ -99,12 +98,9 @@
                                     <div class="form-group">
                                         <select class="form-control" id="Machine">
                                             <option value="">Machine</option>
-                                            <option>2A</option>
-                                            <option>3B</option>
-                                            <option>4A</option>
-                                            <option>5A</option>
-                                            <option>6A</option>
-                                            <option>7A</option>
+                                            <?php foreach ($Machines as $k) {?>
+                                                <option><?= $k->machine ?></option>
+                                            <?php }?>
                                         </select>
                                     </div>
                                 </div>
