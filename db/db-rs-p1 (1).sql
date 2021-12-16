@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2021 at 01:16 AM
+-- Generation Time: Dec 16, 2021 at 07:03 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -41,9 +41,7 @@ CREATE TABLE `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('f6f31f872ab3c30d309c4c0ec547b834', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36', 1639473228, ''),
-('c2ec609cbc1f56ad7036f46b933f730d', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36', 1639474566, 'a:3:{s:9:\"user_data\";s:0:\"\";s:7:\"isLogin\";b:1;s:7:\"timeout\";i:1639476527;}'),
-('b8f38229d2a540be71927bedc1e5d5d2', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36', 1639473228, '');
+('011c5f1d00ef6a3a203c262d7584b304', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36', 1639634520, 'a:3:{s:9:\"user_data\";s:0:\"\";s:7:\"isLogin\";b:1;s:7:\"timeout\";i:1639637393;}');
 
 -- --------------------------------------------------------
 
@@ -148,8 +146,8 @@ CREATE TABLE `tbl_input_general` (
 --
 
 INSERT INTO `tbl_input_general` (`id`, `job_no`, `part_no`, `part_name`, `maks_shift`, `ps`, `patan`, `t_t`, `shift`, `shop_name`, `sto_p1`, `sto_p4`, `sto_kap`, `sto_ppl`, `sto_process`, `ss_p1`, `ss_p4`, `ss_kap`, `ss_ppl`, `ss_process`, `area`, `proses`, `model`, `machine`, `create_by`, `create_date`) VALUES
-(1, 'A-1006', '57111-BZ290-00', 'A-1006, MEMBER, FR SIDE, FR RH/LH', 388, 'ABCD', 'B', 1, 'N', 'IFP', 150, NULL, NULL, NULL, NULL, '3', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '3B', 'DMUKTICO', '2021-12-14 16:10:09'),
-(2, 'A-4022', '67119-BZ040-00', 'A-4022, PANEL, BACK DOOR, UPR OUTSIDE', 388, 'ABCD', 'B', 1, 'N', 'IFP', 270, NULL, NULL, NULL, NULL, '6', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '5A', 'DMUKTICO', '2021-12-14 16:10:09'),
+(1, 'A-1006', '57111-BZ290-00', 'A-1006, MEMBER, FR SIDE, FR RH/LH', 388, 'ABCD', 'ABCD', 1, 'B', 'WH Door Assy', 300, 0, 0, 0, 0, '6', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '3B', 'Sugiyanto', '2021-12-16 08:34:43'),
+(2, 'A-4022', '67119-BZ040-00', 'A-4022, PANEL, BACK DOOR, UPR OUTSIDE', 388, 'ABCD', 'ABCD', 1, 'B', 'WH Door Assy', 130, 0, 0, 0, 0, '3', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '5A', 'Sugiyanto', '2021-12-16 08:34:31'),
 (3, 'A-1014', '58311-BZ430-00', 'A-1014, PAN, REAR FLOOR', 388, 'ABCD', 'B', 1, 'N', 'IFP', 360, NULL, NULL, NULL, NULL, '7', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '4A', 'DMUKTICO', '2021-12-14 16:10:09'),
 (4, 'A-1002', '55111-BZD40-00', 'A-1002, PANEL, DASH', 219, 'ABCD', 'B', 2, 'N', 'IFP', 250, NULL, NULL, NULL, NULL, '9', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '5A', 'DMUKTICO', '2021-12-14 16:10:09'),
 (5, 'A-4041', '67149-BZ590-00', 'A-4041, PANEL, BACK DOOR, INSIDE', 345, 'ABCD', 'B', 1, 'N', 'IFP', 450, NULL, NULL, NULL, NULL, '10', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'DMUKTICO', '2021-12-14 16:10:09'),
@@ -204,8 +202,8 @@ CREATE TABLE `tbl_input_ppc` (
 --
 
 INSERT INTO `tbl_input_ppc` (`id`, `job_no`, `part_no`, `part_name`, `maks_shift`, `ps`, `patan`, `t_t`, `shift`, `shop_name`, `sto_p1`, `sto_p4`, `sto_kap`, `sto_ppl`, `sto_process`, `ss_p1`, `ss_p4`, `ss_kap`, `ss_ppl`, `ss_process`, `area`, `proses`, `model`, `machine`, `create_by`, `create_date`) VALUES
-(1, 'A-1006', '57111-BZ290-00', 'A-1006, MEMBER, FR SIDE, FR RH/LH', 388, 'ABCD', 'B', 1, 'N', 'IFP', 150, NULL, NULL, NULL, NULL, '3', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '3B', 'DMUKTICO', '2021-12-14 16:13:27'),
-(2, 'A-4022', '67119-BZ040-00', 'A-4022, PANEL, BACK DOOR, UPR OUTSIDE', 388, 'ABCD', 'B', 1, 'N', 'IFP', 270, NULL, NULL, NULL, NULL, '6', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '5A', 'DMUKTICO', '2021-12-14 16:13:27'),
+(1, 'A-1006', '57111-BZ290-00', 'A-1006, MEMBER, FR SIDE, FR RH/LH', 388, 'ABCD', 'ABCD', 1, 'B', 'PPC', 300, 0, 0, 0, 0, '6', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '3B', 'Yuli Wibowo', '2021-12-16 08:31:15'),
+(2, 'A-4022', '67119-BZ040-00', 'A-4022, PANEL, BACK DOOR, UPR OUTSIDE', 388, 'ABCD', 'ABCD', 1, 'B', 'PPC', 130, 0, 0, 0, 0, '3', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '5A', 'Yuli Wibowo', '2021-12-16 08:31:36'),
 (3, 'A-1014', '58311-BZ430-00', 'A-1014, PAN, REAR FLOOR', 388, 'ABCD', 'B', 1, 'N', 'IFP', 360, NULL, NULL, NULL, NULL, '7', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '4A', 'DMUKTICO', '2021-12-14 16:13:27'),
 (4, 'A-1002', '55111-BZD40-00', 'A-1002, PANEL, DASH', 219, 'ABCD', 'B', 2, 'N', 'IFP', 250, NULL, NULL, NULL, NULL, '9', '0', '0', '0', '0', 'WH Docking', 'Inhouse', 'D26A', '5A', 'DMUKTICO', '2021-12-14 16:13:27'),
 (5, 'A-4041', '67149-BZ590-00', 'A-4041, PANEL, BACK DOOR, INSIDE', 345, 'ABCD', 'B', 1, 'N', 'IFP', 450, NULL, NULL, NULL, NULL, '10', '0', '0', '0', '0', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'DMUKTICO', '2021-12-14 16:13:27'),
@@ -307,9 +305,9 @@ INSERT INTO `tbl_level` (`id`, `user_level`, `user_group`, `user_area`) VALUES
 (19, 'Admin_area', 'Admin', 'Admin'),
 (21, 'User', 'Admin', 'Production'),
 (25, 'Management', 'Admin', 'Admin'),
-(29, 'IRM', 'Admin', 'Admin'),
-(28, 'IFP', 'Admin', 'Admin'),
-(27, 'PPC', 'Admin', 'Admin');
+(28, 'WH Docking', 'Admin', 'Admin'),
+(27, 'PPC', 'Admin', 'Admin'),
+(30, 'WH Door Assy', 'Admin', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -1296,7 +1294,9 @@ INSERT INTO `tbl_master_shop` (`id`, `shop_name`, `cost_center`, `gr_code`) VALU
 (18, 'DIEMAINTENANCE', '-', '-'),
 (19, 'DIEMAKING', '-', '-'),
 (20, 'LPP', '-', 'LPB'),
-(21, 'PPC', 'S-402-0451', 'LPB');
+(21, 'PPC', 'S-402-0451', 'LPB'),
+(23, 'WH Docking', '-', '-'),
+(24, 'WH Door Assy', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -1330,16 +1330,18 @@ INSERT INTO `tbl_menu` (`id`, `menuid`, `mother`, `parent`, `icon`, `nav`, `url`
 (7, 'systemotorisasi', 'system', 'otorisasi', '-', 'Data Otorisasi', 'master/otorisasi', 'tbl_menu_user', 7),
 (8, 'systemuser', 'system', 'user', 'fa-users', 'Data User', 'master/data', 'tbl_user', 8),
 (9, 'master-', 'master', '-', 'fa-file-zip-o', 'Master', '-', '-', 20),
-(142, 'andongeneral', 'andon', 'general', '-', 'Andon General', 'andon/general', '-', 3),
+(142, 'andongeneral', 'andon', 'general', '-', 'Andon Inhouse', 'andon/general?proses=Inhouse', '-', 3),
 (111, 'mastershop', 'master', 'shop', '-', 'Master Shop', 'master/data', 'tbl_master_shop', 4),
+(143, 'andonvendor', 'andon', 'vendor', '-', 'Andon Outhouse', 'andon/general?proses=Subcont', '-', 4),
 (105, 'masterpart', 'master', 'part', '-', 'Master Part', 'master/data', 'tbl_master_part', 1),
 (120, 'security-', 'security', '-', 'fa-key', 'Change Password', 'action/password', '-', 100),
 (121, 'andon-', 'andon', '-', 'fa-desktop', 'Andon', '-', '-', 1),
 (122, 'andonppc', 'andon', 'ppc', '-', 'Andon PPC', 'andon/ppc', '-', 2),
 (123, 'stock-', 'stock', '-', 'fa-rocket', 'Input Stock', '-', '-', 1),
 (125, 'stockinput_ppc', 'stock', 'input_ppc', '-', 'Input PPC', 'master/transaction', 'tbl_input_ppc', 2),
-(139, 'stockinput_sa', 'stock', 'input_sa', '-', 'Input General', 'master/transaction', 'tbl_input_general', 6),
-(141, 'masterpatan', 'master', 'patan', '-', 'Master Daily Patan', 'master/data', 'tbl_master_patan', 3);
+(139, 'stockinput_sa', 'stock', 'input_sa', '-', 'Input Door Assy', 'master/transaction', 'tbl_input_general', 6),
+(141, 'masterpatan', 'master', 'patan', '-', 'Master Daily Patan', 'master/data', 'tbl_master_patan', 3),
+(144, 'stockinput_dock', 'stock', 'input_dock', '-', 'Input Docking', 'master/transaction', 'tbl_input_general', 3);
 
 -- --------------------------------------------------------
 
@@ -1389,30 +1391,25 @@ INSERT INTO `tbl_menu_user` (`id`, `menuid`, `user_level`, `view_level`, `add_le
 (928, 'systemmenu', 'User', 'no', 'no', 'no', 'no'),
 (929, 'systemotorisasi', 'User', 'yes', 'yes', 'yes', 'yes'),
 (930, 'systemuser', 'User', 'yes', 'no', 'no', 'no'),
-(931, 'master-', 'User', 'yes', 'no', 'no', 'no'),
-(1468, 'andongeneral', 'IRM', 'yes', 'no', 'no', 'no'),
+(931, 'master-', 'User', 'no', 'no', 'no', 'no'),
+(1486, 'systemtitle', 'WH Door Assy', 'no', 'no', 'no', 'no'),
 (1467, 'andongeneral', 'Management', 'yes', 'no', 'no', 'no'),
 (1398, 'systemtitle', 'PPC', 'no', 'no', 'no', 'no'),
 (1399, 'systemgroup', 'PPC', 'no', 'no', 'no', 'no'),
 (1209, 'mastershop', 'Administrator', 'yes', 'yes', 'yes', 'yes'),
 (1210, 'mastershop', 'Admin_area', 'no', 'no', 'no', 'no'),
 (1211, 'mastershop', 'User', 'no', 'no', 'no', 'no'),
-(1469, 'andongeneral', 'IFP', 'yes', 'no', 'no', 'no'),
+(1477, 'andonvendor', 'PPC', 'yes', 'no', 'no', 'no'),
+(1471, 'andonvendor', 'Administrator', 'yes', 'no', 'no', 'no'),
+(1472, 'andonvendor', 'Admin_area', 'yes', 'no', 'no', 'no'),
+(1469, 'andongeneral', 'WH Docking', 'yes', 'no', 'no', 'no'),
 (1470, 'andongeneral', 'PPC', 'yes', 'no', 'no', 'no'),
 (1191, 'masterpart', 'Administrator', 'yes', 'no', 'no', 'no'),
 (1192, 'masterpart', 'Admin_area', 'yes', 'no', 'no', 'no'),
 (1193, 'masterpart', 'User', 'no', 'no', 'no', 'no'),
-(1455, 'stockinput_sa', 'IRM', 'yes', 'yes', 'yes', 'yes'),
-(1454, 'stockinput_ppc', 'IRM', 'no', 'no', 'no', 'no'),
-(1453, 'stock-', 'IRM', 'yes', 'no', 'no', 'no'),
-(1452, 'andonppc', 'IRM', 'yes', 'no', 'no', 'no'),
-(1451, 'andon-', 'IRM', 'yes', 'no', 'no', 'no'),
-(1450, 'security-', 'IRM', 'yes', 'no', 'no', 'no'),
-(1449, 'masterpart', 'IRM', 'yes', 'no', 'no', 'no'),
-(1447, 'mastershop', 'IRM', 'no', 'no', 'no', 'no'),
+(1485, 'system-', 'WH Door Assy', 'no', 'no', 'no', 'no'),
 (1404, 'systemuser', 'PPC', 'no', 'no', 'no', 'no'),
-(1435, 'stockinput_sa', 'IFP', 'yes', 'yes', 'yes', 'yes'),
-(1445, 'master-', 'IRM', 'yes', 'no', 'no', 'no'),
+(1435, 'stockinput_sa', 'WH Docking', 'no', 'yes', 'yes', 'yes'),
 (1246, 'system-', 'Management', 'no', 'no', 'no', 'no'),
 (1247, 'systemtitle', 'Management', 'no', 'no', 'no', 'no'),
 (1248, 'systemgroup', 'Management', 'no', 'no', 'no', 'no'),
@@ -1422,7 +1419,7 @@ INSERT INTO `tbl_menu_user` (`id`, `menuid`, `user_level`, `view_level`, `add_le
 (1252, 'systemotorisasi', 'Management', 'no', 'no', 'no', 'no'),
 (1253, 'systemuser', 'Management', 'no', 'no', 'no', 'no'),
 (1254, 'master-', 'Management', 'no', 'no', 'no', 'no'),
-(1434, 'stockinput_ppc', 'IFP', 'no', 'no', 'no', 'no'),
+(1434, 'stockinput_ppc', 'WH Docking', 'no', 'no', 'no', 'no'),
 (1257, 'mastershop', 'Management', 'no', 'no', 'no', 'no'),
 (1405, 'master-', 'PPC', 'yes', 'no', 'no', 'no'),
 (1465, 'andongeneral', 'Admin_area', 'yes', 'no', 'no', 'no'),
@@ -1435,52 +1432,48 @@ INSERT INTO `tbl_menu_user` (`id`, `menuid`, `user_level`, `view_level`, `add_le
 (1274, 'security-', 'User', 'no', 'no', 'no', 'no'),
 (1272, 'security-', 'Administrator', 'yes', 'no', 'no', 'no'),
 (1273, 'security-', 'Admin_area', 'yes', 'no', 'no', 'no'),
-(1444, 'systemuser', 'IRM', 'no', 'no', 'no', 'no'),
 (1277, 'andon-', 'Administrator', 'yes', 'no', 'no', 'no'),
 (1278, 'andon-', 'Admin_area', 'yes', 'no', 'no', 'no'),
 (1279, 'andon-', 'User', 'no', 'no', 'no', 'no'),
 (1280, 'andon-', 'Management', 'yes', 'no', 'no', 'no'),
-(1443, 'systemotorisasi', 'IRM', 'no', 'no', 'no', 'no'),
 (1282, 'andonppc', 'Administrator', 'yes', 'no', 'no', 'no'),
 (1283, 'andonppc', 'Admin_area', 'yes', 'no', 'no', 'no'),
 (1284, 'andonppc', 'User', 'no', 'no', 'no', 'no'),
 (1285, 'andonppc', 'Management', 'yes', 'no', 'no', 'no'),
-(1442, 'systemmenu', 'IRM', 'no', 'no', 'no', 'no'),
 (1287, 'stock-', 'Administrator', 'yes', 'no', 'no', 'no'),
-(1288, 'stock-', 'Admin_area', 'yes', 'no', 'no', 'no'),
+(1288, 'stock-', 'Admin_area', 'no', 'no', 'no', 'no'),
 (1289, 'stock-', 'User', 'no', 'no', 'no', 'no'),
 (1290, 'stock-', 'Management', 'no', 'no', 'no', 'no'),
-(1441, 'systemlevel', 'IRM', 'no', 'no', 'no', 'no'),
 (1299, 'stockinput_ppc', 'User', 'no', 'no', 'no', 'no'),
 (1297, 'stockinput_ppc', 'Administrator', 'yes', 'yes', 'yes', 'yes'),
-(1298, 'stockinput_ppc', 'Admin_area', 'yes', 'yes', 'yes', 'yes'),
+(1298, 'stockinput_ppc', 'Admin_area', 'no', 'yes', 'yes', 'yes'),
 (1300, 'stockinput_ppc', 'Management', 'no', 'no', 'no', 'no'),
-(1440, 'systemarea', 'IRM', 'no', 'no', 'no', 'no'),
 (1397, 'system-', 'PPC', 'no', 'no', 'no', 'no'),
-(1432, 'andonppc', 'IFP', 'yes', 'no', 'no', 'no'),
-(1433, 'stock-', 'IFP', 'yes', 'no', 'no', 'no'),
-(1431, 'andon-', 'IFP', 'yes', 'no', 'no', 'no'),
-(1429, 'masterpart', 'IFP', 'yes', 'no', 'no', 'no'),
-(1430, 'security-', 'IFP', 'yes', 'no', 'no', 'no'),
-(1427, 'mastershop', 'IFP', 'no', 'no', 'no', 'no'),
-(1425, 'master-', 'IFP', 'yes', 'no', 'no', 'no'),
+(1432, 'andonppc', 'WH Docking', 'yes', 'no', 'no', 'no'),
+(1433, 'stock-', 'WH Docking', 'yes', 'no', 'no', 'no'),
+(1431, 'andon-', 'WH Docking', 'yes', 'no', 'no', 'no'),
+(1429, 'masterpart', 'WH Docking', 'yes', 'no', 'no', 'no'),
+(1430, 'security-', 'WH Docking', 'yes', 'no', 'no', 'no'),
+(1473, 'andonvendor', 'User', 'no', 'no', 'no', 'no'),
+(1427, 'mastershop', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1425, 'master-', 'WH Docking', 'yes', 'no', 'no', 'no'),
 (1466, 'andongeneral', 'User', 'no', 'no', 'no', 'no'),
-(1417, 'system-', 'IFP', 'no', 'no', 'no', 'no'),
-(1418, 'systemtitle', 'IFP', 'no', 'no', 'no', 'no'),
-(1419, 'systemgroup', 'IFP', 'no', 'no', 'no', 'no'),
-(1420, 'systemarea', 'IFP', 'no', 'no', 'no', 'no'),
-(1421, 'systemlevel', 'IFP', 'no', 'no', 'no', 'no'),
+(1417, 'system-', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1418, 'systemtitle', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1419, 'systemgroup', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1420, 'systemarea', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1421, 'systemlevel', 'WH Docking', 'no', 'no', 'no', 'no'),
 (1464, 'andongeneral', 'Administrator', 'yes', 'no', 'no', 'no'),
-(1439, 'systemgroup', 'IRM', 'no', 'no', 'no', 'no'),
-(1423, 'systemotorisasi', 'IFP', 'no', 'no', 'no', 'no'),
-(1424, 'systemuser', 'IFP', 'no', 'no', 'no', 'no'),
+(1423, 'systemotorisasi', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1424, 'systemuser', 'WH Docking', 'no', 'no', 'no', 'no'),
 (1367, 'stockinput_sa', 'Administrator', 'yes', 'yes', 'yes', 'yes'),
-(1368, 'stockinput_sa', 'Admin_area', 'yes', 'yes', 'yes', 'yes'),
+(1368, 'stockinput_sa', 'Admin_area', 'no', 'yes', 'yes', 'yes'),
 (1369, 'stockinput_sa', 'User', 'no', 'no', 'no', 'no'),
-(1370, 'stockinput_sa', 'Management', 'yes', 'no', 'no', 'no'),
-(1438, 'systemtitle', 'IRM', 'no', 'no', 'no', 'no'),
-(1437, 'system-', 'IRM', 'no', 'no', 'no', 'no'),
-(1422, 'systemmenu', 'IFP', 'no', 'no', 'no', 'no'),
+(1370, 'stockinput_sa', 'Management', 'no', 'no', 'no', 'no'),
+(1479, 'stockinput_dock', 'Admin_area', 'no', 'no', 'no', 'no'),
+(1478, 'stockinput_dock', 'Administrator', 'yes', 'no', 'no', 'no'),
+(1474, 'andonvendor', 'Management', 'yes', 'no', 'no', 'no'),
+(1422, 'systemmenu', 'WH Docking', 'no', 'no', 'no', 'no'),
 (1407, 'mastershop', 'PPC', 'no', 'no', 'no', 'no'),
 (1409, 'masterpart', 'PPC', 'yes', 'no', 'no', 'no'),
 (1410, 'security-', 'PPC', 'yes', 'no', 'no', 'no'),
@@ -1488,14 +1481,37 @@ INSERT INTO `tbl_menu_user` (`id`, `menuid`, `user_level`, `view_level`, `add_le
 (1412, 'andonppc', 'PPC', 'yes', 'no', 'no', 'no'),
 (1413, 'stock-', 'PPC', 'yes', 'no', 'no', 'no'),
 (1414, 'stockinput_ppc', 'PPC', 'yes', 'yes', 'yes', 'yes'),
-(1415, 'stockinput_sa', 'PPC', 'yes', 'no', 'no', 'no'),
+(1415, 'stockinput_sa', 'PPC', 'no', 'no', 'no', 'no'),
+(1476, 'andonvendor', 'WH Docking', 'yes', 'no', 'no', 'no'),
 (1457, 'masterpatan', 'Administrator', 'yes', 'no', 'no', 'no'),
-(1458, 'masterpatan', 'Admin_area', 'yes', 'no', 'no', 'no'),
+(1458, 'masterpatan', 'Admin_area', 'no', 'no', 'no', 'no'),
 (1459, 'masterpatan', 'User', 'no', 'no', 'no', 'no'),
 (1460, 'masterpatan', 'Management', 'no', 'no', 'no', 'no'),
-(1461, 'masterpatan', 'IRM', 'no', 'no', 'no', 'no'),
-(1462, 'masterpatan', 'IFP', 'no', 'no', 'no', 'no'),
-(1463, 'masterpatan', 'PPC', 'no', 'no', 'no', 'no');
+(1462, 'masterpatan', 'WH Docking', 'no', 'no', 'no', 'no'),
+(1463, 'masterpatan', 'PPC', 'no', 'no', 'no', 'no'),
+(1480, 'stockinput_dock', 'User', 'no', 'no', 'no', 'no'),
+(1481, 'stockinput_dock', 'Management', 'no', 'no', 'no', 'no'),
+(1483, 'stockinput_dock', 'WH Docking', 'yes', 'yes', 'yes', 'yes'),
+(1484, 'stockinput_dock', 'PPC', 'no', 'no', 'no', 'no'),
+(1487, 'systemgroup', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1488, 'systemarea', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1489, 'systemlevel', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1490, 'systemmenu', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1491, 'systemotorisasi', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1492, 'systemuser', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1493, 'master-', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1494, 'andongeneral', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1495, 'mastershop', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1496, 'andonvendor', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1497, 'masterpart', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1498, 'security-', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1499, 'andon-', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1500, 'andonppc', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1501, 'stock-', 'WH Door Assy', 'yes', 'no', 'no', 'no'),
+(1502, 'stockinput_ppc', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1503, 'stockinput_sa', 'WH Door Assy', 'yes', 'yes', 'yes', 'yes'),
+(1504, 'masterpatan', 'WH Door Assy', 'no', 'no', 'no', 'no'),
+(1505, 'stockinput_dock', 'WH Door Assy', 'no', 'no', 'no', 'no');
 
 -- --------------------------------------------------------
 
@@ -1553,8 +1569,7 @@ INSERT INTO `tbl_upload` (`datetime`, `tbl_name`, `total`, `progress`, `success`
 ('2021-11-11 04:34:18', 'tbl_master_press_std', 390, 390, 391),
 ('2021-11-13 12:20:15', 'tbl_master_fp_subcont', 202, 202, 203),
 ('2021-12-10 09:03:27', 'tbl_master_patan', 62, 62, 63),
-('2021-12-14 09:10:09', 'tbl_input_general', 15, 15, 15),
-('2021-12-14 09:13:48', 'tbl_input_ppc', 39, 39, 39);
+('2021-12-14 09:10:09', 'tbl_input_general', 15, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -1587,24 +1602,22 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id`, `username`, `password`, `nama`, `nik`, `typefile`, `user_group`, `user_level`, `user_area`, `shop`, `jabatan`, `shift`, `registrasi`, `log_in`, `log_out`, `idcard`) VALUES
 (1, 'mobile', '4c05853cea0412cf0665bea843ea22e330d', 'Dmuktico', 11234, 'dalu.jpg', 'User', 'MobileScan', 'Mobile', 'IRM', NULL, NULL, '2018-12-15 09:26:36', '2020-03-27 14:46:42', '2020-03-27 14:46:49', '34572016a90803b62859929c53ba59ccd6459729'),
-(2, '56540', 'b2fb06abbe7ea77e4c53cbf7ea3fd15b294', 'DMUKTICO', 56540, 'admin.jpg', 'Admin', 'Administrator', 'Admin', 'IFP', 'member', 'N', '2020-01-11 16:06:36', '2021-12-14 15:40:27', '2021-12-14 15:24:45', 'b0b9515ace4c525d8af7a66a3f152c5146ff93a8'),
-(12, '3007', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Sugiyanto', 3007, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'foreman', 'B', '2021-11-01 11:00:22', NULL, NULL, '89f3d7b16c27a055a30d38bca7e7f0ab5542ba31'),
-(7, '13293', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Helip Sugiyanto', 13293, NULL, 'Admin', 'IRM', 'Admin', 'IRM', 'foreman', 'A', '2021-11-01 10:39:42', '2021-12-01 15:23:30', '2021-12-01 15:23:35', 'e18af650fbe7e37211b7821c58c621c039f8814e'),
-(8, '6074', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Dwi Dery Bayuaji', 6074, NULL, 'Admin', 'IRM', 'Admin', 'IRM', 'foreman', 'B', '2021-11-01 10:40:23', NULL, NULL, '5fecfb726d886a9dab9e0cf3d0e23763852f3644'),
-(9, '23817', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Sugiarto', 23817, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'foreman', 'A', '2021-11-01 10:41:02', '2021-11-04 09:44:56', '2021-11-04 09:45:05', '442a51d14f1917ba0ef8b1a4adeed35b2db170fb'),
-(10, '9404', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Saifullah', 9404, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'foreman', 'B', '2021-11-01 10:41:45', NULL, NULL, '635f2d4dff80d7860dc816462c567d642138de10'),
-(11, '3216', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Aris Senjaya', 3216, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'foreman', 'A', '2021-11-01 10:42:17', NULL, NULL, '05a6138f890eaede3f6df558adf702a8baaeabcc'),
+(2, '56540', 'b2fb06abbe7ea77e4c53cbf7ea3fd15b294', 'DMUKTICO', 56540, 'admin.jpg', 'Admin', 'Administrator', 'Admin', 'IFP', 'member', 'N', '2020-01-11 16:06:36', '2021-12-16 07:51:24', '2021-12-16 07:53:20', 'b0b9515ace4c525d8af7a66a3f152c5146ff93a8'),
+(12, '3007', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Sugiyanto', 3007, NULL, 'Admin', 'WH Door Assy', 'Admin', 'WH Door Assy', 'foreman', 'B', '2021-11-01 11:00:22', '2021-12-16 12:42:32', '2021-12-15 16:09:21', '89f3d7b16c27a055a30d38bca7e7f0ab5542ba31'),
+(9, '23817', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Sugiarto', 23817, NULL, 'Admin', 'WH Docking', 'Admin', 'WH Docking', 'foreman', 'A', '2021-11-01 10:41:02', '2021-12-15 16:09:55', '2021-12-15 16:03:33', '442a51d14f1917ba0ef8b1a4adeed35b2db170fb'),
+(10, '9404', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Saifullah', 9404, NULL, 'Admin', 'WH Docking', 'Admin', 'WH Docking', 'foreman', 'B', '2021-11-01 10:41:45', NULL, NULL, '635f2d4dff80d7860dc816462c567d642138de10'),
+(11, '3216', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Aris Senjaya', 3216, NULL, 'Admin', 'WH Door Assy', 'Admin', 'WH Door Assy', 'foreman', 'A', '2021-11-01 10:42:17', NULL, NULL, '05a6138f890eaede3f6df558adf702a8baaeabcc'),
 (31, '2564', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Andreas Harsono', 2564, NULL, 'Admin', 'Management', 'Admin', 'LPB', 'manager', 'N', '2021-11-02 08:55:43', NULL, NULL, 'ca6127548f5d554e88006c7a6e69682a9c6727d9'),
 (32, '22474', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Didik Prastowo', 22474, NULL, 'Admin', 'Management', 'Admin', 'LPB', 'manager', 'N', '2021-11-02 08:56:06', '2021-11-10 16:55:29', '2021-11-10 16:55:38', '138d7f9cd1c003484174b577fe28cd7161b9cab7'),
 (36, '65597', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Gita Yoan S. U.', 65597, NULL, 'Admin', 'Management', 'Admin', 'PPC', 'supervisor', 'N', '2021-11-02 09:03:15', NULL, NULL, 'a565b3324b2cf8065a7ccfa0d225565678e65fd9'),
-(64, '54013', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'RIKI PANTRIO HATA', 54013, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'member', 'A', '2021-12-01 14:45:07', NULL, NULL, '9fd6595aae3a06aa3dcbcf5edb1d9e22cb5f2b86'),
+(64, '54013', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'RIKI PANTRIO HATA', 54013, NULL, 'Admin', 'WH Door Assy', 'Admin', 'WH Door Assy', 'member', 'A', '2021-12-01 14:45:07', NULL, NULL, '9fd6595aae3a06aa3dcbcf5edb1d9e22cb5f2b86'),
 (62, '3197', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'RAWAL FENDY', 3197, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'member', 'A', '2021-12-01 14:42:26', NULL, NULL, '03ab6dbc57875b0957b156b6996c685b5fe9dfd6'),
 (61, '38233', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'FEBRI ANGGRIYAWAN', 38233, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'member', 'A', '2021-12-01 14:41:50', NULL, NULL, '416059a16b89edaeef0af39362173d009f7eb3bb'),
 (60, '6948', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'SOFIAN ABDULRAHMAN', 6948, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'foreman', 'A', '2021-12-01 14:41:06', NULL, NULL, '648975a09f1ac5cbd2504db4bbc83a050f05f6ea'),
 (59, '21928', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'NUR IMAN SYARIF HIDAYAT', 21928, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'member', 'B', '2021-12-01 14:40:26', NULL, NULL, 'bd1e303c7224a5895e00e7efce332608875c8346'),
 (58, '15883', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'ALIM NUR FAUZAN', 15883, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'member', 'B', '2021-12-01 14:39:43', NULL, NULL, '3a66ae50b56db43729ed0f51d803ca81f2135682'),
-(57, '9206', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Yuli Wibowo', 9206, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'foreman', 'B', '2021-12-01 14:38:57', '2021-12-01 17:38:12', '2021-12-02 07:41:11', '1857a5724101c52c1716817cbf60ff4bb611ce54'),
-(63, '32553', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'FAUZAN AMIEN', 32553, NULL, 'Admin', 'IFP', 'Admin', 'IFP', 'member', 'A', '2021-12-01 14:44:21', NULL, NULL, '36f77a032ea899612be3212ae7788614f4cf50ab'),
+(57, '9206', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Yuli Wibowo', 9206, NULL, 'Admin', 'PPC', 'Admin', 'PPC', 'foreman', 'B', '2021-12-01 14:38:57', '2021-12-16 07:53:24', '2021-12-16 08:33:18', '1857a5724101c52c1716817cbf60ff4bb611ce54'),
+(63, '32553', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'FAUZAN AMIEN', 32553, NULL, 'Admin', 'WH Docking', 'Admin', 'WH Docking', 'member', 'A', '2021-12-01 14:44:21', NULL, NULL, '36f77a032ea899612be3212ae7788614f4cf50ab'),
 (65, '1', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Farhan', 72328, 'admin.jpg', 'Admin', 'Administrator', 'Admin', 'IFP', 'member', 'N', '2020-01-11 16:06:36', '2021-12-09 20:13:11', '2021-12-01 16:27:53', 'b0b9515ace4c525d8af7a66a3f152c5146ff93a8'),
 (66, '71892', 'd17c5d46dc5f4f6b23fd4284aaa9b264b10', 'Roy Nurandre Nugroho', 71892, NULL, 'Admin', 'Admin_area', 'Admin', 'MDIC', 'foreman', 'N', '2021-12-13 22:28:25', NULL, NULL, '56d94edd918386bbf5de071f0a01a9483481efe3');
 
@@ -1634,7 +1647,8 @@ INSERT INTO `tbl_user_active` (`ip_address`, `idcard`, `datetime`) VALUES
 ('114.124.188.89', '78f15a55ffb62f14d74ff24438752c7552ab6f16', '2021-09-27 08:03:11'),
 ('112.78.139.66', 'b0b9515ace4c525d8af7a66a3f152c5146ff93a8', '2021-09-28 03:41:33'),
 ('10.59.37.118', '321b5892509c36c367ebe6fce341b00dd39fffb7', '2021-11-10 01:14:08'),
-('::1', 'b0b9515ace4c525d8af7a66a3f152c5146ff93a8', '2021-12-14 08:40:27');
+('::1', '89f3d7b16c27a055a30d38bca7e7f0ab5542ba31', '2021-12-16 05:42:32'),
+('10.59.37.152', '442a51d14f1917ba0ef8b1a4adeed35b2db170fb', '2021-12-15 09:09:55');
 
 --
 -- Indexes for dumped tables
@@ -1796,7 +1810,7 @@ ALTER TABLE `tbl_ip_address`
 -- AUTO_INCREMENT for table `tbl_level`
 --
 ALTER TABLE `tbl_level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_part`
@@ -1814,19 +1828,19 @@ ALTER TABLE `tbl_master_patan`
 -- AUTO_INCREMENT for table `tbl_master_shop`
 --
 ALTER TABLE `tbl_master_shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_user`
 --
 ALTER TABLE `tbl_menu_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1471;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1506;
 
 --
 -- AUTO_INCREMENT for table `tbl_title`
