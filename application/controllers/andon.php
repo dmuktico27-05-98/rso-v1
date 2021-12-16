@@ -333,8 +333,8 @@ class Andon extends CI_Controller
 		$where = "";
 		$patan = "";
 		$shift = ""	;		
-					
-		
+				
+
 		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
 			$shift = $_GET["shift"];
 			$date = $_GET["date"];
@@ -368,6 +368,11 @@ class Andon extends CI_Controller
 			}		
 		}	
 
+		if(isset($_GET["proses"] ) && $_GET["proses"] != ""){				
+			$proses = $_GET["proses"];			
+			$where = $where." and `proses` = '$proses'";			
+		}
+		
 		$models = $this->db->query("select model from tbl_input_general$where group by model")->result();
 		$machines = $this->db->query("select machine from tbl_input_general$where group by machine")->result();
 		$pss = $this->db->query("select ps from tbl_input_general$where group by ps")->result();		
@@ -383,7 +388,7 @@ class Andon extends CI_Controller
 		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
 			$ps = $_GET["ps"];
 			$where = $where." and `ps` = '$ps'";
-		}		
+		}				
 
 		$query = "select * from tbl_input_general $where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
 		$hasil = $this->db->query("$query")->result();

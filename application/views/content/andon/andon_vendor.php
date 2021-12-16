@@ -97,7 +97,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <select class="form-control" id="Machine">
-                                            <option value=""><?= $_GET["proses"]=="Inhouse" ? "Machine" : "Vendor"; ?></option>
+                                            <option value="">Machine</option>
                                             <?php foreach ($Machines as $k) {?>
                                                 <option><?= $k->machine ?></option>
                                             <?php }?>
@@ -125,10 +125,10 @@
                                     Last Update : <?= $Tanggal . " " . $Jam ?>
                                     <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
                                         <thead class="thead-light">
-                                            <tr class="text-center" style="font-size:15px">
+                                            <tr class="text-center">
                                                 <th rowspan="2" width="2%">No</th>
                                                 <th rowspan="2" width="16%" style="word-wrap: break-word;">Part Name</th>
-                                                <th rowspan="2" width="3%"><?= $_GET["proses"]=="Inhouse" ? "Mach" : "Vend"; ?></th>
+                                                <th rowspan="2" width="3%">Mach</th>
                                                 <th rowspan="2" width="3%">Model</th>
                                                 <th rowspan="2" width="4%" style="word-wrap: break-word;">PS</th>
                                                 <th rowspan="2" width="3%" style="word-wrap: break-word;">M/S</th>
@@ -144,7 +144,7 @@
                                                 <th rowspan="2" width="6%"><?= $pat[2] ?></th>
                                                 <th rowspan="2" width="6%"><?= $pat[3] ?></th>
                                             </tr>
-                                            <tr class="text-center" style="font-size:15px">
+                                            <tr class="text-center">
                                                 <th class="bg-primary">P1</th>
                                                 <th class="bg-success">P4</th>
                                                 <th class="bg-warning">KAP</th>
@@ -161,20 +161,20 @@
                                                 $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                                 $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
                                             ?>
-                                                <tr class="text-center" style="font-size:13px">
+                                                 <tr class="text-center" style="font-size:13px">
                                                     <td><?= $i; ?></td>
                                                     <td class="text-left"><?= $key->part_name; ?></td>
                                                     <td><?= $key->machine; ?></td>
                                                     <td><?= $key->model; ?></td>
                                                     <td><?= $key->ps; ?></td>
                                                     <td><?= $key->maks_shift; ?></td>
-                                                    <td><?= $key->t_t; ?></td>
-                                                    <td><?= $key->sto_p1; ?></td>
-                                                    <td><?= $key->sto_p4; ?></td>
-                                                    <td><?= $key->sto_kap; ?></td>
-                                                    <td><?= $key->sto_ppl; ?></td>
-                                                    <td><?= $key->sto_process; ?></td>
-                                                    <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
+                                                     <td><?= $key->t_t; ?></td>
+                                                     <td><?= $key->sto_p1; ?></td>
+                                                     <td><?= $key->sto_p4; ?></td>
+                                                     <td><?= $key->sto_kap; ?></td>
+                                                     <td><?= $key->sto_ppl; ?></td>
+                                                     <td><?= $key->sto_process; ?></td>
+                                                     <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
                                                     <td class="pl-0">
                                                         <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
                                                         <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
@@ -185,8 +185,9 @@
                                                 </tr>
                                         </tbody>
                                     <?php $i++;
-                                        }  ?>
-                                    </table>                               
+                                            } ?>
+                                    </table>
+                                    </span>
                                 </div>
                             </div>
                         </td>
@@ -288,7 +289,7 @@
                     //var format = y+"-"+M+"-"+d+" "+h+":"+m+":"+s;
                     format = y + "-" + M + "-" + d;
                 }
-                return url + "proses=<?= $_GET["proses"] ;?>" + "&model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val();
+                return url + "model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val();
             }
         })
 

@@ -443,7 +443,7 @@ function save(){
 				}			
 
 			}
-		}elseif($table=="tbl_input_ppc"){
+		}elseif($table=="tbl_input_ppc" || $table=="tbl_input_general"){
 			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
 			$t_t = 465/$master['id']->maks_shift;
 			$t_t = round($t_t,2);
@@ -489,151 +489,6 @@ function save(){
 			foreach ($_POST as $key => $value) {
 				 $data['messages'][$key] = form_error($key);
 				}			
-			}
-		}elseif($table=="tbl_input_docking"){
-			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
-			$t_t = 465/$master['id']->maks_shift;
-			$t_t = round($t_t,2);
-			$this->form_validation->set_rules('job_no', 'job_no', 'trim|required');
-			$this->form_validation->set_rules('sto_p1', 'Sto_p1');
-			$this->form_validation->set_rules('sto_p4', 'Sto_p4');
-			$this->form_validation->set_rules('sto_kap', 'Sto_kap');
-			$this->form_validation->set_rules('sto_ppl', 'Sto_ppl');
-			$this->form_validation->set_rules('sto_process', 'Sto_Process');
-			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
-			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			if($this->form_validation->run()) {	
-					$data1=array(
-					'shift'=>$this->input->post('shift'),
-					'shop_name'=>$this->input->post('shop_name'),
-					'job_no'=>$master['id']->job_no,
-					'part_no'=>$master['id']->part_no,
-					'part_name'=>$master['id']->part_name,
-					'patan'=>$master['id']->patan,
-					'maks_shift'=>$master['id']->maks_shift,
-					't_t'=>$t_t,
-					'sto_p1'=>$this->input->post('sto_p1'),
-					'sto_p4'=>$this->input->post('sto_p4'),
-					'sto_kap'=>$this->input->post('sto_kap'),
-					'sto_ppl'=>$this->input->post('sto_ppl'),
-					'sto_process'=>$this->input->post('sto_process'),
-					'ss_p1'=>round((($t_t*$this->input->post('sto_p1'))/465)*8,2),
-					'ss_p4'=>round((($t_t*$this->input->post('sto_p4'))/465)*8,2),
-					'ss_kap'=>round((($t_t*$this->input->post('sto_kap'))/465)*8,2),
-					'ss_ppl'=>round((($t_t*$this->input->post('sto_ppl'))/465)*8,2),
-					'ss_process'=>round((($t_t*$this->input->post('sto_process'))/465)*8,2),
-					"create_by"=>$this->nama,
-					"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
-				);
-				$this->db->insert($table,$data1);					
-				$data['success'] = true;
-		} else {
-			foreach ($_POST as $key => $value) {
-				 $data['messages'][$key] = form_error($key);
-			}			
-
-		}
-		}elseif($table=="tbl_input_subassy"){
-			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
-			$t_t = 465/$master['id']->maks_shift;
-			$t_t = round($t_t,2);
-			$this->form_validation->set_rules('job_no', 'job_no', 'trim|required');
-			$this->form_validation->set_rules('sto_p1', 'Sto_p1');
-			$this->form_validation->set_rules('sto_p4', 'Sto_p4');
-			$this->form_validation->set_rules('sto_kap', 'Sto_kap');
-			$this->form_validation->set_rules('sto_ppl', 'Sto_ppl');
-			$this->form_validation->set_rules('sto_process', 'Sto_Process');
-			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
-			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			if($this->form_validation->run()) {	
-					$data1=array(
-					'shift'=>$this->input->post('shift'),
-					'shop_name'=>$this->input->post('shop_name'),
-					'job_no'=>$master['id']->job_no,
-					'part_no'=>$master['id']->part_no,
-					'part_name'=>$master['id']->part_name,
-					'patan'=>$master['id']->patan,
-					'maks_shift'=>$master['id']->maks_shift,
-					't_t'=>$t_t,
-					'sto_p1'=>$this->input->post('sto_p1'),
-					'sto_p4'=>$this->input->post('sto_p4'),
-					'sto_kap'=>$this->input->post('sto_kap'),
-					'sto_ppl'=>$this->input->post('sto_ppl'),
-					'sto_process'=>$this->input->post('sto_process'),
-					'ss_p1'=>round((($t_t*$this->input->post('sto_p1'))/465)*8,2),
-					'ss_p4'=>round((($t_t*$this->input->post('sto_p4'))/465)*8,2),
-					'ss_kap'=>round((($t_t*$this->input->post('sto_kap'))/465)*8,2),
-					'ss_ppl'=>round((($t_t*$this->input->post('sto_ppl'))/465)*8,2),
-					'ss_process'=>round((($t_t*$this->input->post('sto_process'))/465)*8,2),
-					"create_by"=>$this->nama,
-					"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
-				);
-				$this->db->insert($table,$data1);					
-				$data['success'] = true;
-		} else {
-			foreach ($_POST as $key => $value) {
-				 $data['messages'][$key] = form_error($key);
-			}			
-
-		}
-		}elseif($table=="tbl_hrp"){
-			$this->form_validation->set_rules('hrp_id', 'Hrp_id', 'trim|required');
-			// $this->form_validation->set_rules('job_no', 'Job_no','trim|required|callback_job_no_check|callback_jumlah_hrp['.$this->input->post('hrp_id').']');
-			$this->form_validation->set_rules('job_no', 'Job_no','trim|required');
-			$this->form_validation->set_rules('qty', 'Qty', 'trim|required|numeric');
-			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
-			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
-			$this->form_validation->set_rules('hrp_date', 'Hrp_date', 'trim|required');
-			$this->form_validation->set_rules('cost_center', 'Cost_center', 'trim|required');
-			// $this->form_validation->set_rules('category', 'Category', 'trim|required|callback_job_no_hrp['.$this->input->post('hrp_id').' '.$this->input->post('job_no').']');
-			$this->form_validation->set_rules('category', 'Category', 'trim|required');
-			$this->form_validation->set_rules('detail', 'Detail', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			$job_no = $this->input->post('job_no');
-			$link=explode('_',$job_no);
-            $job_no=$link[0]; $transaction=$link[1]; $item=$link[2]; $price=$link[3];
-			$approval['id']=$this->db->query("select * from tbl_master_approval where pic_area='".$this->username."' limit 1")->row();
-			if($this->form_validation->run()) {	
-					$data1=array(
-						'hrp_id'=>$this->input->post('hrp_id'),
-						'hrp_date'=>$this->input->post('hrp_date'),
-						'shift'=>$this->input->post('shift'),
-						'job_no'=>strtoupper($job_no),
-						'transaction'=>strtoupper($transaction),
-						'item'=>strtoupper($item),	
-						'price'=>$price,
-						'qty'=>$this->input->post('qty'),
-						'tot_price'=>$price*$this->input->post('qty'),
-						'shop_name'=>$this->input->post('shop_name'),
-						'cost_center'=>$this->input->post('cost_center'),
-						'category'=>$this->input->post('category'), 
-						'detail'=>strtoupper($this->input->post('detail')),
-						'create_date'=>$datetime,			
-						'create_by'=>$this->nama,
-						'status'=>'Open',	
-						'print'=>'nok',	
-						'pic_area'=>$this->username,
-						'spa'=>'nok',
-						'spv_area'=>$approval['id']->spv_area,
-						'ssa'=>'nok',
-						'manager_area'=>$approval['id']->manager_area, 
-						'sma'=>'nok',
-						'divisi'=>$approval['id']->divisi, 
-						'sd'=>'nok',
-						'manager_mdic'=>$approval['id']->manager_mdic, 
-						'smm'=>'nok',
-						'manager_ga'=>$approval['id']->manager_ga, 
-						'smg'=>'nok',
-				);
-				$this->db->insert($table,$data1);					
-					$data['success'] = true;
-			} else {
-				foreach ($_POST as $key => $value) {
-				 	$data['messages'][$key] = form_error($key);
-				}			
-
 			}
 		}
 		echo json_encode($data);
@@ -725,6 +580,9 @@ function save(){
 			'data_area'=>$this->db->get('tbl_area')->result(),
 			'data_shop'=>$this->db->get('tbl_master_shop')->result(),
 			'data_field'=>$this->db->field_data($table),
+			'master_part'=>$this->db->query("select * from tbl_master_part where maks_shift!=0 order by id asc")->result(),
+			'shop_name'=>$this->shop,
+			'shift'=>$this->shift,
 			);		
 	  $this->load->view('content/edit/edit_'.$table,$data);
 	}
@@ -970,6 +828,53 @@ function save(){
 					'cost_center'=>$this->input->post('cost_center'),
 					'gr_code'=>$this->input->post('gr_code'),
 					);
+					$this->db->update($table,$data1,array('id'=>$id));				
+					$data['success'] = true;
+				}else{
+				foreach ($_POST as $key => $value) {
+				 	$data['messages'][$key] = form_error($key);
+				}			
+
+			}
+		}elseif($table=="tbl_input_ppc" || $table=="tbl_input_general"){
+			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
+			$t_t = 465/$master['id']->maks_shift;
+			$t_t = round($t_t,2);
+			$this->form_validation->set_rules('job_no', 'job_no', 'trim|required');
+			$this->form_validation->set_rules('sto_p1', 'Sto_p1');
+			$this->form_validation->set_rules('sto_p4', 'Sto_p4');
+			$this->form_validation->set_rules('sto_kap', 'Sto_kap');
+			$this->form_validation->set_rules('sto_ppl', 'Sto_ppl');
+			$this->form_validation->set_rules('sto_process', 'Sto_Process');
+			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
+			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if($this->form_validation->run()) {	
+					$data1=array(
+					'shift'=>$this->input->post('shift'),
+					'shop_name'=>$this->input->post('shop_name'),
+					'job_no'=>$master['id']->job_no,
+					'part_no'=>$master['id']->part_no,
+					'part_name'=>$master['id']->part_name,
+					'patan'=>$master['id']->patan,
+					'maks_shift'=>$master['id']->maks_shift,
+					't_t'=>$t_t,
+					'sto_p1'=>$this->input->post('sto_p1'),
+					'sto_p4'=>$this->input->post('sto_p4'),
+					'sto_kap'=>$this->input->post('sto_kap'),
+					'sto_ppl'=>$this->input->post('sto_ppl'),
+					'sto_process'=>$this->input->post('sto_process'),
+					'ss_p1'=>round((($t_t*$this->input->post('sto_p1'))/465)*8,2),
+					'ss_p4'=>round((($t_t*$this->input->post('sto_p4'))/465)*8,2),
+					'ss_kap'=>round((($t_t*$this->input->post('sto_kap'))/465)*8,2),
+					'ss_ppl'=>round((($t_t*$this->input->post('sto_ppl'))/465)*8,2),
+					'ss_process'=>round((($t_t*$this->input->post('sto_process'))/465)*8,2),
+					"area"=>$master['id']->area,
+					"proses"=>$master['id']->proses,
+					"model"=>$master['id']->model,
+					"create_by"=>$this->nama,
+					"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
+				);
 					$this->db->update($table,$data1,array('id'=>$id));				
 					$data['success'] = true;
 				}else{

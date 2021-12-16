@@ -124,14 +124,16 @@
                     Last Update : <?= $g->create_date ?>
                     <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
                         <thead class="thead-light">
-                            <tr class="text-center">
-                                <th rowspan="2" width="3%">No</th>
-                                <th rowspan="2" width="5%" style="word-wrap: break-word;">Job No</th>
-                                <th rowspan="2" width="6%" style="word-wrap: break-word;">Patan Schedule</th>
-                                <th rowspan="2" width="6%" style="word-wrap: break-word;">Pcs/Shift (Max)</th>
+                            <tr class="text-center" style="font-size:15px">
+                                <th rowspan="2" width="2%">No</th>
+                                <th rowspan="2" width="16%" style="word-wrap: break-word;">Part Name</th>
+                                <th rowspan="2" width="3%">Mach</th>
+                                <th rowspan="2" width="3%">Model</th>
+                                <th rowspan="2" width="4%" style="word-wrap: break-word;">PS</th>
+                                <th rowspan="2" width="3%" style="word-wrap: break-word;">M/S</th>
                                 <th rowspan="2" width="3%">T/T</th>
-                                <th colspan="5" width="22%">Stock</th>
-                                <th rowspan="2" width="7%" style="word-wrap: break-word;">Total Stock Strength</th>
+                                <th colspan="5" width="14%">Stock</th>
+                                <th rowspan="2" width="4%" style="word-wrap: break-word;">Stock Strenght</th>
                                 <th rowspan="2" width="6%"><?= $pat[0] ?></th>
                                 <th rowspan="2" width="6%"><?= $pat[1] ?></th>
                                 <th rowspan="2" width="6%"><?= $pat[2] ?></th>
@@ -141,12 +143,12 @@
                                 <th rowspan="2" width="6%"><?= $pat[2] ?></th>
                                 <th rowspan="2" width="6%"><?= $pat[3] ?></th>
                             </tr>
-                            <tr class="text-center">
+                            <tr class="text-center" style="font-size:15px">
                                 <th class="bg-primary">P1</th>
                                 <th class="bg-success">P4</th>
                                 <th class="bg-warning">KAP</th>
                                 <th class="bg-danger">PPL</th>
-                                <th class="bg-dark" style="word-wrap: break-word;">Repair</th>
+                                <th class="bg-dark" style="word-wrap: break-word;">RPR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -158,9 +160,11 @@
                                 $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                 $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
                             ?>
-                                <tr class="text-center">
+                                <tr class="text-center" style="font-size:13px">
                                     <td><?= $i; ?></td>
-                                    <td><?= $key->job_no; ?></td>
+                                    <td class="text-left"><?= $key->part_name; ?></td>
+                                    <td><?= $key->machine; ?></td>
+                                    <td><?= $key->model; ?></td>
                                     <td><?= $key->ps; ?></td>
                                     <td><?= $key->maks_shift; ?></td>
                                      <td><?= $key->t_t; ?></td>

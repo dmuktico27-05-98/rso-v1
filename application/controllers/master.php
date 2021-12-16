@@ -790,42 +790,44 @@ function reset(){
 						for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 							$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 							$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
-							$t_t = 465/$master['id']->maks_shift;
-							$t_t = round($t_t,2);
-							
-						$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
-							"job_no"=>$rowData[0][1],
-							"part_no"=>$master['id']->part_no,
-							"part_name"=>$master['id']->part_name,
-							"maks_shift"=>$master['id']->maks_shift,
-							"ps"=>$master['id']->patan,
-							"patan"=>$patan,
-							"t_t"=>$t_t,
-							"shift"=>$this->shift,
-							"shop_name"=>$this->shop,
-							"sto_p1"=>$rowData[0][2],
-							"sto_p4"=>$rowData[0][3],
-							"sto_kap"=>$rowData[0][4],
-							"sto_ppl"=>$rowData[0][5],
-							"sto_process"=>$rowData[0][6],
-							"ss_p1"=>round((($t_t*$rowData[0][2])/465)*8,2),
-							"ss_p4"=>round((($t_t*$rowData[0][3])/465)*8,2),
-							"ss_kap"=>round((($t_t*$rowData[0][4])/465)*8,2),
-							"ss_ppl"=>round((($t_t*$rowData[0][5])/465)*8,2),
-							"ss_process"=>round((($t_t*$rowData[0][6])/465)*8,2),
-							"area"=>$master['id']->area,
-							"proses"=>$master['id']->proses,
-							"model"=>$master['id']->model,
-							"machine"=>$master['id']->machine,
-							"create_by"=>$this->nama,
-							"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
-							);
-							
-							$this->db->insert($table, $data1);                    
-								$no=$no+1;
-								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
-								$i=$i+1;
-								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+							if($master['id']){							
+								$t_t = 465/$master['id']->maks_shift;
+								$t_t = round($t_t,2);
+								
+								$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
+								"job_no"=>$rowData[0][1],
+								"part_no"=>$master['id']->part_no,
+								"part_name"=>$master['id']->part_name,
+								"maks_shift"=>$master['id']->maks_shift,
+								"ps"=>$master['id']->patan,
+								"patan"=>$patan,
+								"t_t"=>$t_t,
+								"shift"=>$this->shift,
+								"shop_name"=>$this->shop,
+								"sto_p1"=>$rowData[0][2],
+								"sto_p4"=>$rowData[0][3],
+								"sto_kap"=>$rowData[0][4],
+								"sto_ppl"=>$rowData[0][5],
+								"sto_process"=>$rowData[0][6],
+								"ss_p1"=>round((($t_t*$rowData[0][2])/465)*8,2),
+								"ss_p4"=>round((($t_t*$rowData[0][3])/465)*8,2),
+								"ss_kap"=>round((($t_t*$rowData[0][4])/465)*8,2),
+								"ss_ppl"=>round((($t_t*$rowData[0][5])/465)*8,2),
+								"ss_process"=>round((($t_t*$rowData[0][6])/465)*8,2),
+								"area"=>$master['id']->area,
+								"proses"=>$master['id']->proses,
+								"model"=>$master['id']->model,
+								"machine"=>$master['id']->machine,
+								"create_by"=>$this->nama,
+								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
+								);
+
+									$this->db->insert($table, $data1);                    
+									$no=$no+1;
+									$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
+									$i=$i+1;
+									delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+							}
 						}
 					}elseif($table=='tbl_master_part'){
 						$this->db->truncate($table);
@@ -1029,7 +1031,7 @@ function reset(){
                 ->applyFromArray($header)
                 ->getFont()->setSize(16);
         $counter = 2;
-        $data_field=$this->db->field_data($table);
+        $data_field=$this->db->field_data($table);	
         foreach($data_field as $row){ $field1[]=$row->name; }
         $count = count($field1)-1;
         $field=join(',',$field1);
@@ -1097,10 +1099,22 @@ function reset(){
     }
 
 	function download_format() {
+		echo "Mantap";
 		$this->load->library('PHPExcel');
 		$link = $this->uri->segment(3);
 		$datalink=explode('--',$link);
         $table=$datalink[0];
+
+		if($this->shop=='WH Docking'){						
+			$select = $this->db->where('area', 'WH Docking');
+			$select = $this->db->get("tbl_master_part");						
+		}elseif($this->shop=='WH Door Assy'){
+			$select = $this->db->where('area', 'WH Door Assy');
+			$select = $this->db->get("tbl_master_part");						
+		}else{			
+			$select = $this->db->get("tbl_master_part");						
+		}	
+							
 
 		$time = gmdate('Y-m-d H:i:s',time()+60*60*7);
         $objPHPExcel    = new PHPExcel();
@@ -1129,6 +1143,7 @@ function reset(){
                 ->getFont()->setSize(16);
         $counter = 2;
         $data_field=$this->db->field_data($table);
+
         foreach($data_field as $row){ $field1[]=$row->name; }
         $count = count($field1)-1;
         $field=join(',',$field1);
@@ -1136,7 +1151,7 @@ function reset(){
         $i=0;
         
 	
-		$select = $this->db->get($table);
+		//$select = $this->db->get($table);
         $ee = $objPHPExcel->setACTIVESheetIndex(0);
         $judul=explode('_',$table);
         // $ee->setCellValue('A1', 'EXPORT DATA '.strtoupper($judul[1]).' '.strtoupper($judul[2]).' '.$time.'');
