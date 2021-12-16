@@ -25,7 +25,7 @@ while(count($List)!=0){
             <td style="height: 12%;width: 10%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
             </td>
             <td class="bg-dark">
-                <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"])?$_GET["machine"]:""?></h2>
+            <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h2>
                 <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
             </td>
             <td width="15%" class="bg-danger">
@@ -90,26 +90,28 @@ while(count($List)!=0){
                                     $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                     $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
                                     ?>
-                                    <tr class="text-center">  
-                                        <td><?= $counter; ?></td>                                   
-                                        <td><?= $key->job_no; ?></td>
-                                        <td><?= $key->ps; ?></td>
-                                        <td><?= $key->maks_shift; ?></td>
-                                         <td><?= $key->t_t; ?></td>
-                                         <td><?= $key->sto_p1; ?></td>
-                                         <td><?= $key->sto_p4; ?></td>
-                                         <td><?= $key->sto_kap; ?></td>
-                                         <td><?= $key->sto_ppl; ?></td>
-                                         <td><?= $key->sto_process; ?></td>
-                                         <td><?= $key->ss_p1+$key->ss_p4+$key->ss_kap+$key->ss_ppl+$key->ss_process; ?>
-                                        <td class="pl-0">
-                                            <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
-                                            <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
-                                            <div class="bg-warning text-right pr-1 position-absolute" style="width: <?= $kap > 47 ? 47 : $kap; ?>%;z-index: -1;"><?= $key->ss_kap; ?></div>
-                                            <div class="bg-success  text-right pr-1 position-absolute" style="width: <?= $p4 > 47 ? 47 : $p4; ?>%;z-index: -1;"><?= $key->ss_p4; ?></div>
-                                            <div class="bg-primary  text-right pr-1 position-absolute " style="width: <?= $p1 > 47 ? 47 : $p1; ?>%;z-index: -1;"><?= $key->ss_p1; ?></div>
-                                        </td>
-                                    </tr>
+                                <tr class="text-center" style="font-size:13px">
+                                    <td><?= $i; ?></td>
+                                    <td class="text-left"><?= $key->part_name; ?></td>
+                                    <td><?= $key->machine; ?></td>
+                                    <td><?= $key->model; ?></td>
+                                    <td><?= $key->ps; ?></td>
+                                    <td><?= $key->maks_shift; ?></td>
+                                    <td><?= $key->t_t; ?></td>
+                                    <td><?= $key->sto_p1; ?></td>
+                                    <td><?= $key->sto_p4; ?></td>
+                                    <td><?= $key->sto_kap; ?></td>
+                                    <td><?= $key->sto_ppl; ?></td>
+                                    <td><?= $key->sto_process; ?></td>
+                                    <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
+                                    <td class="pl-0">
+                                        <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
+                                        <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
+                                        <div class="bg-warning text-right pr-1 position-absolute" style="width: <?= $kap > 47 ? 47 : $kap; ?>%;z-index: -1;"><?= $key->ss_kap; ?></div>
+                                        <div class="bg-success  text-right pr-1 position-absolute" style="width: <?= $p4 > 47 ? 47 : $p4; ?>%;z-index: -1;"><?= $key->ss_p4; ?></div>
+                                        <div class="bg-primary  text-right pr-1 position-absolute " style="width: <?= $p1 > 47 ? 47 : $p1; ?>%;z-index: -1;"><?= $key->ss_p1; ?></div>
+                                    </td>
+                                </tr>
                                     <?php $counter++;$count++;  if(($counter-1) == count($List))break;} ?>                              
                             </tbody>                    
                         </table>                    

@@ -17,8 +17,7 @@
  <div id="content">
     <section class="content">
       <div class="container-fluid">
-        <!-- Info boxes -->
-        
+        <!-- Info boxes -->        
                     <div class="row">
                       <div class="col-sm-12">
                           <div class="box box-header no-border">
