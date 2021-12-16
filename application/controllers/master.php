@@ -772,7 +772,7 @@ function reset(){
 					}elseif($table=='tbl_input_ppc' || $table=='tbl_input_general'){
 							date_default_timezone_set('Asia/Jakarta');
 							$nowtime = date('Y-m-d H:i:s');	
-							echo $nowtime;	
+							//echo $nowtime;	
 							$start = date('Y-m-d').' 07:15:00';
 							$end = date('Y-m-d').' 20:30:00';		
 					
@@ -783,7 +783,11 @@ function reset(){
 							if($start <= $nowtime && $nowtime <= $end) {
 								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
 							}else{
-								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";							
+								if ($now.' 00:00:01' <= $nowtime && $nowtime <= $now.' 07:14:59') {
+									$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";
+								}else{
+									$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";
+								}
 							}
 							$patan =  $this->db->query("$query")->row()->patan;
 						$i=1;
