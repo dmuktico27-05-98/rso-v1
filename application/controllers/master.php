@@ -794,7 +794,7 @@ function reset(){
 						for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 							$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 							$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
-							if($master['id']){							
+							if($master['id'] && (!is_null($rowData[0][2])||!is_null($rowData[0][3])||!is_null($rowData[0][4])||!is_null($rowData[0][5]))){							
 								$t_t = 465/$master['id']->maks_shift;
 								$t_t = round($t_t,2);
 								

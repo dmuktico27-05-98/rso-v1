@@ -25,8 +25,8 @@ while(count($List)!=0){
             <td style="height: 12%;width: 10%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
             </td>
             <td class="bg-dark">
-            <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h2>
-                <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
+                <h1 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h1>
+                <h2 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
             </td>
             <td width="15%" class="bg-danger">
                 <h3 class="text-center display-5"><?= $pat[0] ?></h3>
