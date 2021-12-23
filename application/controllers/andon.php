@@ -260,68 +260,7 @@ class Andon extends CI_Controller
 			'Shift' => $shift		
 		);
 		$this->load->view('content/andon/andon_ppc_new', $data);
-	}
-
-	function download()
-	{		
-			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-			$object = $reader->load('./assets/master.xlsx');
-			$object->getSheet(0);
-			$object->getActiveSheet()->SetCellValue('N2', 'Doc. No : MDIC/202111-015');
-			$object->getActiveSheet()->SetCellValue('N3', 'Rev         : 00');
-			$object->getActiveSheet()->SetCellValue('N4', 'Eff.date : 01-Okt-2021');			
-			$object->getActiveSheet()->SetCellValue('F5', ': I');
-			$object->getActiveSheet()->SetCellValue('F6', ': PT. TOYOTA MOTOR MANUFACTURING INDONESIA');
-			$object->getActiveSheet()->SetCellValue('F7', ': 01-07 November 2021');
-			$object->getActiveSheet()->SetCellValue('N6', '4500380468');
-			$object->getActiveSheet()->SetCellValue('N7', $rekap['sono']);
-			$i = 10;
-			$no = 1;
-			// foreach ($data as $d) {
-			// 	$object->getActiveSheet()->SetCellValue('C'.$i, $no);
-			// 	$object->getActiveSheet()->SetCellValue('D'.$i, $rekap['manifestno']);
-			// 	$object->getActiveSheet()->SetCellValue('E'.$i, $rekap['dateorder']);
-			// 	$object->getActiveSheet()->SetCellValue('F'.$i, $d['partno']);
-			// 	$object->getActiveSheet()->SetCellValue('G'.$i, $d['qty']);
-			// 	$object->getActiveSheet()->SetCellValue('H'.$i, $rekap['datedelivery']);
-			// 	$object->getActiveSheet()->SetCellValue('I'.$i, $d['partno']);
-			// 	$object->getActiveSheet()->SetCellValue('J'.$i, $rekap['referencedelivery']);
-			// 	$object->getActiveSheet()->SetCellValue('K'.$i, $rekap['giso']);
-			// 	$object->getActiveSheet()->SetCellValue('L'.$i, $d['qty']);
-			// 	$object->getActiveSheet()->SetCellValue('M'.$i, 'ADM');
-			// 	$object->getActiveSheet()->SetCellValue('N'.$i, $d['qty']);
-			// 	$object->getActiveSheet()->SetCellValue('O'.$i, $rekap['manifestno']);
-			// 	$object->getActiveSheet()->getStyle("C$i:O$i")->applyFromArray(
-			// 		array(
-			// 			'borders' => array(
-			// 				'allborders' => array(
-			// 					'borderStyle' =>  \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-			// 					'color' => array('rgb' => '000000')
-			// 				)
-			// 			)
-			// 		)
-			// 	);
-			// 	$i++;
-			// 	$no++;
-			// }
-			
-			// $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-			// $drawing->setName('Paid');
-			// $drawing->setDescription('Paid');
-			// $drawing->setPath('./assets/img/chadengle.jpg'); // put your path and image here
-			// $drawing->setCoordinates('V52');
-			// $drawing->setOffsetX(110);
-			// $drawing->setRotation(25);
-			// $drawing->getShadow()->setVisible(true);
-			// $drawing->getShadow()->setDirection(45);
-			// $drawing->setWorksheet($object->getActiveSheet());
-		$writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($object);
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode('Mantap.xlsx').'"');
-		header('Cache-Control: max-age=0');
-        $writer->save('php://output');		
-		die;
-	}
+	}	
 
 	function general(){
 		date_default_timezone_set('Asia/Jakarta'); 
@@ -472,6 +411,10 @@ class Andon extends CI_Controller
 			}		
 		}	
 
+		if(isset($_GET["proses"] ) && $_GET["proses"] != ""){				
+			$proses = $_GET["proses"];			
+			$where = $where." and `proses` = '$proses'";			
+		}
 		
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
@@ -717,5 +660,5 @@ class Andon extends CI_Controller
 			'Tanggal' => $Tanggal,
 			'Jam' => $Jam);	
 		$this->load->view('content/andon/pdfppc',$data);
-	}
+	}	
 }
