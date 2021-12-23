@@ -163,7 +163,7 @@
                                             ?>
                                                 <tr class="text-center" style="font-size:13px">
                                                     <td><?= $i; ?></td>
-                                                    <td class="text-left"><?= $key->part_name; ?></td>
+                                                    <td class="text-left"  style="font-size:12px"><?= $key->part_name; ?></td>
                                                     <td><?= $key->machine; ?></td>
                                                     <td><?= $key->model; ?></td>
                                                     <td><?= $key->ps; ?></td>
