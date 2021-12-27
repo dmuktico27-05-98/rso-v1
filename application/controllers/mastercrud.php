@@ -840,6 +840,11 @@ function save(){
 			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
 			$t_t = 465/$master['id']->maks_shift;
 			$t_t = round($t_t,2);
+			$p1=$this->input->post('sto_p1');
+			$p4=$this->input->post('sto_p4');
+			$kap=$this->input->post('sto_kap');
+			$ppl=$this->input->post('sto_ppl');
+			$process=$this->input->post('sto_process');;
 			$this->form_validation->set_rules('job_no', 'job_no', 'trim|required');
 			$this->form_validation->set_rules('sto_p1', 'Sto_p1');
 			$this->form_validation->set_rules('sto_p4', 'Sto_p4');
@@ -849,7 +854,7 @@ function save(){
 			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
 			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			if($this->form_validation->run()) {	
+			if($this->form_validation->run()){		
 					$data1=array(
 					'shift'=>$this->input->post('shift'),
 					'shop_name'=>$this->input->post('shop_name'),

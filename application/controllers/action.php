@@ -39,54 +39,54 @@ function index(){
 		}
 	}
 }
-function scan(){
-	if($this->session->userdata('isLogin')==true){
-		redirect('home');
-	}else{
-		$query['ip']=$this->db->get_where('tbl_ip_address',array('ip_address' =>$this->ip))->row();
-		$this->db->query("delete from tbl_user_active WHERE ip_address='".$this->ip."'");	
-		//if(!empty($query['ip'])){			
-			$query['title']= $this->db->get('tbl_title')->row();			
-			 $data=array(
-	         	'title'=>$query['title']->title,
-	         	'detail'=>$query['title']->detail,
-	         	'owner'=>$query['title']->owner,
-	         	'version'=>$query['title']->version,
-	         	'logo'=>$query['title']->logo,
-	         	'user_level'=>$query['ip']->user_level,
-	         	'year'=>$query['title']->year,
-	        );	
+// function scan(){
+// 	if($this->session->userdata('isLogin')==true){
+// 		redirect('home');
+// 	}else{
+// 		$query['ip']=$this->db->get_where('tbl_ip_address',array('ip_address' =>$this->ip))->row();
+// 		$this->db->query("delete from tbl_user_active WHERE ip_address='".$this->ip."'");	
+// 		//if(!empty($query['ip'])){			
+// 			$query['title']= $this->db->get('tbl_title')->row();			
+// 			 $data=array(
+// 	         	'title'=>$query['title']->title,
+// 	         	'detail'=>$query['title']->detail,
+// 	         	'owner'=>$query['title']->owner,
+// 	         	'version'=>$query['title']->version,
+// 	         	'logo'=>$query['title']->logo,
+// 	         	'user_level'=>$query['ip']->user_level,
+// 	         	'year'=>$query['title']->year,
+// 	        );	
 		    
-			$this->load->view('content/loginscan',$data);
-		//}else{
-			//redirect();
-		//}
-	}
-}
-function manual(){
-	if($this->session->userdata('isLogin')==true){
-		redirect('home');
-	}else{
-		$query['ip']=$this->db->get_where('tbl_ip_address',array('ip_address' =>$this->ip))->row();
-		$this->db->query("delete from tbl_user_active WHERE ip_address='".$this->ip."'");
-		//if(!empty($query['ip'])){			
-			$query['title']= $this->db->get('tbl_title')->row();			
-			$query_user=$this->db->get_where("tbl_user",array('user_level'=>$query['ip']->user_level))->result();
-			 $data=array(
-	         	'title'=>$query['title']->title,
-	         	'detail'=>$query['title']->detail,
-	         	'owner'=>$query['title']->owner,
-	         	'version'=>$query['title']->version,
-	         	'logo'=>$query['title']->logo,
-				'data_user'=>$query_user,
-				'user_level'=>$query['ip']->user_level,
-				'year'=>$query['title']->year,
-	        );
+// 			$this->load->view('content/loginscan',$data);
+// 		//}else{
+// 			//redirect();
+// 		//}
+// 	}
+// }
+// function manual(){
+// 	if($this->session->userdata('isLogin')==true){
+// 		redirect('home');
+// 	}else{
+// 		$query['ip']=$this->db->get_where('tbl_ip_address',array('ip_address' =>$this->ip))->row();
+// 		$this->db->query("delete from tbl_user_active WHERE ip_address='".$this->ip."'");
+// 		//if(!empty($query['ip'])){			
+// 			$query['title']= $this->db->get('tbl_title')->row();			
+// 			$query_user=$this->db->get_where("tbl_user",array('user_level'=>$query['ip']->user_level))->result();
+// 			 $data=array(
+// 	         	'title'=>$query['title']->title,
+// 	         	'detail'=>$query['title']->detail,
+// 	         	'owner'=>$query['title']->owner,
+// 	         	'version'=>$query['title']->version,
+// 	         	'logo'=>$query['title']->logo,
+// 				'data_user'=>$query_user,
+// 				'user_level'=>$query['ip']->user_level,
+// 				'year'=>$query['title']->year,
+// 	        );
 		    
-			$this->load->view('content/loginmanual',$data);
+// 			$this->load->view('content/loginmanual',$data);
 		
-	}
-}
+// 	}
+// }
 function admin(){	
 	$query['title']= $this->db->get('tbl_title')->row();			
 	$data=array(
