@@ -636,7 +636,7 @@ function reset(){
 					$progress=$key->progress;
 					$success=$key->success;
 				}
-			$failed=$progress-$success;		
+			$failed=$total-$progress;		
 			$persen=round($progress/$total,2) * 100;
 			echo json_encode(array('persen'=>$persen,'total'=>$total,'success'=>$success,'failed'=>$failed));
 	}
@@ -798,7 +798,7 @@ function reset(){
 						for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 							$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 							$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
-							if($master['id'] && (!is_null($rowData[0][2])||!is_null($rowData[0][3])||!is_null($rowData[0][4])||!is_null($rowData[0][5]))){							
+							if($master['id'] && (trim($rowData[0][2]) != ""||trim($rowData[0][3])!= ""||trim($rowData[0][4])!= ""||trim($rowData[0][5])!= "")){							
 								$t_t = 465/$master['id']->maks_shift;
 								$t_t = round($t_t,2);
 								
@@ -835,7 +835,7 @@ function reset(){
 									$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
 									$i=$i+1;
 									delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
-							}
+							}                          
 						}
 					}elseif($table=='tbl_master_part'){
 						$this->db->truncate($table);
