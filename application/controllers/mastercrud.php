@@ -840,11 +840,11 @@ function save(){
 			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
 			$t_t = 465/$master['id']->maks_shift;
 			$t_t = round($t_t,2);
-			$p1=$this->input->post('sto_p1');
-			$p4=$this->input->post('sto_p4');
-			$kap=$this->input->post('sto_kap');
-			$ppl=$this->input->post('sto_ppl');
-			$process=$this->input->post('sto_process');;
+			$p1 =$this->input->post('sto_p1');
+			$p4 =$this->input->post('sto_p4');
+			$kap =$this->input->post('sto_kap');
+			$ppl =$this->input->post('sto_ppl');
+			$process =$this->input->post('sto_process');
 			$this->form_validation->set_rules('job_no', 'job_no', 'trim|required');
 			$this->form_validation->set_rules('sto_p1', 'Sto_p1');
 			$this->form_validation->set_rules('sto_p4', 'Sto_p4');
@@ -854,29 +854,18 @@ function save(){
 			$this->form_validation->set_rules('shift', 'Shift', 'trim|required');
 			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			if($this->form_validation->run()){		
-					$data1=array(
-					'shift'=>$this->input->post('shift'),
-					'shop_name'=>$this->input->post('shop_name'),
-					'job_no'=>$master['id']->job_no,
-					'part_no'=>$master['id']->part_no,
-					'part_name'=>$master['id']->part_name,
-					'patan'=>$master['id']->patan,
-					'maks_shift'=>$master['id']->maks_shift,
-					't_t'=>$t_t,
-					'sto_p1'=>$this->input->post('sto_p1'),
-					'sto_p4'=>$this->input->post('sto_p4'),
-					'sto_kap'=>$this->input->post('sto_kap'),
-					'sto_ppl'=>$this->input->post('sto_ppl'),
-					'sto_process'=>$this->input->post('sto_process'),
-					'ss_p1'=>round((($t_t*$this->input->post('sto_p1'))/465)*8,2),
-					'ss_p4'=>round((($t_t*$this->input->post('sto_p4'))/465)*8,2),
-					'ss_kap'=>round((($t_t*$this->input->post('sto_kap'))/465)*8,2),
-					'ss_ppl'=>round((($t_t*$this->input->post('sto_ppl'))/465)*8,2),
-					'ss_process'=>round((($t_t*$this->input->post('sto_process'))/465)*8,2),
-					"area"=>$master['id']->area,
-					"proses"=>$master['id']->proses,
-					"model"=>$master['id']->model,
+			if($this->form_validation->run()) {	
+					$data1=array(					
+					'sto_p1'=>$p1==""?null:$p1,
+					'sto_p4'=>$p4==""?null:$p4,
+					'sto_kap'=>$kap==""?null:$kap,
+					'sto_ppl'=>$ppl==""?null:$ppl,
+					'sto_process'=>$process==""?null:$process,
+					'ss_p1'=>$p1==""?null:round((($t_t*$p1)/465)*8,2),
+					'ss_p4'=>$p4==""?null:round((($t_t*$p4)/465)*8,2),
+					'ss_kap'=>$kap==""?null:round((($t_t*$kap)/465)*8,2),
+					'ss_ppl'=>$ppl==""?null:round((($t_t*$ppl)/465)*8,2),
+					'ss_process'=>$process==""?null:round((($t_t*$process)/465)*8,2),					
 					"create_by"=>$this->nama,
 					"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
 				);

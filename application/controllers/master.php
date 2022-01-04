@@ -190,6 +190,9 @@ function hrp(){
 			/*Keyword yang diketikan oleh user pada field pencarian*/
 			$search=trim($_POST['search']["value"]);
 			$searchByName = trim($_POST['searchByName']["value"]);
+			if($table=="tbl_input_general" or $table=="tbl_input_ppc" and $this->user_level!='Administrator'){
+				$this->db->where('create_by',$this->nama);
+			}
 
 			/*Menghitung total row didalam database*/
 			$total=$this->db->count_all_results($table);
@@ -246,13 +249,12 @@ function hrp(){
 			  
 
 			}
-			if($table=="tbl_user" and $this->user_level!='Administrator'){
-				$this->db->where('user_area',$this->user_area);
-			}
-
 			if($table=="tbl_input_general" or $table=="tbl_input_ppc" and $this->user_level!='Administrator'){
 				$this->db->where('create_by',$this->nama);
 			}
+			if($table=="tbl_user" and $this->user_level!='Administrator'){
+				$this->db->where('user_area',$this->user_area);
+			}		
 			
 			/*Lanjutkan pencarian ke database*/
 			$this->db->limit($length,$start);
