@@ -150,9 +150,8 @@
                         <div class="category-filter">
                         <select id="categoryFilter" class="form-control">
                          <option value="">Show All</option>
-                          <option value="D55L">D55L</option>
-                          <option value="D40D">D40D</option>
-                          <option value="D26A">D26A</option>
+                          <option value="WH Docking">WH Docking</option>
+                          <option value="WH Door Assy">WH Door Assy</option>
                         </select>
                       </div>
                       <table id="ppc" class="nowrap compact" style="width:100%;font-size: 10px;color:white">
@@ -345,7 +344,7 @@
       //It's important that the text used here (Category) is the same for used in the header of the column to filter
       var categoryIndex = 0;
       $("#ppc th").each(function (i) {
-        if ($($(this)).html() == "MODEL") {
+        if ($($(this)).html() == "AREA") {
           categoryIndex = i; return false;
         }
       });

@@ -89,7 +89,7 @@ $("#save").click(function(){
                       success: function(data){
                           persen = (data.persen *1)+0;
                           $('#hasil').text(data.success+" success "+data.failed+" failed from "+data.total+" rows");
-                          $("#progress").html("<div class='progress-bar progress-bar-primary progress-bar-striped text-center text-red' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:"+persen+"%'>"+persen+"%</div>");                       
+                          $("#progress").html("<div class='progress-bar progress-bar-primary progress-bar-striped text-center text-white' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:"+persen+"%'>"+persen+"%</div>");                       
                           if(persen == 100){
                             table.ajax.reload();
                             window.clearInterval(myVar);

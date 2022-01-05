@@ -145,7 +145,7 @@ class Andon extends CI_Controller
 			'field_filter' => $field,
 			'input_ppc' => $this->db->query("select * from tbl_input_ppc where job_no!='' order by ss_p1 asc ")->result(),
 		);
-		$this->load->view('content/andon/andon_ppc', $data);
+		$this->load->view('content/andon/andon_ppcs', $data);
 	}
 
 	function ppc_news()
