@@ -18,21 +18,21 @@
 <?php $counter = 1;
 $count = 0;
 while(count($List)!=0){ 
-    echo (($counter-1) % 25) ==0 && $count != 0? '<div class="html2pdf__page-break"></div>' : '' ;
+    echo (($counter-1) % 38) ==0 && $count != 0? '<div class="html2pdf__page-break"></div>' : '' ;
     ?>
-    <table style="width: 100%; <?= (($counter-1) % 25) ==0  && $count != 0? 'margin-top: 0.1875cm;':''?>">
+    <table style="width: 100%; <?= (($counter-1) % 38) ==0  && $count != 0? 'margin-top: 0.1875cm;':''?>">
         <tr>
-            <td style="height: 12%;width: 10%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
+            <td style="height: 10%;width: 8%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
             </td>
             <td class="bg-dark">
-                <h1 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h1>
-                <h2 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
+                <h4 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h1>
+                <h5 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
             </td>
-            <td width="15%" class="bg-danger">
-                <h3 class="text-center display-5"><?= $pat[0] ?></h3>
-                <table width="100%">               
+            <td width="13%" class="bg-danger">
+                <h5 class="text-center display-5 mb-0"><?= $pat[0] ?></h3>
+                <table width="100%" style="font-size:11px; margin-left: auto;margin-right: auto;" >               
                     <tr>
-                        <td width="40%" class="pl-2">
+                        <td width="55%" class="pl-3">
                             Tanggal
                         </td>
                         <td>
@@ -40,7 +40,7 @@ while(count($List)!=0){
                         </td>
                     </tr>
                     <tr>
-                        <td class="pl-2">                        
+                        <td class="pl-3">                        
                             Jam
                         </td>
                         <td>
@@ -54,19 +54,19 @@ while(count($List)!=0){
             <td colspan="3" class="p-0">
                 <div class="row">
                     <div class="col-md-12">
-                        Last Update : <?= $Tanggal . " " . $Jam ?>
-                        <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
+                        <!-- Last Update : <?= $Tanggal . " " . $Jam ?> -->
+                        <table class="table table-bordered table-sm mb-0" width="100%" style="table-layout: fixed;">
                             <thead class="thead-light">
-                                <tr class="text-center" style="font-size:15px">
+                                <tr class="text-center" style="font-size:12px">
                                     <th rowspan="2" width="2%">No</th>
-                                    <th rowspan="2" width="17%" style="word-wrap: break-word;">Part Name</th>
+                                    <th rowspan="2" width="18%" style="word-wrap: break-word;">Part Name</th>
                                     <th rowspan="2" width="3%"><?= $_GET["proses"]=="Inhouse" ? "Mach" : "Vend"; ?></th>
                                     <th rowspan="2" width="3%">Model</th>
                                     <th rowspan="2" width="4%" style="word-wrap: break-word;">PS</th>
                                     <th rowspan="2" width="3%" style="word-wrap: break-word;">M/S</th>
                                     <th rowspan="2" width="2%">T/T</th>
                                     <th colspan="5" width="14%">Stock</th>
-                                    <th rowspan="2" width="4%" style="word-wrap: break-word;">Stock Strenght</th>
+                                    <th rowspan="2" width="3%" style="word-wrap: break-word;">SS</th>
                                     <th rowspan="2" width="6%"><?= $pat[0] ?></th>
                                     <th rowspan="2" width="6%"><?= $pat[1] ?></th>
                                     <th rowspan="2" width="6%"><?= $pat[2] ?></th>
@@ -76,7 +76,7 @@ while(count($List)!=0){
                                     <th rowspan="2" width="6%"><?= $pat[2] ?></th>
                                     <th rowspan="2" width="6%"><?= $pat[3] ?></th>
                                 </tr>
-                                <tr class="text-center" style="font-size:15px">
+                                <tr class="text-center" style="font-size:12px">
                                     <th class="bg-primary">P1</th>
                                     <th class="bg-success">P4</th>
                                     <th class="bg-warning">KAP</th>
@@ -85,7 +85,7 @@ while(count($List)!=0){
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; for($j=1 ;$j<=25; $j++) {
+                                <?php $i = 1; for($j=1 ;$j<=38; $j++) {
                                     $key = $List[$count];
                                     $p1 = 0.734375 * $key->ss_p1;
                                     $p4 = 0.734375 * ($key->ss_p1 + $key->ss_p4);
@@ -93,9 +93,9 @@ while(count($List)!=0){
                                     $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                     $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
                                     ?>
-                                <tr class="text-center" style="font-size:13px">
+                                <tr class="text-center" style="font-size:10px">
                                     <td><?= $i; ?></td>
-                                    <td class="text-left" style="font-size:12px"><?= $key->part_name; ?></td>
+                                    <td class="text-left" style="font-size:10px"><?= $key->part_name; ?></td>
                                     <td><?= $key->machine; ?></td>
                                     <td><?= $key->model; ?></td>
                                     <td><?= $key->ps; ?></td>

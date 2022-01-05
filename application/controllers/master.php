@@ -192,6 +192,7 @@ function hrp(){
 			$searchByName = trim($_POST['searchByName']["value"]);
 			if($table=="tbl_input_general" or $table=="tbl_input_ppc" and $this->user_level!='Administrator'){
 				$this->db->where('create_by',$this->nama);
+				$this->db->order_by('create_date','DESC');
 			}
 
 			/*Menghitung total row didalam database*/
@@ -251,6 +252,7 @@ function hrp(){
 			}
 			if($table=="tbl_input_general" or $table=="tbl_input_ppc" and $this->user_level!='Administrator'){
 				$this->db->where('create_by',$this->nama);
+				$this->db->order_by('create_date','DESC');
 			}
 			if($table=="tbl_user" and $this->user_level!='Administrator'){
 				$this->db->where('user_area',$this->user_area);
@@ -638,7 +640,7 @@ function reset(){
 					$progress=$key->progress;
 					$success=$key->success;
 				}
-			$failed=$total-$progress;		
+			$failed=$total-$success;		
 			$persen=round($progress/$total,2) * 100;
 			echo json_encode(array('persen'=>$persen,'total'=>$total,'success'=>$success,'failed'=>$failed));
 	}
@@ -778,7 +780,7 @@ function reset(){
 					}elseif($table=='tbl_input_ppc' || $table=='tbl_input_general'){
 							date_default_timezone_set('Asia/Jakarta');
 							$nowtime = date('Y-m-d H:i:s');	
-							//echo $nowtime;	
+																
 							$start = date('Y-m-d').' 07:15:00';
 							$end = date('Y-m-d').' 20:30:00';		
 					
@@ -796,7 +798,8 @@ function reset(){
 								}
 							}
 							$patan =  $this->db->query("$query")->row()->patan;
-						$i=1;
+							$i=1;
+							$no=0;
 						for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 							$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 							$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
@@ -829,15 +832,24 @@ function reset(){
 								"model"=>$master['id']->model,
 								"machine"=>$master['id']->machine,
 								"create_by"=>$this->nama,
-								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
+								"create_date"=>$nowtime,
 								);
-
-									$this->db->insert($table, $data1);                    
-									$no=$no+1;
-									$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
-									$i=$i+1;
+								
+									$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND patan = '".$data1['patan']."' AND DATE(`create_date`) = '$now'")->row();																										
+									if($found){																							
+										// $this->db->update($table,$data1,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
+										// $no=$no+1;
+										 $this->db->update('tbl_upload',array('progress' => $i,'success' => $no),array('tbl_name' => $table));																												
+										// $i=$i+1;
+										//$this->db->query("Delete from $table where job_no='".$data1['job_no']."' AND patan = '".$data1['patan']."' AND DATE(`create_date`) = '$now'");
+									}else{
+										$this->db->insert($table,$data1); 
+									}									
+									$no=$no+1;																		
 									delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
-							}                          
+							}
+							$this->db->update('tbl_upload',array('progress' => $i,'success' => $no),array('tbl_name' => $table));
+							$i=$i+1;  																	
 						}
 					}elseif($table=='tbl_master_part'){
 						$this->db->truncate($table);
