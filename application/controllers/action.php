@@ -9,6 +9,7 @@ function __construct(){
 	$data1['user']= $this->db->get_where('tbl_user',array('idcard'=>$cek['ip']->idcard))->row();
 	$this->user_level=$data1['user']->user_level;
 	$this->username=$data1['user']->username;
+	$this->id=$data1['user']->id;
 }
 function index(){
 	if($this->session->userdata('isLogin')==true){
@@ -132,21 +133,21 @@ function login_check(){
 	}
 	echo json_encode($data);
 }
-public function idcard_check($str){
-   $cek=$this->db->get_where('tbl_user',array('idcard'=>$str))->result();
-   foreach ($cek as $key) {
-   	$username=$key->username;
-   	$password=$key->password;
-   }
-  $this->db->query("DELETE FROM ci_sessions WHERE user_data LIKE '%".$password."%'");
-   
-   if(empty($cek)){		
-         $this->form_validation->set_message('idcard_check', 'Access denied!');
-         return false;
-    }else{
-         return true;
-   }
- }
+	public function idcard_check($str){
+		$cek=$this->db->get_where('tbl_user',array('idcard'=>$str))->result();
+		foreach ($cek as $key) {
+			$username=$key->username;
+			$password=$key->password;
+		}
+   $this->db->query("DELETE FROM ci_sessions WHERE user_data LIKE '%".$password."%'");
+	
+	if(empty($cek)){		
+		  $this->form_validation->set_message('idcard_check', 'Access denied!');
+		  return false;
+	 }else{
+		  return true;
+	}
+  }
 function logout(){
 	$query['ip']=$this->db->get_where('tbl_ip_address',array('ip_address' =>$this->ip))->row();
 	$cek['ip']= $this->db->get_where('tbl_user_active',array('ip_address'=>$this->ip))->row();       
@@ -169,7 +170,7 @@ function password(){
         $data=array(
          	'nav'=>'Security',
          	'username'=>$this->username,
-         	'id'=>$data1['user']->id,
+         	'id'=>$this->id,
 			'url'=>'action/password',
         );	
 		if($this->session->userdata('isLogin') == true){
