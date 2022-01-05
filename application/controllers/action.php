@@ -51,6 +51,7 @@ function admin(){
      	'logo'=>$query['title']->logo,
      	'year'=>$query['title']->year,
     );	
+}
 
 function login(){
 	$data = array ('success' => false, 'messages' => array());
