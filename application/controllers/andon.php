@@ -370,14 +370,14 @@ class Andon extends CI_Controller
 		date_default_timezone_set('Asia/Jakarta'); 
 		$nowtime = date('Y-m-d H:i:s');		
 		$start = date('Y-m-d').' 04:00:00';		
-		$end = date('Y-m-d').' 16:00:00';
+		$end = date('Y-m-d').' 18:00:00';
 		$now = date('Y-m-d');		
 		$datemin = date('Y-m-d',strtotime($now . "-1 days"));		
 		$where = "";
 		$patan = "";
 		$shift = ""	;		
-					
-		
+				
+
 		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
 			$shift = $_GET["shift"];
 			$date = $_GET["date"];
@@ -414,8 +414,8 @@ class Andon extends CI_Controller
 		if(isset($_GET["proses"] ) && $_GET["proses"] != ""){				
 			$proses = $_GET["proses"];			
 			$where = $where." and `proses` = '$proses'";			
-		}
-		
+		}					
+				
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
@@ -427,18 +427,17 @@ class Andon extends CI_Controller
 		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
 			$ps = $_GET["ps"];
 			$where = $where." and `ps` = '$ps'";
-		}		
+		}				
 
-		$query = "select * from tbl_input_general$where  order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
+		$query = "select * from tbl_input_general $where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
 		$hasil = $this->db->query("$query")->result();
 
-		
+
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
-						
 		
-		$patern = "";
+		$patern = "NULL";
 		switch ($patan) {
 			case 'A':
 				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";

@@ -15,7 +15,12 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?php echo base_url() ?>plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-
+    <style>
+        .invalid-blink {
+            background-color: red;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -56,7 +61,8 @@
                             <h2 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
                         </td>
                         <td width="15%" style="word-wrap: break-word;" class="bg-danger">
-                            <h2 class="display-5 text-center">
+                            <h3 class="text-center display-5 mb-0"><?= $pat[0] ?></h3>
+                            <h5 class="display-5 text-center">
                                 <?= strtoupper(gmdate('d-m-Y', time() + 60 * 60 * 7)); ?>
                                 <span id="clock"><?= gmdate('H:i:s', time() + 60 * 60 * 7); ?></span>
                             </h2>
@@ -134,7 +140,7 @@
                                                 <th rowspan="2" width="3%" style="word-wrap: break-word;">M/S</th>
                                                 <th rowspan="2" width="3%">T/T</th>
                                                 <th colspan="5" width="14%">Stock</th>
-                                                <th rowspan="2" width="4%" style="word-wrap: break-word;">Stock Strenght</th>
+                                                <th rowspan="2" width="4%" style="word-wrap: break-word;">SS</th>
                                                 <th rowspan="2" width="6%"><?= $pat[0] ?></th>
                                                 <th rowspan="2" width="6%"><?= $pat[1] ?></th>
                                                 <th rowspan="2" width="6%"><?= $pat[2] ?></th>
@@ -159,9 +165,10 @@
                                                 $p4 = 0.734375 * ($key->ss_p1 + $key->ss_p4);
                                                 $kap = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap);
                                                 $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
-                                                $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
+                                                $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process);
+                                                $ss = $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process;
                                             ?>
-                                                <tr class="text-center" style="font-size:13px">
+                                                <tr class="text-center" style="font-size:13px" >
                                                     <td><?= $i; ?></td>
                                                     <td class="text-left"  style="font-size:12px"><?= $key->part_name; ?></td>
                                                     <td><?= $key->machine; ?></td>
@@ -174,7 +181,7 @@
                                                     <td><?= $key->sto_kap; ?></td>
                                                     <td><?= $key->sto_ppl; ?></td>
                                                     <td><?= $key->sto_process; ?></td>
-                                                    <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
+                                                    <td <?= $ss<=4?'class="invalid"':'';?>><?= $ss; ?></td>
                                                     <td class="pl-0">
                                                         <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
                                                         <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
@@ -309,6 +316,18 @@
             echo "$('#Shift').val('" . $_GET['shift'] . "').change();";
         }
         ?>
+
+$       (function() {
+            var on = false;
+            window.setInterval(function() {
+                on = !on;
+                if (on) {
+                    $('.invalid').addClass('invalid-blink')
+                } else {
+                    $('.invalid-blink').removeClass('invalid-blink')
+                }
+            }, 500);
+      });
     </script>
     </body>
 </html>

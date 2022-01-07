@@ -822,11 +822,11 @@ function reset(){
 								"sto_kap"=>$rowData[0][4],
 								"sto_ppl"=>$rowData[0][5],
 								"sto_process"=>$rowData[0][6],
-								"ss_p1"=>round((($t_t*$rowData[0][2])/465)*8,2),
-								"ss_p4"=>round((($t_t*$rowData[0][3])/465)*8,2),
-								"ss_kap"=>round((($t_t*$rowData[0][4])/465)*8,2),
-								"ss_ppl"=>round((($t_t*$rowData[0][5])/465)*8,2),
-								"ss_process"=>round((($t_t*$rowData[0][6])/465)*8,2),
+								"ss_p1"=>(($t_t*$rowData[0][2])/465)*8,2,
+								"ss_p4"=>(($t_t*$rowData[0][3])/465)*8,2,
+								"ss_kap"=>(($t_t*$rowData[0][4])/465)*8,2,
+								"ss_ppl"=>(($t_t*$rowData[0][5])/465)*8,2,
+								"ss_process"=>(($t_t*$rowData[0][6])/465)*8,2,
 								"area"=>$master['id']->area,
 								"proses"=>$master['id']->proses,
 								"model"=>$master['id']->model,
@@ -836,7 +836,7 @@ function reset(){
 								);
 								
 									$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND patan = '".$data1['patan']."' AND DATE(`create_date`) = '$now'")->row();																										
-									if($found){																							
+									if($found && $table=="tbl_input_general"){																							
 										// $this->db->update($table,$data1,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
 										// $no=$no+1;
 										 $this->db->update('tbl_upload',array('progress' => $i,'success' => $no),array('tbl_name' => $table));																												

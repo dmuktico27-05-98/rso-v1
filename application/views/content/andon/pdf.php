@@ -140,7 +140,7 @@ while(count($List)!=0){
 
 <script>  
   var opt = {  
-  filename:     'myfile.pdf',
+  filename:     'Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?>',
   image:        { type: 'jpeg', quality: 0.98 },
   html2canvas:  { scale: 2},
   jsPDF:        { unit: 'px', format: 'a3', orientation: 'l', hotfixes: ["px_scaling"] }
