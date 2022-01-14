@@ -40,9 +40,8 @@
                               <a href="<?=base_url('master/printkanban');?>" class="btn btn-default text-green" title="print kanban" target="_blank"><i class="fa fa-print"></i></a>
                               <a onclick="printkanban1()" class="btn btn-default text-red" title="print kanban > 1" target="_blank"><i class="fa fa-print"></i></a>
                               <?php }
-                              if($table=="tbl_master_rak"){?>
-                              <a href="<?=base_url('master/printrakin');?>" class="btn btn-default text-blue" title="print rak in" target="_blank"><i class="fa fa-print"></i></a>
-                              <a href="<?=base_url('master/printrakout');?>" class="btn btn-default text-red" title="print rak out" target="_blank"><i class="fa fa-print"></i></a>
+                              if($table=="tbl_master_qr"){?>
+                              <a href="<?=base_url('master/print_qr');?>" class="btn btn-default text-blue" title="print qrcode" target="_blank"><i class="fa fa-print"></i></a>
                               <?php }
                               if($table=="tbl_master_pallet"){?>
                               <div class="btn btn-default text-green" onclick="printpallet()"  title="print all"><i class="fa fa-print"></i></div>

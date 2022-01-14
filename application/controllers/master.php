@@ -902,6 +902,38 @@ function reset(){
 								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
 			
 						}
+					}elseif($table=='tbl_master_qr'){
+						$this->db->truncate($table);
+						
+						$i=1;
+							$no=1;
+							for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
+							   $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+							     $dates=gmdate('Y-m-d',PHPExcel_Shared_Date::ExcelToPHP($rowData[0][1]));
+							  if($rowData[0][2]>0){
+								$total = $rowData[0][2];
+								for ($x=1; $x <= $total ; $x++) { 
+									if($x<10){
+										$x='00'.$x;
+									  }elseif ($x>=10 and $x<100) {
+										  $x='0'.$x;
+									  }else{
+										  $x=$x;
+									  }
+									  $data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
+										"qr_code"=>$rowData[0][1].'-'.$x,
+										);
+								  $insert = $this->db->insert($table, $data1);
+									}
+									
+								}
+								                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
+								$no=$no+1;
+								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
+								$i=$i+1;
+								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+			
+						}
 					}
 		
 			}
@@ -1494,88 +1526,28 @@ a.sequence,a.jumlah_kbn,a.box_type,a.job_internal,a.part_no,a.part_name,a.id_kbn
         $this->load->view('content/print/print_rak_out',$data);
 	}
 
-	function print_hrp(){
+	function print_qr(){
 		ini_set('memory_limit','1024M');
-	set_time_limit(12000);
-	$date = date('Y-m-d H:i:s');
-	$hrp_id=$this->uri->segment(3);
-	if($hrp_id!=''){
-		$hrp_id=$this->uri->segment(3);
-	}else{
-				$hrp_id['id'] = $this->db->query("select hrp_id,print from tbl_hrp where print='nok' limit 1")->row();
-			$hrp_id=$hrp_id['id']->hrp_id;
-			$data_approve['id'] = $this->db->query("select * from tbl_hrp where hrp_id='".$hrp_id."' limit 1")->row();
-			$data_user = $this->db->query("select username,nama from tbl_user")->result();
-			foreach ($data_user as $key) { 
-				if($key->username==$data_approve['id']->pic_area){ $pic_area = $key->nama;$pic_npk = $key->username;}
-				if($key->username==$data_approve['id']->spv_area){ $spv_area = $key->nama;}
-				if($key->username==$data_approve['id']->spv_qes){ $spv_qes = $key->nama;}
-				if($key->username==$data_approve['id']->manager_area){ $manager_area = $key->nama;}
-				if($key->username==$data_approve['id']->divisi){ $divisi = $key->nama;}
-				if($key->username==$data_approve['id']->manager_mdic){ $manager_mdic = $key->nama;}
-				if($key->username==$data_approve['id']->manager_ga){ $manager_ga = $key->nama;}	
-				$print = $key->print;
-
-				$data = array('print' => 'ok','spa'=>'ok','spa_date'=>gmdate('Y-m-d H:i:s',time()+60*60*7),);
-				$this->db->update('tbl_hrp',$data,array('hrp_id' => $hrp_id));
-			}
-	
-	}
-	$data_approve['id'] = $this->db->query("select * from tbl_hrp where hrp_id='".$hrp_id."' limit 1")->row();
-	$data_user = $this->db->query("select username,nama,shop from tbl_user")->result();
-	foreach ($data_user as $key) { 
-		if($key->username==$data_approve['id']->pic_area){ $pic_area = $key->nama;$pic_npk = $key->username;}
-		if($key->username==$data_approve['id']->spv_area){ $spv_area = $key->nama;}
-		if($key->username==$data_approve['id']->spv_qes){ $spv_qes = $key->nama;}
-		if($key->username==$data_approve['id']->manager_area){ $manager_area = $key->nama;}
-		if($key->username==$data_approve['id']->divisi){ $divisi = $key->nama;}
-		if($key->username==$data_approve['id']->manager_mdic){ $mdic = $key->shop;}
-		if($key->username==$data_approve['id']->manager_ga){ $ga = $key->shop;}	
-		$print = $key->print;
-	}
-			//load content html
-			$data_shop['id']=$this->db->query("select * from tbl_master_shop where shop_name='".$this->shop."' limit 1")->row();
-			$data_dn['id'] =$this->db->query("select * from tbl_hrp where hrp_id='".$hrp_id."' order by id asc limit 1")->row();
-			$data_hrp =$this->db->query("select a.id,a.category,a.hrp_id,a.hrp_date,a.job_no,a.qty,a.shift,a.detail,a.transaction,a.item,a.price,a.shop_name,
-			a.cost_center,a.create_date,a.create_by,b.part_name,b.part_no,b.transaction,b.item from tbl_hrp a inner join tbl_master_part b 
-			on(a.job_no=b.job_no and a.transaction=b.transaction and a.item=b.item) where a.hrp_id='".$hrp_id."' ")->result();
-			$tot_price['id']=$this->db->query("select hrp_id,tot_price,sum(if(hrp_id='".$hrp_id."',tot_price,0)) as tot_price from tbl_hrp limit 1")->row();
-			$dataquery['title']= $this->db->get('tbl_title')->row();
-		$data=array(	
-		'logo'=>$dataquery['title']->logo,
-		'owner'=>$dataquery['title']->owner,
-		'shop_name'=>$data_shop['id']->shop_name,
-		'cost_center'=>$data_shop['id']->cost_center,
-		'gr_code'=>$data_shop['id']->gr_code,
-		'hrp_id'=>$data_dn['id']->hrp_id,
-		'create_date'=>$data_dn['id']->create_date,
-		'create_by'=>$data_dn['id']->create_by,
-		'data_hrp'=>$data_hrp,
-		'nama'=>$this->nama,
-		'tot_price'=>$tot_price['id']->tot_price,
-		'pic_area'=>$pic_area,
-		'spv_area'=>$spv_area,
-		'manager_area'=>$manager_area,
-		'divisi'=>$divisi,
-		'mdic'=>$mdic,
-		'ga'=>$ga,
-		'print'=>$print,
-		'spa'=>$data_approve['id']->spa,
-		'ssa'=>$data_approve['id']->ssa,
-		'sma'=>$data_approve['id']->sma,
-		'sd'=>$data_approve['id']->sd,
-		'smm'=>$data_approve['id']->smm,
-		'smg'=>$data_approve['id']->smg,
-		'spa_date'=>$data_approve['id']->spa_date,
-		'ssa_date'=>$data_approve['id']->ssa_date,
-		'sma_date'=>$data_approve['id']->sma_date,
-		'sd_date'=>$data_approve['id']->sd_date,
-		'smm_date'=>$data_approve['id']->smm_date,
-		'smg_date'=>$data_approve['id']->smg_date,
-		);	
+		set_time_limit(12000);
+		$id=$this->uri->segment(3);
+		$query="select * from tbl_master_qr order by id asc";	  
+		if($id!=''){
+			$query="select * from tbl_master_qr where id='".$id."'";
+		}
+		$select = $this->db->query($query)->result(); 
+		$jumlah = $this->db->query($query)->num_rows();
 		
-		$this->load->view('content/print/hrp',$data);
-
+	
+		//load content html
+		$dataquery['title']= $this->db->get('tbl_title')->row();
+		$data=array(	
+						'data_table'=>$select,
+						'logo'=>$dataquery['title']->logo,
+						'owner'=>$dataquery['title']->owner,
+						'detail'=>$dataquery['title']->detail,
+						'jumlah'=>$jumlah,
+						);	
+		$this->load->view('content/print/print_qr',$data);
 	}
 
 }

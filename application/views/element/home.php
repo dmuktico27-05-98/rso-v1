@@ -332,10 +332,10 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar">
-    <!-- Control sidebar content goes here -->
-  </aside>
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar">
+        <!-- Control sidebar content goes here -->
+      </aside>
   </div>
 
   <script src="<?=base_url('assets/lte/apexcharts/dist/apexcharts.js')?>"></script>
