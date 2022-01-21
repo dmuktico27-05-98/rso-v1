@@ -329,9 +329,8 @@ class Andon extends CI_Controller
 			$where = $where." and `ps` = '$ps'";
 		}				
 
-		$query = "select * from tbl_input_general $where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
-		$hasil = $this->db->query("$query")->result();
-
+		$query = "select * from tbl_input_general$where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";						
+		$hasil = $this->db->query("$query")->result();	
 
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
@@ -659,5 +658,5 @@ class Andon extends CI_Controller
 			'Tanggal' => $Tanggal,
 			'Jam' => $Jam);	
 		$this->load->view('content/andon/pdfppc',$data);
-	}	
+	}		
 }

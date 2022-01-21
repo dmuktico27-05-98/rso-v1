@@ -91,7 +91,8 @@ while(count($List)!=0){
                                     $p4 = 0.734375 * ($key->ss_p1 + $key->ss_p4);
                                     $kap = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap);
                                     $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
-                                    $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process)
+                                    $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process);
+                                    $ss = $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process;
                                     ?>
                                 <tr class="text-center" style="font-size:10px">
                                     <td><?= $i; ?></td>
@@ -106,7 +107,7 @@ while(count($List)!=0){
                                     <td><?= $key->sto_kap; ?></td>
                                     <td><?= $key->sto_ppl; ?></td>
                                     <td><?= $key->sto_process; ?></td>
-                                    <td><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
+                                    <td <?= $ss<=4?'style=" background-color: red;color: white;"':'';?>><?= $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process; ?>
                                     <td class="pl-0">
                                         <div class="bg-dark text-right pr-1 position-absolute" style="width: <?= $process > 47 ? 47 : $process; ?>%;z-index: -1;"><?= $key->ss_process; ?></div>
                                         <div class="bg-danger text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>

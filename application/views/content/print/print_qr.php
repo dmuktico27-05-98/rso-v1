@@ -24,7 +24,7 @@ html,body {
 </head>
 <body>
 
-  <?php $i=1; foreach ($data_table as $key) { $j=$i % 7;  $x=$i % 70;
+  <?php $i=1; foreach ($data_table as $key) { $j=$i % 8;  $x=$i % 70;
   if($x==1){echo '<table style="width: 100%;height:100%;text-align: center;font-family: sans-serif;">';}
     if($j==1){ echo"<tr style='height: 100%'><td style='padding:5px'>"; }else{ echo"<td style='padding:5px'>";} ?>
   <table style="width: 100%;height:100%;border:1px solid #444;">
