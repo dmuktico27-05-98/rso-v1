@@ -233,7 +233,7 @@
             });
 
             $('#Model').on('change', function() {
-                var url = "<?= base_url() . 'andon/general?' ?>"; // get selected value
+                var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
                 var fix_url = querybuilder(url);
                 if (fix_url) { // require a URL
                     window.location = fix_url; // redirect
@@ -242,7 +242,7 @@
             });
 
             $('#Machine').on('change', function() {
-                var url = "<?= base_url() . 'andon/general?' ?>"; // get selected value
+                var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
                 var fix_url = querybuilder(url);
                 if (fix_url) { // require a URL
                     window.location = fix_url; // redirect
@@ -253,7 +253,7 @@
             var dates = "";
             $("#Date").on("change.datetimepicker", function(e) {
                 if (dates != "") {
-                    var url = "<?= base_url() . 'andon/general?' ?>"; // get selected value
+                    var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
                     var fix_url = querybuilder(url);
                     if (fix_url) { // require a URL
                         window.location = fix_url; // redirect
@@ -265,7 +265,7 @@
 
 
             $('#Shift').on('change', function() {
-                var url = "<?= base_url() . 'andon/general?' ?>"; // get selected value
+                var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
                 var fix_url = querybuilder(url);
                 if (fix_url) { // require a URL
                     window.location = fix_url; // redirect
@@ -274,7 +274,7 @@
             });
 
             $('#PS').on('change', function() {
-                var url = "<?= base_url() . 'andon/general?' ?>"; // get selected value
+                var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
                 var fix_url = querybuilder(url);
                 if (fix_url) { // require a URL
                     window.location = fix_url; // redirect

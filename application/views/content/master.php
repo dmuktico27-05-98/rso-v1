@@ -30,22 +30,18 @@
                                       $tab=$link[0].'_'.$link[1];
                                       $patan=$link[2];
                               if($tab=="tbl_master" OR $patan=="patan" ){?>
-                              <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
+                              <?php if($data_user_level=="Administrator" || $shop=="PPL" && $table=='tbl_master_part_ppl'){ ?>
+                                <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
+                                <?php } ?>
                               <div class="btn btn-default bg-blue" onclick="download('<?=$table;?>')"  title="download all"><i class="fa fa-download"></i></div>
                               <?php }
                               if($table=="tbl_user"){?>
                               <a href="<?=base_url('master/printidcard');?>" class="btn btn-default text-green" title="print id card" target="_blank"><i class="fa fa-print"></i></a>
                               <?php }
-                                if($table=="tbl_master_kanban"){?>
-                              <a href="<?=base_url('master/printkanban');?>" class="btn btn-default text-green" title="print kanban" target="_blank"><i class="fa fa-print"></i></a>
-                              <a onclick="printkanban1()" class="btn btn-default text-red" title="print kanban > 1" target="_blank"><i class="fa fa-print"></i></a>
-                              <?php }
                               if($table=="tbl_master_qr"){?>
                               <a href="<?=base_url('master/print_qr');?>" class="btn btn-default text-blue" title="print qrcode" target="_blank"><i class="fa fa-print"></i></a>
                               <?php }
-                              if($table=="tbl_master_pallet"){?>
-                              <div class="btn btn-default text-green" onclick="printpallet()"  title="print all"><i class="fa fa-print"></i></div>
-                              <?php } if($data_user_level=="Administrator"){?>
+                             if($data_user_level=="Administrator"){?>
                               <div class="btn btn-default text-red" onclick="delete_all('<?=$table;?>')"  title="delete all"><i class="fa fa-trash"></i></div>
                               <?php }
                               if($table=="tbl_planning" OR $table=="tbl_planning_special"){?>
@@ -156,7 +152,7 @@ $(document).ready(function() {
                 "className":"text-center" 
             },            
             ],     
-            "order": [[0, 'asc']],
+            "order": [[0, 'desc']],
             "ajax": {
             "url": "<?=base_url('master/get_data')?>",
             "type": "POST",          

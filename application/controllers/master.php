@@ -45,6 +45,7 @@ class Master extends CI_Controller{
 			 'otorisasi'=>$this->input->post('otorisasi'),
 			 'data_field'=>$data_field,
 			 'data_user_level'=>$this->user_level,
+			 'shop'=>$this->shop,
 			);
 			$this->load->view('content/master',$data);
 	}
@@ -70,6 +71,7 @@ class Master extends CI_Controller{
 			 'otorisasi'=>$this->input->post('otorisasi'),
 			 'data_field'=>$data_field,
 			 'data_user_level'=>$this->user_level,
+			 'shop'=>$this->shop,
 			);
 		
 			$this->load->view('content/transaction',$data);
@@ -101,6 +103,7 @@ class Master extends CI_Controller{
 		'table'=>$table,
 		'data_table'=>$query1->result_array(),
 		'data_field'=>$this->db->field_data($table),
+		'shop'=>$this->shop,
 		);
 		$this->load->view('content/dataexcel',$data);
 	}
@@ -127,36 +130,10 @@ class Master extends CI_Controller{
 			 'data_level'=>$this->db->query("select * from tbl_level where user_group='Admin' order by user_level asc")->result(),
 			 'data_menu'=>$this->db->query('select a.id,a.menuid,a.parent,a.tabel,a.nav,b.user_level,b.view_level,b.add_level,b.edit_level,
 			 b.delete_level from tbl_menu a INNER JOIN tbl_menu_user b on(a.menuid=b.menuid) order by a.orders,a.mother asc')->result(),
+			 'shop'=>$this->shop,
 			);	
 			$this->load->view('content/otorisasi',$data);
 	}
-
-function hrp(){	
-	$link1=$this->input->post('table');
-	$link=explode('-',$link1);
-	$table=$link[0];
-	$add_level=$link[1];
-	$edit_level=$link[2];
-	$delete_level=$link[3];
-	$url=$this->input->post('url');
-	$nav=$this->input->post('nav');
-	$print['id'] = $this->db->query("select hrp_id,print from tbl_hrp where print='nok' group by hrp_id limit 1")->row();
-	$data=array(
-	 'nav'=>$nav,
-	 'table'=>$table,
-	 'link'=>$link1,
-	 'url'=>$url,
-	 'add_level'=>$add_level,
-	 'edit_level'=>$edit_level,
-	 'delete_level'=>$delete_level,
-	 'shop'=>$this->shop,
-	 'level'=>$this->user_level,
-	 'print'=>$print['id']->print,
-	 'hrp'=>$this->db->query('select * from tbl_hrp order by hrp_id asc')->result(),
-	);
-		$this->load->view('content/hrp',$data);
-	
-}
     //==================== get data =====================
 	function get_data(){
 			ini_set('memory_limit','1024M');
@@ -862,7 +839,75 @@ function reset(){
 							$this->db->update('tbl_upload',array('progress' => $i,'success' => $no),array('tbl_name' => $table));
 							$i=$i+1;  																	
 						}
-					}elseif($table=='tbl_master_part'){
+					}elseif($table=='tbl_input_ppl'){
+						$this->db->truncate('tbl_input_ppl_temp');
+						date_default_timezone_set('Asia/Jakarta');
+						$nowtime = date('Y-m-d H:i:s');	
+															
+						$start = date('Y-m-d').' 07:15:00';
+						$end = date('Y-m-d').' 20:30:00';		
+				
+						$now = date('Y-m-d');
+						$past = date('Y-m-d',strtotime($now . "-1 days"));
+						$query = "";
+				
+						if($start <= $nowtime && $nowtime <= $end) {
+							$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+						}else{
+							if ($now.' 00:00:01' <= $nowtime && $nowtime <= $now.' 07:14:59') {
+								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";
+							}else{
+								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";
+							}
+						}
+						$patan =  $this->db->query("$query")->row()->patan;
+						$i=1;
+						$no=0;
+					for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
+						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+						$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
+						if($master['id'] && (trim($rowData[0][2]) != "")){							
+							$t_t = 465/$master['id']->maks_shift;
+							$t_t = round($t_t,2);
+							
+							$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
+							"job_no"=>$rowData[0][1],
+							"part_no"=>$master['id']->part_no,
+							"part_name"=>$master['id']->part_name,
+							"maks_shift"=>$master['id']->maks_shift,
+							"ps"=>$master['id']->patan,
+							"patan"=>$patan,
+							"t_t"=>$t_t,
+							"shift"=>$this->shift,
+							"shop_name"=>$this->shop,
+							"sto_ppl"=>$rowData[0][2],
+							"ss_ppl"=>(($t_t*$rowData[0][2])/465)*8,
+							"area"=>$master['id']->area,
+							"proses"=>$master['id']->proses,
+							"model"=>$master['id']->model,
+							"machine"=>$master['id']->machine,
+							"create_by"=>$this->nama,
+							"create_date"=>$nowtime,
+							);
+							
+								$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND patan = '".$data1['patan']."' AND DATE(`create_date`) = '$now'")->row();																										
+								if($found && $table=="tbl_input_ppl"){	
+									$ss = array(
+									"sto_ppl"=>$rowData[0][2],
+									"ss_ppl"=>(($t_t*$rowData[0][2])/465)*8,
+									);
+									$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
+								}else{
+									$this->db->insert($table,$data1); 
+									$this->db->insert('tbl_input_ppl_temp',$data1);
+								}									
+								$no=$no+1;																		
+								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+						}
+						$this->db->update('tbl_upload',array('progress' => $i,'success' => $no),array('tbl_name' => $table));
+						$i=$i+1;  																	
+					}
+				}elseif($table=='tbl_master_part'){
 						$this->db->truncate($table);
 						$i=1;
 							$no=1;
@@ -1223,16 +1268,30 @@ function reset(){
         $ef = $objPHPExcel->setACTIVESheetIndex(0);
         $ef->setCellValue($abjad[0].'1','no');
         $i=1;
+		if($this->shop!='PPL'){	
             foreach ($data_field as $value) {
-            	if($value->name!='id_check'){ if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
+            	if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
 				if($value->name!='maks_shift'){if($value->name!='patan'){if($value->name!='t_t'){if($value->name!='shift'){if($value->name!='shop_name'){if($value->name!='ss_p1'){
 					if($value->name!='ss_p4'){if($value->name!='ss_kap'){if($value->name!='ss_ppl'){if($value->name!='ss_process'){if($value->name!='create_by'){if($value->name!='create_date'){
 						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){
 	            	$ef->setCellValue($abjad[$i].'1', $value->name);
 	            	$i=$i+1;
-           		 }}}}}}}}}}}}}}}}}}}}
+           		 }}}}}}}}}}}}}}}}}}}
            		}
             }
+		}else{
+			foreach ($data_field as $value) {
+            	 if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
+				if($value->name!='maks_shift'){if($value->name!='patan'){if($value->name!='t_t'){if($value->name!='shift'){if($value->name!='shop_name'){if($value->name!='ss_p1'){
+					if($value->name!='ss_p4'){if($value->name!='ss_kap'){if($value->name!='ss_ppl'){if($value->name!='ss_process'){if($value->name!='create_by'){if($value->name!='create_date'){
+						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){
+							if($value->name!='sto_p1'){if($value->name!='sto_p4'){if($value->name!='sto_kap'){if($value->name!='sto_process'){
+	            	$ef->setCellValue($abjad[$i].'1', $value->name);
+	            	$i=$i+1;
+           		 }}}}}}}}}}}}}}}}}}}}}}}
+           		}
+            }
+		}
         
         $ex = $objPHPExcel->setACTIVESheetIndex(0);
         $no = 1;
@@ -1241,18 +1300,32 @@ function reset(){
         	$ex->setCellValue($abjad[0].$counter, $no);
         	$i=1;
         	$ex->setCellValue($abjad[$i].$counter, $i);
+			if($this->shop!='PPL'){	
 			foreach ($data_field as $low){	
-				if($low->name!='id_check'){ if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
+				 if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
 					if($low->name!='maks_shift'){if($low->name!='patan'){if($low->name!='t_t'){if($low->name!='shift'){if($low->name!='shop_name'){if($low->name!='ss_p1'){
 						if($low->name!='ss_p4'){if($low->name!='ss_kap'){if($low->name!='ss_ppl'){if($low->name!='ss_process'){if($low->name!='create_by'){if($low->name!='create_date'){
 							if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){
 			  		 $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
 	            	$i=$i+1;
-            	}}}}}}}}}}}}}}}}}}}}}
+            	}}}}}}}}}}}}}}}}}}}}
 		  	 }
+			}else{
+				foreach ($data_field as $low){	
+					if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
+					   if($low->name!='maks_shift'){if($low->name!='patan'){if($low->name!='t_t'){if($low->name!='shift'){if($low->name!='shop_name'){if($low->name!='ss_p1'){
+						   if($low->name!='ss_p4'){if($low->name!='ss_kap'){if($low->name!='ss_ppl'){if($low->name!='ss_process'){if($low->name!='create_by'){if($low->name!='create_date'){
+							   if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){
+								if($low->name!='sto_p1'){if($low->name!='sto_p4'){if($low->name!='sto_kap'){if($low->name!='sto_process'){
+						  $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
+					   $i=$i+1;
+				   }}}}}}}}}}}}}}}}}}}}}}}}
+				  }
+			}
 		  	 $counter = $counter+1;
 		  	 $no = $no+1;
 		}
+	
         
 		$ey = $objPHPExcel->setACTIVESheetIndex(0);
 		$counter = $counter+1;

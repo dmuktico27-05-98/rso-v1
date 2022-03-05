@@ -146,6 +146,59 @@ function save(){
 		}
 	echo json_encode($data);	
 	}
+
+	function merging(){
+		date_default_timezone_set('Asia/Jakarta');
+		$date = date('Y-m-d H:i:s');
+		$data = array ('success' => false, 'messages' => array());
+		$ppc = $this->db->query("select create_date from tbl_input_ppc order by create_date desc limit 1")->row();
+		$ppl_temp = $this->db->query("select * from tbl_input_ppl_temp")->result();
+		
+		foreach ($ppl_temp as $key) {
+			$x = $this->db->query("select * from tbl_input_ppc where job_no='".$key->job_no."' and create_date='".$ppc->create_date."' ")->row();
+			if(empty($x)){
+					$data1=array(
+					'job_no'=>$key->job_no,
+					'part_no'=>$key->part_no,
+					'part_name'=>$key->part_name,
+					'maks_shift'=>$key->maks_shift,
+					'ps'=>$key->ps,
+					'patan'=>$key->patan,
+					't_t'=>$key->t_t,
+					'shift'=>$key->shift,
+					'shop_name'=>$key->shop_name,
+					'sto_ppl'=>$key->sto_ppl,
+					'ss_ppl'=>$key->ss_ppl,
+					'sto_p1'=>0,
+					'sto_p4'=>0,
+					'sto_kap'=>0,
+					'sto_process'=>0,
+					'ss_p1'=>0,
+					'ss_p4'=>0,
+					'ss_kap'=>0,
+					'ss_process'=>0,
+					'area'=>$key->area,
+					'proses'=>$key->proses,
+					'model'=>$key->model,
+					'machine'=>$key->machine,
+					'create_by'=>$key->create_by,
+					'create_date'=>$ppc->create_date,
+					);
+					$this->db->insert('tbl_input_ppc',$data1);
+			}else{
+				$data1=array(
+					'sto_ppl'=>$key->sto_ppl,
+					'ss_ppl'=>$key->ss_ppl,
+					'create_by'=>$key->create_by,
+					'create_date'=>$ppc->create_date,
+					);
+					$this->db->update('tbl_input_ppc',$data1,array('job_no'=>$key->job_no,'create_date'=>$ppc->create_date));
+			}
+		}		
+				$data['success'] = true;
+		echo json_encode($data);
+
+	}
 	
 	function add_detail(){
 		$table= $this->input->post('table');
@@ -586,6 +639,7 @@ function save(){
 			);		
 	  $this->load->view('content/edit/edit_'.$table,$data);
 	}
+
 	public function edit_json() {
 		$id = $this->input->post('id');
 		$table = $this->input->post('table');
