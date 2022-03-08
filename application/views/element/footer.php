@@ -830,6 +830,51 @@ function menu(url,nav,table,otorisasi){
                 });
         } );  
      }
+
+     function merging_master(table){
+        swal({
+          title: "You sure merge ppl master to master pl1?",
+          text: "You will not be able to edit this file except administrator!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: 'btn-danger',
+          confirmButtonText: 'Yes',
+          closeOnConfirm: false,
+          //closeOnCancel: false
+        },
+        function(){
+           
+          $.ajax({  
+                type: "POST",
+                url : "<?=base_url('mastercrud/merging_master'); ?>",
+                data: "table="+table,
+                cache:false,
+                dataType: 'json',
+                success: function(data){
+                  if(data.success==true){
+                     swal({
+                        title: "Merging Success",
+                        text: "",
+                        type: "success",
+                        timer: 1200,
+                        showConfirmButton: false
+                      });
+                  fresh();
+                }else{
+                   swal({
+                        title: "Merging Failed",
+                        text: "Empty Data || Not Yet Setting",
+                        type: "warning",
+                        timer: 800,
+                        showConfirmButton: false
+                      });
+                  fresh();
+                }
+                 
+                  }
+                });
+        } );  
+     }
 </script>
 
 </body>

@@ -199,6 +199,55 @@ function save(){
 		echo json_encode($data);
 
 	}
+
+	function merging_master(){
+		date_default_timezone_set('Asia/Jakarta');
+		$date = date('Y-m-d H:i:s');
+		$data = array ('success' => false, 'messages' => array());
+		$ppl_master = $this->db->query("select * from tbl_master_part_ppl")->result();
+		
+		foreach ($ppl_master as $key) {
+			$x = $this->db->query("select * from tbl_master_part where job_no='".$key->job_no."' ")->row();
+			if(empty($x)){
+					$data1=array(
+					'job_no'=>$key->job_no,
+					'part_no'=>$key->part_no,
+					'part_name'=>$key->part_name,
+					'area'=>$key->area,
+					'proses'=>$key->proses,
+					'pcs_month'=>$key->pcs_month,
+					'maks_shift'=>$key->maks_shift,
+					'machine'=>$key->machine,
+					'model'=>$key->model,
+					'patan'=>$key->patan,
+					'routing'=>$key->routing,
+					"create_by"=>$this->nama,
+					"create_date"=>$date,
+					);
+					$this->db->insert('tbl_master_part',$data1);
+			}else{
+				$data1=array(
+					'job_no'=>$key->job_no,
+					'part_no'=>$key->part_no,
+					'part_name'=>$key->part_name,
+					'area'=>$key->area,
+					'proses'=>$key->proses,
+					'pcs_month'=>$key->pcs_month,
+					'maks_shift'=>$key->maks_shift,
+					'machine'=>$key->machine,
+					'model'=>$key->model,
+					'patan'=>$key->patan,
+					'routing'=>$key->routing,
+					"create_by"=>$this->nama,
+					"create_date"=>$date,
+					);
+					$this->db->update('tbl_master_part',$data1,array('job_no'=>$key->job_no));
+			}
+		}		
+				$data['success'] = true;
+		echo json_encode($data);
+
+	}
 	
 	function add_detail(){
 		$table= $this->input->post('table');

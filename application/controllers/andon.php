@@ -326,109 +326,6 @@ class Andon extends CI_Controller
 		$this->load->view('content/andon/andon_general',$data);
 	}
 
-	function ppl(){
-		date_default_timezone_set('Asia/Jakarta'); 
-		$nowtime = date('Y-m-d H:i:s');		
-		$start = date('Y-m-d').' 04:00:00';		
-		$end = date('Y-m-d').' 18:00:00';
-		$now = date('Y-m-d');		
-		$datemin = date('Y-m-d',strtotime($now . "-1 days"));		
-		$where = "";
-		$patan = "";
-		$shift = ""	;		
-				
-
-		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
-			$shift = $_GET["shift"];
-			$date = $_GET["date"];
-			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
-			if($shift == "Day"){
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
-				$patan = $this->db->query("$query")->row()->patan;				
-				$where = " Where `patan` = '$patan' AND DATE(`create_date`) = '$date'";
-			}else{
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
-				$patan = $this->db->query("$query")->row()->patan;	
-				$where = " Where `patan` = '$patan' AND DATE(`create_date`) = '$dateplus'";
-			}
-		}else{
-			if($start <= $nowtime && $nowtime <= $end) {
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
-				$patan = $this->db->query("$query")->row()->patan;			
-				$where = " Where `patan` = '$patan' AND DATE(`create_date`) = '$now'";	
-				$shift = 'Night';
-			}else{
-				if ($now.' 00:00:00' <= $nowtime && $nowtime <= $now.' 03:59:59') {
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'D'";						
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' AND DATE(`create_date`) = '$datemin'";		
-				}else{
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' AND DATE(`create_date`) = '$now'";		
-				}			
-				$shift = 'Day';						
-			}		
-		}	
-
-		if(isset($_GET["proses"] ) && $_GET["proses"] != ""){				
-			$proses = $_GET["proses"];			
-			$where = $where." and `proses` = '$proses'";			
-		}
-		
-		$models = $this->db->query("select model from tbl_input_ppl$where group by model")->result();
-		$machines = $this->db->query("select machine from tbl_input_ppl$where group by machine")->result();
-		$pss = $this->db->query("select ps from tbl_input_ppl$where group by ps")->result();		
-				
-		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
-			$model = $_GET["model"];			
-			$where = $where." and `model` = '$model'";			
-		}
-		if(isset($_GET["machine"] ) && $_GET["machine"] != ""){
-			$machine = $_GET["machine"];			
-			$where = $where." and `machine` = '$machine'";
-		}
-		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
-			$ps = $_GET["ps"];
-			$where = $where." and `ps` = '$ps'";
-		}				
-
-		$query = "select * from tbl_input_ppl$where order by (ss_ppl) ASC";						
-		$hasil = $this->db->query("$query")->result();	
-
-		$c = count($hasil)-1;
-		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
-		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
-		
-		$patern = "NULL";
-		switch ($patan) {
-			case 'A':
-				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";
-				break;
-			case 'B':
-				$patern = "PATAN B,PATAN C,PATAN D,PATAN A";
-				break;
-			case 'C':
-				$patern = "PATAN C,PATAN D,PATAN A,PATAN B";
-				break;
-			default:
-				$patern = "PATAN D,PATAN A,PATAN B,PATAN C";
-				break;
-		}		
-
-		$data = array('title' => 'Andon',							
-			'List' => $hasil,			
-			'Shift' => $shift,
-			'Models' => $models,
-			'Machines' => $machines,
-			'PSs' => $pss,
-			'pat' => explode( ',', $patern ),
-			'Scale' => 500 +(35*($c-1)),
-			'Tanggal' => $Tanggal,
-			'Jam' => $Jam);	
-		$this->load->view('content/andon/andon_ppl',$data);
-	}
-
 	function pdf(){
 		date_default_timezone_set('Asia/Jakarta'); 
 		$nowtime = date('Y-m-d H:i:s');		
@@ -629,6 +526,109 @@ class Andon extends CI_Controller
 		$this->load->view('content/andon/andon_ppc',$data);
 	}
 
+	public function ppl(){
+		date_default_timezone_set('Asia/Jakarta'); 
+		$nowtime = date('Y-m-d H:i:s');		
+		$start = date('Y-m-d').' 07:15:00';		
+		$end = date('Y-m-d').' 20:30:00';
+		$now = date('Y-m-d');		
+		$datemin = date('Y-m-d',strtotime($now . "-1 days"));		
+		$where = "";
+		$patan = "";
+		$shift = ""	;		
+					
+		
+		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
+			$shift = $_GET["shift"];
+			$date = $_GET["date"];
+			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
+			if($shift == "Day"){
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
+				$patan = $this->db->query("$query")->row()->patan;				
+				$where = " Where `patan` = '$patan' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
+			}else{
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
+				$patan = $this->db->query("$query")->row()->patan;				
+				$where = " Where `patan` = '$patan' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
+			}
+		}else{
+			if($start <= $nowtime && $nowtime <= $end) {
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+				$patan = $this->db->query("$query")->row()->patan;			
+				$where = " Where `patan` = '$patan' and (create_date>='$start' and create_date<='$end')";
+				$shift = 'Day';
+			}else{
+				if ($now.' 00:00:00' <= $nowtime && $nowtime <= $now.' 07:14:59') {
+					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
+					$patan = $this->db->query("$query")->row()->patan;	
+					$where = " Where `patan` = '$patan' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
+				}else{
+					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
+					$patan = $this->db->query("$query")->row()->patan;	
+					$where = " Where `patan` = '$patan' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
+				}							
+				$shift = 'Night';						
+			}		
+		}	
+		
+		$models = $this->db->query("select model from tbl_input_ppl$where group by model")->result();
+		$machines = $this->db->query("select machine from tbl_input_ppl$where group by machine")->result();
+		$pss = $this->db->query("select ps from tbl_input_ppl$where group by ps")->result();		
+		
+		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
+			$model = $_GET["model"];			
+			$where = $where." and `model` = '$model'";			
+		}
+		if(isset($_GET["machine"] ) && $_GET["machine"] != ""){
+			$machine = $_GET["machine"];			
+			$where = $where." and `machine` = '$machine'";
+		}
+		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
+			$ps = $_GET["ps"];
+			$where = $where." and `ps` = '$ps'";
+		}		
+
+		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";	
+		$hasil = $this->db->query("$query")->result();					
+		$querys = "select create_date from tbl_input_ppl$where group by create_date";						
+		$group = $this->db->query("$querys")->result();	
+		
+		$machine = $this->db->query("select machine from tbl_input_ppl$where group by machine")->result();
+		$ps = $this->db->query("select ps from tbl_input_ppl$where group by ps")->result();
+		$c = count($hasil)-1;
+		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
+		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
+				
+		$patern = "";
+		switch ($patan) {
+			case 'A':
+				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";
+				break;
+			case 'B':
+				$patern = "PATAN B,PATAN C,PATAN D,PATAN A";
+				break;
+			case 'C':
+				$patern = "PATAN C,PATAN D,PATAN A,PATAN B";
+				break;
+			default:
+				$patern = "PATAN D,PATAN A,PATAN B,PATAN C";
+				break;
+		}		
+
+		$data = array('title' => 'Andon',							
+			'List' => $hasil,			
+			'Shift' => $shift,
+			'Group' => $group,
+			'Models' => $models,
+			'Machines' => $machines,
+			'PSs' => $pss,
+			'pat' => explode( ',', $patern ),
+			'Scale' => 500 +(35*($c-1)),
+			'Tanggal' => $Tanggal,
+			'Jam' => $Jam);	
+		$this->load->view('content/andon/andon_ppl',$data);
+	}
+
 	function pdfppc(){
 		date_default_timezone_set('Asia/Jakarta'); 
 		$nowtime = date('Y-m-d H:i:s');		
@@ -722,5 +722,101 @@ class Andon extends CI_Controller
 			'Tanggal' => $Tanggal,
 			'Jam' => $Jam);	
 		$this->load->view('content/andon/pdfppc',$data);
-	}		
+	}	
+	
+	function pdfppl(){
+		date_default_timezone_set('Asia/Jakarta'); 
+		$nowtime = date('Y-m-d H:i:s');		
+		$start = date('Y-m-d').' 07:15:00';		
+		$end = date('Y-m-d').' 20:30:00';
+		$now = date('Y-m-d');		
+		$datemin = date('Y-m-d',strtotime($now . "-1 days"));		
+		$where = "";
+		$patan = "";
+		$shift = ""	;		
+					
+		
+		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
+			$shift = $_GET["shift"];
+			$date = $_GET["date"];
+			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
+			if($shift == "Day"){
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
+				$patan = $this->db->query("$query")->row()->patan;				
+				$where = " Where `patan` = '$patan' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
+			}else{
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
+				$patan = $this->db->query("$query")->row()->patan;				
+				$where = " Where `patan` = '$patan' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
+			}
+		}else{
+			if($start <= $nowtime && $nowtime <= $end) {
+				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+				$patan = $this->db->query("$query")->row()->patan;			
+				$where = " Where `patan` = '$patan' and (create_date>='$start' and create_date<='$end')";
+				$shift = 'Day';
+			}else{
+				if ($now.' 00:00:00' <= $nowtime && $nowtime <= $now.' 07:14:59') {
+					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
+					$patan = $this->db->query("$query")->row()->patan;	
+					$where = " Where `patan` = '$patan' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
+				}else{
+					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
+					$patan = $this->db->query("$query")->row()->patan;	
+					$where = " Where `patan` = '$patan' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
+				}							
+				$shift = 'Night';						
+			}		
+		}	
+
+		
+		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
+			$model = $_GET["model"];			
+			$where = $where." and `model` = '$model'";			
+		}
+		if(isset($_GET["machine"] ) && $_GET["machine"] != ""){
+			$machine = $_GET["machine"];			
+			$where = $where." and `machine` = '$machine'";
+		}
+		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
+			$ps = $_GET["ps"];
+			$where = $where." and `ps` = '$ps'";
+		}		
+
+		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";	
+		$hasil = $this->db->query("$query")->result();					
+		$querys = "select create_date from tbl_input_ppl$where group by create_date";						
+		$group = $this->db->query("$querys")->result();			
+
+		$c = count($hasil)-1;
+		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
+		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
+		
+		$patern = "";
+		switch ($patan) {
+			case 'A':
+				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";
+				break;
+			case 'B':
+				$patern = "PATAN B,PATAN C,PATAN D,PATAN A";
+				break;
+			case 'C':
+				$patern = "PATAN C,PATAN D,PATAN A,PATAN B";
+				break;
+			default:
+				$patern = "PATAN D,PATAN A,PATAN B,PATAN C";
+				break;
+		}		
+
+		$data = array('title' => 'Andon',				
+			'List' => $hasil,			
+			'Shift' => $shift,
+			'Group' => $group,
+			'pat' => explode( ',', $patern ),
+			'Scale' => 500 +(35*($c-1)),
+			'Tanggal' => $Tanggal,
+			'Jam' => $Jam);	
+		$this->load->view('content/andon/pdfppl',$data);
+	}
+	
 }

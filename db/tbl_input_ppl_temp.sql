@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2022 at 12:37 PM
+-- Generation Time: Mar 08, 2022 at 03:38 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -54,16 +54,11 @@ CREATE TABLE `tbl_input_ppl_temp` (
 --
 
 INSERT INTO `tbl_input_ppl_temp` (`id`, `job_no`, `part_no`, `part_name`, `maks_shift`, `ps`, `patan`, `t_t`, `shift`, `shop_name`, `sto_ppl`, `ss_ppl`, `area`, `proses`, `model`, `machine`, `create_by`, `create_date`) VALUES
-(1, 'J-4053', '53811-BZ350', 'J-4053, PANEL, FR FENDER, RH', 1, 'TERIYOU', NULL, 465, 'A', 'PPL', 15, '120', 'WH Docking', 'Inhouse', 'D17D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(2, 'K-3007', '63111-BZ150', 'K-3007, PANEL ROOF', 91, 'B', NULL, 5, 'A', 'PPL', 50, '4', 'WH Docking', 'Inhouse', 'D40D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(3, 'K-3005', '63111-BZ120', 'K-3005, PANEL ROOF', 20, 'B', NULL, 23, 'A', 'PPL', 90, '36', 'WH Docking', 'Inhouse', 'D40D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(4, 'T-4032', '61745-BZ110', 'T-4032, REINF, BACK DOOR OPENING, LWR RH', 285, 'AC', NULL, 2, 'A', 'PPL', 100, '3', 'WH Docking', 'Inhouse', 'D14N', '3B', 'User PPL', '2022-03-05 16:59:12'),
-(5, 'J-4060', '53812-BZ380', 'J-4060, PANEL, FR FENDER, LH', 1, 'TERIYOU', NULL, 465, 'A', 'PPL', 150, '1200', 'WH Docking', 'Inhouse', 'D17D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(6, 'J-4054', '53812-BZ350', 'J-4054, PANEL, FR FENDER, LH', 1, 'TERIYOU', NULL, 465, 'A', 'PPL', 50, '400', 'WH Docking', 'Inhouse', 'D17D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(7, 'J-4059', '53811-BZ380', 'J-4059, PANEL, FR FENDER, RH', 1, 'TERIYOU', NULL, 465, 'A', 'PPL', 17, '136', 'WH Docking', 'Inhouse', 'D17D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(8, 'K-3007', '63111-BZ150', 'K-3007, PANEL ROOF', 91, 'B', NULL, 5, 'A', 'PPL', 30, '3', 'WH Docking', 'Inhouse', 'D40D', '5A', 'User PPL', '2022-03-05 16:59:12'),
-(9, 'J-2084', '61111-BZA60   ', 'J-2084, PANEL, SIDE, OUTER RH', 2, 'TEIRYO', NULL, 233, 'A', 'PPL', 15, '60', 'WH Docking', 'Inhouse', 'D17D', '4A', 'User PPL', '2022-03-05 16:59:12'),
-(10, 'J-2057', '61112-BZ581', 'J-2057, PANEL, SIDE, OUTER LH', 5, 'TEIRYO', NULL, 93, 'A', 'PPL', 50, '80', 'WH Docking', 'Inhouse', 'D17D', '4A', 'User PPL', '2022-03-05 16:59:12');
+(1, 'A4041', '67149-BZ590', 'A-4041, PANEL, BACK DOOR, INSIDE', 317, 'ABCD', 'A', 1, 'A', 'PPL', 20, '1', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
+(2, 'A4042', '67149-BZ610', 'A-4042, PANEL, BACK DOOR, INSIDE', 102, 'ABCD', 'A', 5, 'A', 'PPL', 70, '5', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
+(3, 'A4039', '67147-BZ190', 'A-4039, PANEL, RR DOOR HINGE SIDE, RH', 414, 'AC', 'A', 1, 'A', 'PPL', 30, '1', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
+(4, 'A4040', '67148-BZ190', 'A-4040, PANEL, RR DOOR HINGE SIDE, LH', 414, 'AC', 'A', 1, 'A', 'PPL', 10, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
+(5, 'A4031', '67133-BZ100', 'A-4031, EXT,FR DOOR OUTSIDE PNL REINF,RR', 414, 'AC', 'A', 1, 'A', 'PPL', 15, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02');
 
 --
 -- Indexes for dumped tables
@@ -83,7 +78,7 @@ ALTER TABLE `tbl_input_ppl_temp`
 -- AUTO_INCREMENT for table `tbl_input_ppl_temp`
 --
 ALTER TABLE `tbl_input_ppl_temp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

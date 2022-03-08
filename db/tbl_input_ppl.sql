@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2022 at 12:37 PM
+-- Generation Time: Mar 08, 2022 at 03:38 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -73,7 +73,12 @@ INSERT INTO `tbl_input_ppl` (`id`, `job_no`, `part_no`, `part_name`, `maks_shift
 (17, 'J-4059', '53811-BZ380', 'J-4059, PANEL, FR FENDER, RH', 1, 'TERIYOU', NULL, 465, 'A', 'PPL', 17, '136', 'WH Docking', 'Inhouse', 'D17D', '5A', 'User PPL', '2022-03-05 16:59:12'),
 (18, 'K-3007', '63111-BZ150', 'K-3007, PANEL ROOF', 91, 'B', NULL, 5, 'A', 'PPL', 30, '3', 'WH Docking', 'Inhouse', 'D40D', '5A', 'User PPL', '2022-03-05 16:59:12'),
 (19, 'J-2084', '61111-BZA60   ', 'J-2084, PANEL, SIDE, OUTER RH', 2, 'TEIRYO', NULL, 233, 'A', 'PPL', 15, '60', 'WH Docking', 'Inhouse', 'D17D', '4A', 'User PPL', '2022-03-05 16:59:12'),
-(20, 'J-2057', '61112-BZ581', 'J-2057, PANEL, SIDE, OUTER LH', 5, 'TEIRYO', NULL, 93, 'A', 'PPL', 50, '80', 'WH Docking', 'Inhouse', 'D17D', '4A', 'User PPL', '2022-03-05 16:59:12');
+(20, 'J-2057', '61112-BZ581', 'J-2057, PANEL, SIDE, OUTER LH', 5, 'TEIRYO', NULL, 93, 'A', 'PPL', 50, '80', 'WH Docking', 'Inhouse', 'D17D', '4A', 'User PPL', '2022-03-05 16:59:12'),
+(21, 'A4041', '67149-BZ590', 'A-4041, PANEL, BACK DOOR, INSIDE', 317, 'ABCD', 'A', 1, 'A', 'PPL', 20, '1', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
+(22, 'A4042', '67149-BZ610', 'A-4042, PANEL, BACK DOOR, INSIDE', 102, 'ABCD', 'A', 5, 'A', 'PPL', 70, '5', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
+(23, 'A4039', '67147-BZ190', 'A-4039, PANEL, RR DOOR HINGE SIDE, RH', 414, 'AC', 'A', 1, 'A', 'PPL', 30, '1', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
+(24, 'A4040', '67148-BZ190', 'A-4040, PANEL, RR DOOR HINGE SIDE, LH', 414, 'AC', 'A', 1, 'A', 'PPL', 10, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
+(25, 'A4031', '67133-BZ100', 'A-4031, EXT,FR DOOR OUTSIDE PNL REINF,RR', 414, 'AC', 'A', 1, 'A', 'PPL', 15, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02');
 
 --
 -- Indexes for dumped tables
@@ -93,7 +98,7 @@ ALTER TABLE `tbl_input_ppl`
 -- AUTO_INCREMENT for table `tbl_input_ppl`
 --
 ALTER TABLE `tbl_input_ppl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

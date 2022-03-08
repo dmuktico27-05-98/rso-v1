@@ -925,6 +925,7 @@ function reset(){
 								"machine"=>$rowData[0][8],
 								"model"=>$rowData[0][9],
 								"patan"=>$rowData[0][10],
+								"routing"=>$rowData[0][11],
 								"create_by"=>$this->nama,
 								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
 			
@@ -984,6 +985,36 @@ function reset(){
 									
 								}
 								                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
+								$no=$no+1;
+								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
+								$i=$i+1;
+								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
+			
+						}
+					}elseif($table=='tbl_master_part_ppl'){
+						$this->db->truncate($table);
+						$i=1;
+							$no=1;
+							for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
+							   $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+							   
+							   $data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
+								"job_no"=>$rowData[0][1],
+								"part_no"=>$rowData[0][2],
+								"part_name"=>$rowData[0][3],
+								"area"=>$rowData[0][4],
+								"proses"=>$rowData[0][5],
+								"pcs_month"=>$rowData[0][6],
+								"maks_shift"=>$rowData[0][7],
+								"machine"=>$rowData[0][8],
+								"model"=>$rowData[0][9],
+								"patan"=>$rowData[0][10],
+								"routing"=>$rowData[0][11],
+								"create_by"=>$this->nama,
+								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
+			
+								);
+								$insert = $this->db->insert($table, $data1);                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
 								$no=$no+1;
 								$this->db->query("UPDATE tbl_upload SET progress='".$i."',success='".$no."' WHERE  tbl_name='".$table."'"); 
 								$i=$i+1;
