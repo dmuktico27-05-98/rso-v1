@@ -197,7 +197,6 @@ function save(){
 		}		
 				$data['success'] = true;
 		echo json_encode($data);
-
 	}
 
 	function merging_master(){
@@ -918,7 +917,6 @@ function save(){
 				foreach ($_POST as $key => $value) {
 				 	$data['messages'][$key] = form_error($key);
 				}			
-
 			}
 		}elseif($table=="tbl_master_shop"){
 			$this->form_validation->set_rules('shop_name', 'Shop_name', 'trim|required');
@@ -937,7 +935,6 @@ function save(){
 				foreach ($_POST as $key => $value) {
 				 	$data['messages'][$key] = form_error($key);
 				}			
-
 			}
 		}elseif($table=="tbl_input_ppc" || $table=="tbl_input_general"){
 			$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$this->input->post('job_no')."' limit 1 ")->row();
@@ -979,6 +976,48 @@ function save(){
 				 	$data['messages'][$key] = form_error($key);
 				}			
 
+			}
+		}elseif($table=="tbl_master_part"){
+			$mst = $this->db->query("select * from ".$table." where id='".$id."' ")->row();
+			$x = $this->db->query("select * from ".$table." ")->result();
+			$this->form_validation->set_rules('machine', 'Machine', 'trim|required');
+			$this->form_validation->set_rules('patan', 'Patan', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if($this->form_validation->run()) {	
+				foreach ($x as $key) { if($key->job_master==$mst->job_master){
+					$data1=array(
+						'machine'=>$this->input->post('machine'),
+						'patan'=>$this->input->post('patan'),
+						);
+						$this->db->update($table,$data1,array('job_master'=>$mst->job_master));
+					}
+				}
+					$data['success'] = true;
+				}else{
+				foreach ($_POST as $key => $value) {
+				 	$data['messages'][$key] = form_error($key);
+				}			
+			}
+		}elseif($table=="tbl_master_part_ppl"){
+			$mst = $this->db->query("select * from ".$table." where id='".$id."' ")->row();
+			$x = $this->db->query("select * from ".$table." ")->result();
+			$this->form_validation->set_rules('machine', 'Machine', 'trim|required');
+			$this->form_validation->set_rules('patan', 'Patan', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if($this->form_validation->run()) {	
+				foreach ($x as $key) { if($key->job_master==$mst->job_master){
+					$data1=array(
+						'machine'=>$this->input->post('machine'),
+						'patan'=>$this->input->post('patan'),
+						);
+						$this->db->update($table,$data1,array('job_master'=>$mst->job_master));
+					}
+				}
+					$data['success'] = true;
+				}else{
+				foreach ($_POST as $key => $value) {
+				 	$data['messages'][$key] = form_error($key);
+				}			
 			}
 		}
 

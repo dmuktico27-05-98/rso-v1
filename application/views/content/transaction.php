@@ -148,7 +148,7 @@ $(document).ready(function() {
                 "className":"text-center" 
             },            
             ],     
-            "order": [[1, 'desc']],
+            "order": [[0, 'desc']],
             "ajax": {
             "url": "<?=base_url('master/get_data')?>",
             "type": "POST",          
@@ -203,61 +203,6 @@ $(window).resize(function(){
     $('#mytable').closest('.dataTables_scrollBody').css('height',tinggi);
   })
 
-</script>
-<script type="text/javascript"> 
-    function printkanban1(){
-           $.ajax({
-              url: '<?=base_url('master/data_job');?>',
-              dataType: 'json',
-              success: function(data) {                
-                  var options = {};
-                  $.map(data,
-                      function(o) {
-                          options[o.id] = o.job_no;
-                      });
-                   Swal.fire({
-                      title: "Print",
-                      text: " Kanban",
-                      input: "select",
-                      icon: "question",
-                      allowOutsideClick:true,
-                      inputOptions: options,
-                      inputPlaceholder: 'Pilih Job No',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Submit!',
-                      heightAuto: false,
-                      inputValidator: (value) => {
-                      return new Promise((resolve) => {
-                           
-                               if (value=='') {
-                                   resolve('Silahkan Pilih Job No')
-                                }else{
-                                   resolve()
-                                   $("<iframe id='printabel'>")    
-                                      .hide()                     
-                                      .attr("src", "<?=base_url('master/printkanban1');?>/"+value) 
-                                      .appendTo("body"); 
-
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Print Kanban sukses',
-                                        text:'',
-                                        showConfirmButton: false,
-                                        heightAuto: false,
-                                        timer: 1500
-                                      })
-
-                            }
-                        })
-                    }
-            
-            })  
-
-      }
-    })
-  }
 </script>
  
 

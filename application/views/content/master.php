@@ -33,7 +33,9 @@
                               <?php if($data_user_level=="Administrator" || $shop=="PPL" && $table=='tbl_master_part_ppl'){ ?>
                                 <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
                                 <div class="btn btn-default text-blue" onclick="merging_master('<?=$table;?>')"  title="Merge Master">Merging</div>
-                                <?php } ?>
+                                <?php }if($shop=="PPC" && $table=='tbl_master_part'){ ?>
+                                  <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
+                                  <?php } ?>
                               <div class="btn btn-default bg-blue" onclick="download('<?=$table;?>')"  title="download all"><i class="fa fa-download"></i></div>
                               <?php }
                               if($table=="tbl_user"){?>
@@ -142,7 +144,7 @@ $(document).ready(function() {
             "pagingType": "full_numbers",
             "AutoWidth": true,
             "pageResize": true,
-            "pageLength" :20,
+            "pageLength" :100,
              "targets": 'no-sort',
             "bSort": false,
             "aLengthMenu":[[10,20,25,50,100],[10,20,25,50,100]],
@@ -153,7 +155,7 @@ $(document).ready(function() {
                 "className":"text-center" 
             },            
             ],     
-            "order": [[0, 'desc']],
+            "order": [[0, 'asc']],
             "ajax": {
             "url": "<?=base_url('master/get_data')?>",
             "type": "POST",          
@@ -209,61 +211,6 @@ $(window).resize(function(){
     $('#mytable').closest('.dataTables_scrollBody').css('height',tinggi);
   })
 
-</script>
-<script type="text/javascript"> 
-    function printkanban1(){
-           $.ajax({
-              url: '<?=base_url('master/data_job');?>',
-              dataType: 'json',
-              success: function(data) {                
-                  var options = {};
-                  $.map(data,
-                      function(o) {
-                          options[o.id] = o.job_no;
-                      });
-                   Swal.fire({
-                      title: "Print",
-                      text: " Kanban",
-                      input: "select",
-                      icon: "question",
-                      allowOutsideClick:true,
-                      inputOptions: options,
-                      inputPlaceholder: 'Pilih Job No',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Submit!',
-                      heightAuto: false,
-                      inputValidator: (value) => {
-                      return new Promise((resolve) => {
-                           
-                               if (value=='') {
-                                   resolve('Silahkan Pilih Job No')
-                                }else{
-                                   resolve()
-                                   $("<iframe id='printabel'>")    
-                                      .hide()                     
-                                      .attr("src", "<?=base_url('master/printkanban1');?>/"+value) 
-                                      .appendTo("body"); 
-
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Print Kanban sukses',
-                                        text:'',
-                                        showConfirmButton: false,
-                                        heightAuto: false,
-                                        timer: 1500
-                                      })
-
-                            }
-                        })
-                    }
-            
-            })  
-
-      }
-    })
-  }
 </script>
  
 
