@@ -440,7 +440,7 @@
   var options = {
           series: [{
           name: 'STO P1',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          data: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
         <?=$row->ss_p1;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -448,7 +448,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO P4',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          data: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
         <?=$row->ss_p4;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -456,7 +456,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO KAP',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          data: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
         <?=$row->ss_kap;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -464,7 +464,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO PPL',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          data: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
         <?=$row->ss_ppl;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -472,7 +472,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO Repair',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          data: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
         <?=$row->ss_process;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -497,7 +497,7 @@
           text: 'STO PPC UPDATE'
         },
         xaxis: {
-          categories: [<?php $x = $this->db->query("select job_no from tbl_input_ppc")->num_rows();$x=$x+1; foreach($ppc_table as $row){ ?>
+          categories: [<?php $x = $count_ppc;$x=$x+1; foreach($ppc_table as $row){ ?>
             '<?=$row->job_no;?>',
             <?php }  if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){ ?>
@@ -540,7 +540,7 @@
   var options = {
           series: [{
           name: 'STO P1',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          data: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
         <?=$row->ss_p1;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -548,7 +548,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO P4',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          data: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
         <?=$row->ss_p4;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -556,7 +556,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO KAP',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          data: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
         <?=$row->ss_kap;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -564,7 +564,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO PPL',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          data: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
         <?=$row->ss_ppl;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -572,7 +572,7 @@
                             <?php }} ?>]
         }, {
           name: 'STO Repair',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          data: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
         <?=$row->ss_process;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -597,7 +597,7 @@
           text: 'STO GENERAL/WH PRESS UPDATE'
         },
         xaxis: {
-          categories: [<?php $x = $this->db->query("select job_no from tbl_input_general")->num_rows();$x=$x+1; foreach($general_table as $row){ ?>
+          categories: [<?php $x = $count_gen;$x=$x+1; foreach($general_table as $row){ ?>
             '<?=$row->job_no;?>',
             <?php }  if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){ ?>
@@ -639,7 +639,7 @@
   var options = {
           series: [{
           name: 'STO PPL',
-          data: [<?php $x = $this->db->query("select job_no from tbl_input_ppl")->num_rows();$x=$x+1; foreach($ppl_table as $row){ ?>
+          data: [<?php $x = $count_ppl;$x=$x+1; foreach($ppl_table as $row){ ?>
         <?=$row->ss_ppl;?>,
         <?php } if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){?>
@@ -664,7 +664,7 @@
           text: 'STO PPL UPDATE'
         },
         xaxis: {
-          categories: [<?php $x = $this->db->query("select job_no from tbl_input_ppl")->num_rows();$x=$x+1; foreach($ppl_table as $row){ ?>
+          categories: [<?php $x = $count_ppl;$x=$x+1; foreach($ppl_table as $row){ ?>
             '<?=$row->job_no;?>',
             <?php }  if($x<5){ $j=5-$x+1;
                             for($s=$x;$s<=5;$s++){ ?>

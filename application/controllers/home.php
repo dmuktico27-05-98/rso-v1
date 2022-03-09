@@ -54,6 +54,9 @@ function index(){
 					'ppc_table'=>$this->db->query("select * from tbl_input_ppc where create_date='".$ppc->create_date."' order by ss_p1+ss_p4+ss_kap+ss_ppl+ss_process asc limit 10")->result(),
 					'general_table'=>$this->db->query("select * from tbl_input_general where create_date='".$general->create_date."' order by ss_p1+ss_p4+ss_kap+ss_ppl+ss_process asc limit 10")->result(),
 					'ppl_table'=>$this->db->query("select * from tbl_input_ppl where create_date='".$ppl->create_date."' order by ss_ppl asc limit 10")->result(),
+					'count_ppc'=>$this->db->query("select job_no from tbl_input_ppc")->num_rows(),
+					'count_gen'=>$this->db->query("select job_no from tbl_input_general")->num_rows(),
+					'count_ppl'=>$this->db->query("select job_no from tbl_input_ppl")->num_rows(),
 				);
 				
 					$this->load->view('element/header',$data1);

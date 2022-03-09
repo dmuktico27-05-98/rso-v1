@@ -588,7 +588,7 @@ class Andon extends CI_Controller
 			$where = $where." and `ps` = '$ps'";
 		}		
 
-		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";	
+		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";
 		$hasil = $this->db->query("$query")->result();					
 		$querys = "select create_date from tbl_input_ppl$where group by create_date";						
 		$group = $this->db->query("$querys")->result();	
