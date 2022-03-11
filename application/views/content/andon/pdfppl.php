@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url() ?>dist/css/adminlte.min.css">
+  <style>
+        .invalid {
+            background-color: red;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper">
@@ -21,10 +27,10 @@
             </td>
             <td class="bg-dark">
                 <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"])?$_GET["machine"]:""?></h2>
-                <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
+                <h1 class="text-center display-6">PT. Astra Daihatsu Motor Assembly Plant</h2>
             </td>
             <td width="15%" class="bg-danger">
-                <h3 class="text-center display-5"><?= $pat[0] ?></h3>
+                <h3 class="text-center display-5">RSO PPL</h3>
                 <table width="100%">               
                     <tr>
                         <td width="40%" class="pl-2">
@@ -88,7 +94,7 @@
                                     <td><?= $key->maks_shift; ?></td>
                                      <td><?= $key->t_t; ?></td>
                                      <td><?= $key->sto_ppl; ?></td>
-                                     <td><?= $key->ss_ppl;?>
+                                     <td <?= $key->ss_ppl<=4?'class="invalid"':'';?>><?= $key->ss_ppl;?>
                                     <td class="pl-0">
                                         <div class="bg-info text-right pr-1 position-absolute" style="width: <?= $ppl > 47 ? 47 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
                                     </td>
@@ -116,10 +122,10 @@
 <script src="<?php echo base_url() ?>dist/js/adminlte.js"></script>
 
 <script src="<?php echo base_url() ?>plugins/html2pdf/html2pdf.bundle.min.js"></script>
-<!-- 
+
 <script>  
   var opt = {  
-  filename:     'myfile.pdf',
+  filename:     'Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?>',
   image:        { type: 'jpeg', quality: 0.98 },
   html2canvas:  { scale: 2},
   jsPDF:        { unit: 'px', format: 'a3', orientation: 'l', hotfixes: ["px_scaling"] }
@@ -127,7 +133,7 @@
 
 const print = this.document.getElementById("print");
 html2pdf().set(opt).from(print).save();
-</script> -->
+</script>
 
 
 </body>

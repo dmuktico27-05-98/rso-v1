@@ -59,10 +59,10 @@
             </td>
             <td class="bg-dark">
               <h2 class="text-center display-5">Andon Rundown Stock <?= $Shift ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?></h2>
-              <h1 class="text-center display-6">PT. Astra Daihatsu Motor Stamping Plant</h2>
+              <h1 class="text-center display-6">PT. Astra Daihatsu Motor Assembly Plant</h2>
             </td>
             <td width="15%" style="word-wrap: break-word;" class="bg-danger">
-            <h3 class="text-center display-5 mb-0"><?= $pat[0] ?></h3>
+            <h3 class="text-center display-5 mb-0">RSO PPL</h3>
                             <h5 class="display-5 text-center">
                                 <?= strtoupper(gmdate('d-m-Y', time() + 60 * 60 * 7)); ?>
                                 <span id="clock"><?= gmdate('H:i:s', time() + 60 * 60 * 7); ?></span>
