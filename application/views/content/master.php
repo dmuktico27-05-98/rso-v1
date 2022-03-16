@@ -32,12 +32,9 @@
                               if($tab=="tbl_master" OR $patan=="patan" ){?>
                               <?php if($data_user_level=="Administrator" || $shop=="PPL" && $table=='tbl_master_part_ppl'){ ?>
                                 <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
-                                <div class="btn btn-default text-blue" onclick="merging_master('<?=$table;?>')"  title="Merge Master">Merging</div>
-                                <?php }if($shop=="PPC" && $table=='tbl_master_part'){ ?>
-                                  <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
-                                  <?php } ?>
+                                <!-- <div class="btn btn-default text-blue" onclick="merging_master('<?=$table;?>')"  title="Merge Master">Merging</div> -->
                               <div class="btn btn-default bg-blue" onclick="download('<?=$table;?>')"  title="download all"><i class="fa fa-download"></i></div>
-                              <?php }
+                              <?php }}
                               if($table=="tbl_user"){?>
                               <a href="<?=base_url('master/printidcard');?>" class="btn btn-default text-green" title="print id card" target="_blank"><i class="fa fa-print"></i></a>
                               <?php }

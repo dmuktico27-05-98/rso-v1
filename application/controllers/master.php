@@ -786,6 +786,7 @@ function reset(){
 								
 								$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
 								"job_no"=>$rowData[0][1],
+								"job_master"=>$master['id']->job_master,
 								"part_no"=>$master['id']->part_no,
 								"part_name"=>$master['id']->part_name,
 								"maks_shift"=>$master['id']->maks_shift,
@@ -852,54 +853,77 @@ function reset(){
 						$query = "";
 				
 						if($start <= $nowtime && $nowtime <= $end) {
-							$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+							$query = "Select `shift`,`dates` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
 						}else{
 							if ($now.' 00:00:01' <= $nowtime && $nowtime <= $now.' 07:14:59') {
-								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";
+								$query = "Select `shift`,`dates` from `tbl_master_patan` Where `dates` = '$past' AND `shift` = 'N'";
 							}else{
-								$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";
+								$query = "Select `shift`,`dates` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";
 							}
 						}
-						$patan =  $this->db->query("$query")->row()->patan;
+						$shift =  $this->db->query("$query")->row()->shift;
+						$dates = $this->db->query("$query")->row()->dates;
+						
 						$i=1;
 						$no=0;
 					for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array
 						$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
-						$master['id'] = $this->db->query("select * from tbl_master_part where job_no='".$rowData[0][1]."' limit 1")->row();
+						$master['id'] = $this->db->query("select * from tbl_master_part_ppl where job_no='".$rowData[0][1]."' limit 1")->row();
 						if($master['id'] && (trim($rowData[0][2]) != "")){							
-							$t_t = 465/$master['id']->maks_shift;
-							$t_t = round($t_t,2);
-							
+							$plan_jam = $master['id']->prod_shift/8;
+							$plan_jam = round($plan_jam,2);
+							$ss = $rowData[0][2] + $rowData[0][3] + $rowData[0][4];
+							// $ss = (($plan_jam*$ss)/465)*8;
+							$ss = $ss/$plan_jam;
+							if($shift=="D"){
+								$t = date('H:i', strtotime('07:25')+(60*$ss*60));
+								$x = "Day";
+							}else{
+								$t = date('H:i', strtotime('20:30')+(60*$ss*60));
+								$x = "Night";
+							}
+
 							$data1 = array(                                                      // Sesuaikan sama nama kolom tabel di database
 							"job_no"=>$rowData[0][1],
+							"job_master"=>$master['id']->job_master,
 							"part_no"=>$master['id']->part_no,
 							"part_name"=>$master['id']->part_name,
-							"maks_shift"=>$master['id']->maks_shift,
-							"ps"=>$master['id']->patan,
-							"patan"=>$patan,
-							"t_t"=>$t_t,
-							"shift"=>$this->shift,
+							"part_category"=>$master['id']->part_category,
 							"shop_name"=>$this->shop,
+							"shift"=> $shift,
+							"prod_shift"=>$master['id']->prod_shift,
+							"plan_jam"=>$plan_jam,
 							"sto_ppl"=>$rowData[0][2],
-							"ss_ppl"=>(($t_t*$rowData[0][2])/465)*8,
+							"receive"=>$rowData[0][3],
+							"otw"=>$rowData[0][4],
+							"ss_ppl"=>$rowData[0][2]/$plan_jam,
+							"ss_r"=>$rowData[0][3]/$plan_jam,
+							"ss_otw"=>$rowData[0][4]/$plan_jam,
+							// "ss_otw"=>(($plan_jam*$rowData[0][4])/465)*8,
+							"ss"=>$ss,
 							"area"=>$master['id']->area,
-							"proses"=>$master['id']->proses,
 							"model"=>$master['id']->model,
-							"machine"=>$master['id']->machine,
+							"vendor"=>$master['id']->vendor,
+							"routing"=>$master['id']->routing,
+							"jam"=>$t,
 							"create_by"=>$this->nama,
 							"create_date"=>$nowtime,
 							);
-							
-								$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND patan = '".$data1['patan']."' AND DATE(`create_date`) = '$now'")->row();																										
+							$this->db->insert('tbl_input_ppl_temp',$data1);
+								$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND shift = '".$data1['shift']."' AND DATE(`create_date`) = '$now'")->row();																										
 								if($found && $table=="tbl_input_ppl"){	
 									$ss = array(
-									"sto_ppl"=>$rowData[0][2],
-									"ss_ppl"=>(($t_t*$rowData[0][2])/465)*8,
+										"sto_ppl"=>$rowData[0][2],
+										"receive"=>$rowData[0][3],
+										"otw"=>$rowData[0][4],
+										"ss_ppl"=>$rowData[0][2]/$plan_jam,
+										"ss_r"=>$rowData[0][3]/$plan_jam,
+										"ss_otw"=>$rowData[0][4]/$plan_jam,
+										"ss"=>$ss,
 									);
-									$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
+									$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'shift' => $data1['shift'], 'DATE(`create_date`)' => $now));																				
 								}else{
 									$this->db->insert($table,$data1); 
-									$this->db->insert('tbl_input_ppl_temp',$data1);
 								}									
 								$no=$no+1;																		
 								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
@@ -1007,10 +1031,10 @@ function reset(){
 								"area"=>$rowData[0][5],
 								"proses"=>$rowData[0][6],
 								"pcs_month"=>$rowData[0][7],
-								"maks_shift"=>$rowData[0][8],
-								"machine"=>$rowData[0][9],
+								"prod_shift"=>$rowData[0][8],
+								"vendor"=>$rowData[0][9],
 								"model"=>$rowData[0][10],
-								"patan"=>$rowData[0][11],
+								"part_category"=>$rowData[0][11],
 								"routing"=>$rowData[0][12],
 								"create_by"=>$this->nama,
 								"create_date"=>gmdate('Y-m-d H:i:s',time()+60*60*7),
@@ -1242,7 +1266,6 @@ function reset(){
     }
 
 	function download_format() {
-		echo "Mantap";
 		$this->load->library('PHPExcel');
 		$link = $this->uri->segment(3);
 		$datalink=explode('--',$link);
@@ -1254,6 +1277,8 @@ function reset(){
 		}elseif($this->shop=='WH Door Assy'){
 			$select = $this->db->where('area', 'WH Door Assy');
 			$select = $this->db->get("tbl_master_part");						
+		}elseif($this->shop=='PPL'){
+			$select = $this->db->get("tbl_master_part_ppl");						
 		}else{			
 			$select = $this->db->get("tbl_master_part");						
 		}	
@@ -1315,13 +1340,12 @@ function reset(){
 		}else{
 			foreach ($data_field as $value) {
             	 if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
-				if($value->name!='maks_shift'){if($value->name!='patan'){if($value->name!='t_t'){if($value->name!='shift'){if($value->name!='shop_name'){if($value->name!='ss_p1'){
-					if($value->name!='ss_p4'){if($value->name!='ss_kap'){if($value->name!='ss_ppl'){if($value->name!='ss_process'){if($value->name!='create_by'){if($value->name!='create_date'){
-						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){
-							if($value->name!='sto_p1'){if($value->name!='sto_p4'){if($value->name!='sto_kap'){if($value->name!='sto_process'){
+				if($value->name!='part_category'){if($value->name!='shop_name'){if($value->name!='shift'){if($value->name!='prod_shift'){if($value->name!='plan_jam'){if($value->name!='ss_ppl'){
+					if($value->name!='area'){if($value->name!='model'){if($value->name!='vendor'){if($value->name!='routing'){if($value->name!='jam'){if($value->name!='create_by'){
+						if($value->name!='create_date'){
 	            	$ef->setCellValue($abjad[$i].'1', $value->name);
 	            	$i=$i+1;
-           		 }}}}}}}}}}}}}}}}}}}}}}}
+           		 }}}}}}}}}}}}}}}
            		}
             }
 		}
@@ -1346,13 +1370,12 @@ function reset(){
 			}else{
 				foreach ($data_field as $low){	
 					if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
-					   if($low->name!='maks_shift'){if($low->name!='patan'){if($low->name!='t_t'){if($low->name!='shift'){if($low->name!='shop_name'){if($low->name!='ss_p1'){
-						   if($low->name!='ss_p4'){if($low->name!='ss_kap'){if($low->name!='ss_ppl'){if($low->name!='ss_process'){if($low->name!='create_by'){if($low->name!='create_date'){
-							   if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){
-								if($low->name!='sto_p1'){if($low->name!='sto_p4'){if($low->name!='sto_kap'){if($low->name!='sto_process'){
+						if($low->name!='part_category'){if($low->name!='shop_name'){if($low->name!='shift'){if($low->name!='prod_shift'){if($low->name!='plan_jam'){if($low->name!='ss_ppl'){
+							if($low->name!='area'){if($low->name!='model'){if($low->name!='vendor'){if($low->name!='routing'){if($low->name!='jam'){if($low->name!='create_by'){
+								if($low->name!='create_date'){
 						  $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
 					   $i=$i+1;
-				   }}}}}}}}}}}}}}}}}}}}}}}}
+				   }}}}}}}}}}}}}}}}
 				  }
 			}
 		  	 $counter = $counter+1;

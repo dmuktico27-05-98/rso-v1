@@ -543,89 +543,88 @@ class Andon extends CI_Controller
 			$date = $_GET["date"];
 			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
 			if($shift == "Day"){
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
-				$patan = $this->db->query("$query")->row()->patan;				
-				$where = " Where `patan` = '$patan' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
+				$shift = $this->db->query("$query")->row()->shift;				
+				$where = " Where `shift` = '$shift' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
 			}else{
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
-				$patan = $this->db->query("$query")->row()->patan;				
-				$where = " Where `patan` = '$patan' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
+				$shift = $this->db->query("$query")->row()->shift;				
+				$where = " Where `shift` = '$shift' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
 			}
 		}else{
 			if($start <= $nowtime && $nowtime <= $end) {
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
-				$patan = $this->db->query("$query")->row()->patan;			
-				$where = " Where `patan` = '$patan' and (create_date>='$start' and create_date<='$end')";
-				$shift = 'Day';
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+				$shift = $this->db->query("$query")->row()->shift;			
+				$where = " Where `shift` = '$shift' and (create_date>='$start' and create_date<='$end')";
+				$shift = 'D';
 			}else{
 				if ($now.' 00:00:00' <= $nowtime && $nowtime <= $now.' 07:14:59') {
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
+					$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
+					$shift = $this->db->query("$query")->row()->shift;	
+					$where = " Where `shift` = '$shift' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
 				}else{
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
+					$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
+					$shift = $this->db->query("$query")->row()->shift;	
+					$where = " Where `shift` = '$shift' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
 				}							
-				$shift = 'Night';						
+				$shift = 'N';						
 			}		
 		}	
 		
 		$models = $this->db->query("select model from tbl_input_ppl$where group by model")->result();
-		$machines = $this->db->query("select machine from tbl_input_ppl$where group by machine")->result();
-		$pss = $this->db->query("select ps from tbl_input_ppl$where group by ps")->result();		
+		$vendors = $this->db->query("select vendor from tbl_input_ppl$where group by vendor")->result();
+		$areas = $this->db->query("select area from tbl_input_ppl$where group by area")->result();		
 		
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
 		}
-		if(isset($_GET["machine"] ) && $_GET["machine"] != ""){
-			$machine = $_GET["machine"];			
-			$where = $where." and `machine` = '$machine'";
+		if(isset($_GET["vendor"] ) && $_GET["vendor"] != ""){
+			$vendor = $_GET["vendor"];			
+			$where = $where." and `vendor` = '$vendor'";
 		}
-		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
-			$ps = $_GET["ps"];
-			$where = $where." and `ps` = '$ps'";
-		}		
+		if(isset($_GET["area"] ) && $_GET["area"] != ""){
+			$area = $_GET["area"];
+			$where = $where." and `area` = '$area'";
+		}				
 
-		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";
-		$hasil = $this->db->query("$query")->result();					
-		$querys = "select create_date from tbl_input_ppl$where group by create_date";						
-		$group = $this->db->query("$querys")->result();	
+		$query = "select * from tbl_input_ppl$where order by (ss_ppl + ss_r + ss_otw) ASC";						
+		$hasil = $this->db->query("$query")->result();	
 		
-		$machine = $this->db->query("select machine from tbl_input_ppl$where group by machine")->result();
-		$ps = $this->db->query("select ps from tbl_input_ppl$where group by ps")->result();
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
-				
-		$patern = "";
-		switch ($patan) {
-			case 'A':
-				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";
+		
+		$patern = "NULL";
+		switch ($shift) {
+			case 'D':
+				$patern = "Day,Night,Day,Night";
 				break;
-			case 'B':
-				$patern = "PATAN B,PATAN C,PATAN D,PATAN A";
+			case 'N':
+				$patern = "Night,Day,Night,Day";
 				break;
-			case 'C':
-				$patern = "PATAN C,PATAN D,PATAN A,PATAN B";
-				break;
-			default:
-				$patern = "PATAN D,PATAN A,PATAN B,PATAN C";
-				break;
+	
 		}		
+		
+
+		if($shift=="D"){
+			$s = "Day";
+		}else{
+			$s = "Night";
+		}
 
 		$data = array('title' => 'Andon',							
 			'List' => $hasil,			
 			'Shift' => $shift,
-			'Group' => $group,
+			'sip' => $s,
 			'Models' => $models,
-			'Machines' => $machines,
-			'PSs' => $pss,
+			'Vendors' => $vendors,
+			'Areas' => $areas,
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),
 			'Tanggal' => $Tanggal,
 			'Jam' => $Jam);	
+		
 		$this->load->view('content/andon/andon_ppl',$data);
 	}
 
@@ -741,31 +740,31 @@ class Andon extends CI_Controller
 			$date = $_GET["date"];
 			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
 			if($shift == "Day"){
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
-				$patan = $this->db->query("$query")->row()->patan;				
-				$where = " Where `patan` = '$patan' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
+				$shift = $this->db->query("$query")->row()->shift;				
+				$where = " Where `shift` = '$shift' and (create_date>='$date 07:15:00' and create_date<='$date 20:30:00')";
 			}else{
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
-				$patan = $this->db->query("$query")->row()->patan;				
-				$where = " Where `patan` = '$patan' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'N'";						
+				$shift = $this->db->query("$query")->row()->shift;				
+				$where = " Where `shift` = '$shift' and (create_date>='$date 20:30:01' and create_date<='$dateplus 17:14:59')";
 			}
 		}else{
 			if($start <= $nowtime && $nowtime <= $end) {
-				$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
-				$patan = $this->db->query("$query")->row()->patan;			
-				$where = " Where `patan` = '$patan' and (create_date>='$start' and create_date<='$end')";
-				$shift = 'Day';
+				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'D'";						
+				$shift = $this->db->query("$query")->row()->shift;			
+				$where = " Where `shift` = '$shift' and (create_date>='$start' and create_date<='$end')";
+				$shift = 'D';
 			}else{
 				if ($now.' 00:00:00' <= $nowtime && $nowtime <= $now.' 07:14:59') {
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
+					$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$datemin' AND `shift` = 'N'";						
+					$shift = $this->db->query("$query")->row()->shift;	
+					$where = " Where `shift` = '$shift' and (create_date>='$now 00:00:00' and create_date<='$now 03:59:59')";
 				}else{
-					$query = "Select `patan` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
-					$patan = $this->db->query("$query")->row()->patan;	
-					$where = " Where `patan` = '$patan' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
+					$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$now' AND `shift` = 'N'";											
+					$shift = $this->db->query("$query")->row()->shift;	
+					$where = " Where `shift` = '$shift' and (create_date>='$now 20:30:01' and create_date<='$now 23:59:59')";
 				}							
-				$shift = 'Night';						
+				$shift = 'N';						
 			}		
 		}	
 
@@ -774,16 +773,16 @@ class Andon extends CI_Controller
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
 		}
-		if(isset($_GET["machine"] ) && $_GET["machine"] != ""){
-			$machine = $_GET["machine"];			
-			$where = $where." and `machine` = '$machine'";
+		if(isset($_GET["vendor"] ) && $_GET["vendor"] != ""){
+			$vendor = $_GET["vendor"];			
+			$where = $where." and `vendor` = '$vendor'";
 		}
-		if(isset($_GET["ps"] ) && $_GET["ps"] != ""){
-			$ps = $_GET["ps"];
-			$where = $where." and `ps` = '$ps'";
+		if(isset($_GET["area"] ) && $_GET["area"] != ""){
+			$area = $_GET["area"];
+			$where = $where." and `area` = '$area'";
 		}		
 
-		$query = "select * from tbl_input_ppl$where order by ss_ppl ASC";	
+		$query = "select * from tbl_input_ppl$where order by (ss_ppl + ss_r + ss_otw) ASC";		
 		$hasil = $this->db->query("$query")->result();					
 		$querys = "select create_date from tbl_input_ppl$where group by create_date";						
 		$group = $this->db->query("$querys")->result();			
@@ -793,24 +792,27 @@ class Andon extends CI_Controller
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
 		
 		$patern = "";
-		switch ($patan) {
-			case 'A':
-				$patern = "PATAN A,PATAN B,PATAN C,PATAN D";
+		switch ($shift) {
+			case 'D':
+				$patern = "Day,Night,Day,Night";
 				break;
-			case 'B':
-				$patern = "PATAN B,PATAN C,PATAN D,PATAN A";
+			case 'N':
+				$patern = "Night,Day,Night,Day";
 				break;
-			case 'C':
-				$patern = "PATAN C,PATAN D,PATAN A,PATAN B";
-				break;
-			default:
-				$patern = "PATAN D,PATAN A,PATAN B,PATAN C";
-				break;
+	
 		}		
+		
+
+		if($shift=="D"){
+			$s = "Day";
+		}else{
+			$s = "Night";
+		}
 
 		$data = array('title' => 'Andon',				
 			'List' => $hasil,			
 			'Shift' => $shift,
+			'sip' => $s,
 			'Group' => $group,
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),

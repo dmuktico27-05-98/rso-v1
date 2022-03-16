@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2022 at 03:38 AM
+-- Generation Time: Mar 16, 2022 at 04:12 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -31,20 +31,26 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_input_ppl_temp` (
   `id` int(11) NOT NULL,
   `job_no` varchar(10) DEFAULT NULL,
+  `job_master` varchar(20) DEFAULT NULL,
   `part_no` varchar(20) DEFAULT NULL,
   `part_name` varchar(40) DEFAULT NULL,
-  `maks_shift` int(11) DEFAULT NULL,
-  `ps` varchar(10) DEFAULT NULL,
-  `patan` varchar(20) DEFAULT NULL,
-  `t_t` int(11) DEFAULT NULL,
-  `shift` varchar(1) DEFAULT NULL,
+  `part_category` varchar(30) DEFAULT NULL,
   `shop_name` varchar(30) DEFAULT NULL,
+  `shift` varchar(10) DEFAULT NULL,
+  `prod_shift` int(11) DEFAULT NULL,
+  `plan_jam` int(11) DEFAULT NULL,
   `sto_ppl` int(11) DEFAULT NULL,
+  `receive` int(11) DEFAULT NULL,
+  `otw` int(11) DEFAULT NULL,
   `ss_ppl` decimal(10,0) DEFAULT NULL,
+  `ss_r` decimal(10,0) DEFAULT NULL,
+  `ss_otw` decimal(10,0) DEFAULT NULL,
+  `ss` decimal(10,0) DEFAULT NULL,
   `area` varchar(20) DEFAULT NULL,
-  `proses` varchar(20) DEFAULT NULL,
   `model` varchar(15) DEFAULT NULL,
-  `machine` varchar(15) NOT NULL,
+  `vendor` varchar(15) DEFAULT NULL,
+  `routing` varchar(30) DEFAULT NULL,
+  `jam` time DEFAULT NULL,
   `create_by` varchar(20) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -53,12 +59,16 @@ CREATE TABLE `tbl_input_ppl_temp` (
 -- Dumping data for table `tbl_input_ppl_temp`
 --
 
-INSERT INTO `tbl_input_ppl_temp` (`id`, `job_no`, `part_no`, `part_name`, `maks_shift`, `ps`, `patan`, `t_t`, `shift`, `shop_name`, `sto_ppl`, `ss_ppl`, `area`, `proses`, `model`, `machine`, `create_by`, `create_date`) VALUES
-(1, 'A4041', '67149-BZ590', 'A-4041, PANEL, BACK DOOR, INSIDE', 317, 'ABCD', 'A', 1, 'A', 'PPL', 20, '1', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
-(2, 'A4042', '67149-BZ610', 'A-4042, PANEL, BACK DOOR, INSIDE', 102, 'ABCD', 'A', 5, 'A', 'PPL', 70, '5', 'WH Door Assy', 'Inhouse', 'D26A', '4A', 'User PPL', '2022-03-08 08:04:02'),
-(3, 'A4039', '67147-BZ190', 'A-4039, PANEL, RR DOOR HINGE SIDE, RH', 414, 'AC', 'A', 1, 'A', 'PPL', 30, '1', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
-(4, 'A4040', '67148-BZ190', 'A-4040, PANEL, RR DOOR HINGE SIDE, LH', 414, 'AC', 'A', 1, 'A', 'PPL', 10, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02'),
-(5, 'A4031', '67133-BZ100', 'A-4031, EXT,FR DOOR OUTSIDE PNL REINF,RR', 414, 'AC', 'A', 1, 'A', 'PPL', 15, '0', 'WH Door Assy', 'Inhouse', 'D26A', '2A', 'User PPL', '2022-03-08 08:04:02');
+INSERT INTO `tbl_input_ppl_temp` (`id`, `job_no`, `job_master`, `part_no`, `part_name`, `part_category`, `shop_name`, `shift`, `prod_shift`, `plan_jam`, `sto_ppl`, `receive`, `otw`, `ss_ppl`, `ss_r`, `ss_otw`, `ss`, `area`, `model`, `vendor`, `routing`, `jam`, `create_by`, `create_date`) VALUES
+(1, 'A4041', 'A4041', '67149-BZ590-00', 'A-4041, PANEL, BACK DOOR, INSIDE', '-', 'PPL', 'D', 42, 5, 80, 10, NULL, '15', '2', '0', '17', 'PPL', 'WELD1', 'PLANT-1', 'PL1-PPL', '00:33:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(2, 'A4042', 'A4041', '67149-BZ610', 'A-4042, PANEL, BACK DOOR, INSIDE', '-', 'PPL', 'D', 102, 13, 100, 20, 20, '8', '2', '2', '11', 'PPL', 'D26A', 'PLANT-1', 'PL1-PPL', '18:23:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(3, 'A4039', 'A4039', '67147-BZ190', 'A-4039, PANEL, RR DOOR HINGE SIDE, RH', '-', 'PPL', 'D', 414, 52, 10, NULL, 80, '0', '0', '2', '2', 'PPL', 'D26A', 'PLANT-1', 'PL1-PPL', '09:09:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(4, 'A4040', 'A4039', '67148-BZ190', 'A-4040, PANEL, RR DOOR HINGE SIDE, LH', '-', 'PPL', 'D', 414, 52, 16, 100, NULL, '0', '2', '0', '2', 'PPL', 'D26A', 'PLANT-1', 'PL1-PPL', '09:39:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(5, 'NX0531', 'NX0531', '61628-BZ080-00', 'NX-0531, REINFORCEMENT, QUARTER INNER PA', '-', 'PPL', 'D', 11, 1, 10, 30, 30, '7', '22', '22', '51', 'PPL2', 'WELD1', 'ASALTA', 'SP-PL4[W1]', '10:08:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(6, 'AX3089', 'AX3089', '52185-BZ080-00', 'AX-3089, BRACKET, RR BUMPER SIDE MOUNTIN', '-', 'PPL', 'D', 21, 3, 16, NULL, 10, '6', '0', '4', '10', 'PPL2', 'WELD1', 'YOSKA', 'SP-PL4[W1]', '17:18:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(7, 'NT0320', 'NT0320', '58033-BZ030-00', 'NT-0320, REINFORCE SUB-ASSY, BODY LWR BA', '-', 'PPL', 'D', 289, 36, 20, 20, 16, '1', '1', '0', '2', 'PPL2', 'WELD1', 'NAMICOH (CKR)', 'SP-PL4[W1]', '08:57:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(8, 'NT0321', 'NT0321', '58034-BZ030-00', 'NT-0321, REINFORCE SUB-ASSY, BODY LWR BA', '-', 'PPL', 'D', 289, 36, 40, 40, NULL, '1', '1', '0', '2', 'PPL2', 'WELD1', 'NAMICOH (CKR)', 'SP-PL4[W1]', '09:37:00', 'Aji Wibowo', '2022-03-16 09:20:21'),
+(9, 'NT0144', 'NT0144', '52185-BZ120-00', 'NT-0144, BRACKET, RR BUMPER SIDE MOUNTIN', '-', 'PPL', 'D', 578, 72, 100, NULL, 40, '1', '0', '1', '2', 'PPL2', 'WELD1', 'YOSKA', 'SP-PL4[W1]', '09:21:00', 'Aji Wibowo', '2022-03-16 09:20:21');
 
 --
 -- Indexes for dumped tables
@@ -78,7 +88,7 @@ ALTER TABLE `tbl_input_ppl_temp`
 -- AUTO_INCREMENT for table `tbl_input_ppl_temp`
 --
 ALTER TABLE `tbl_input_ppl_temp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

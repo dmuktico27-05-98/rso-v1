@@ -32,7 +32,7 @@
                                 <div class="btn btn-default text-green" onclick="upload('<?=$table;?>')"  title="Upload"><i class="fa fa-upload"></i></div>
                                 <?php } ?>
                               <div class="btn btn-default bg-blue" onclick="download('<?=$table;?>')"  title="download all"><i class="fa fa-download"></i></div>
-                              <?php if($tab=="tbl_input"){ ?>
+                              <?php if($tab=="tbl_input" && $table!="tbl_input_ppl_temp"){ ?>
                               <div class="btn btn-default text-purple" onclick="download_format('<?=$table;?>')"  title="download format upload">Format Upload</div>
                               <?php if($table!='tbl_input_ppl_temp'){ ?>
                               <div class="btn btn-default text-green" onclick="delete_detail('<?=$table;?>')"  title="delete detail"><i class="fa fa-trash"></i></div>

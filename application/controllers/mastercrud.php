@@ -153,12 +153,15 @@ function save(){
 		$data = array ('success' => false, 'messages' => array());
 		$ppc = $this->db->query("select create_date from tbl_input_ppc order by create_date desc limit 1")->row();
 		$ppl_temp = $this->db->query("select * from tbl_input_ppl_temp")->result();
-		
 		foreach ($ppl_temp as $key) {
+			$master = $this->db->query("select * from tbl_master_part where job_no='".$key->job_no."'")->row();
+			$t_t = 465/$master->maks_shift;
+			$t_t = round($t_t,2);
 			$x = $this->db->query("select * from tbl_input_ppc where job_no='".$key->job_no."' and create_date='".$ppc->create_date."' ")->row();
 			if(empty($x)){
 					$data1=array(
 					'job_no'=>$key->job_no,
+					'job_master'=>$key->job_master,
 					'part_no'=>$key->part_no,
 					'part_name'=>$key->part_name,
 					'maks_shift'=>$key->maks_shift,
@@ -168,7 +171,7 @@ function save(){
 					'shift'=>$key->shift,
 					'shop_name'=>$key->shop_name,
 					'sto_ppl'=>$key->sto_ppl,
-					'ss_ppl'=>$key->ss_ppl,
+					'ss_ppl'=>(($t_t*$key->sto_ppl)/465)*8,
 					'sto_p1'=>0,
 					'sto_p4'=>0,
 					'sto_kap'=>0,
@@ -181,15 +184,13 @@ function save(){
 					'proses'=>$key->proses,
 					'model'=>$key->model,
 					'machine'=>$key->machine,
-					'create_by'=>$key->create_by,
 					'create_date'=>$ppc->create_date,
 					);
 					$this->db->insert('tbl_input_ppc',$data1);
 			}else{
 				$data1=array(
 					'sto_ppl'=>$key->sto_ppl,
-					'ss_ppl'=>$key->ss_ppl,
-					'create_by'=>$key->create_by,
+					'ss_ppl'=>(($t_t*$key->sto_ppl)/465)*8,
 					'create_date'=>$ppc->create_date,
 					);
 					$this->db->update('tbl_input_ppc',$data1,array('job_no'=>$key->job_no,'create_date'=>$ppc->create_date));
@@ -210,6 +211,7 @@ function save(){
 			if(empty($x)){
 					$data1=array(
 					'job_no'=>$key->job_no,
+					'job_master'=>$key->job_master,
 					'part_no'=>$key->part_no,
 					'part_name'=>$key->part_name,
 					'area'=>$key->area,
@@ -227,6 +229,7 @@ function save(){
 			}else{
 				$data1=array(
 					'job_no'=>$key->job_no,
+					'job_master'=>$key->job_master,
 					'part_no'=>$key->part_no,
 					'part_name'=>$key->part_name,
 					'area'=>$key->area,

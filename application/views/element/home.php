@@ -177,7 +177,7 @@
                                                         <td><?=$key->patan;?></td>
                                                         <td><?=$key->t_t;?></td>
                                                         <td><?=$key->shift;?></td>
-                                                        <td><?=$key->shop;?></td>
+                                                        <td><?=$key->shop_name;?></td>
                                                         <td><?=$key->ss_p1;?></td>
                                                         <td><?=$key->ss_p4;?></td>
                                                         <td><?=$key->ss_kap;?></td>
@@ -278,7 +278,7 @@
                                                         <td><?=$key->patan;?></td>
                                                         <td><?=$key->t_t;?></td>
                                                         <td><?=$key->shift;?></td>
-                                                        <td><?=$key->shop;?></td>
+                                                        <td><?=$key->shop_name;?></td>
                                                         <td><?=$key->ss_p1;?></td>
                                                         <td><?=$key->ss_p4;?></td>
                                                         <td><?=$key->ss_kap;?></td>
@@ -374,7 +374,7 @@
                                                         <td><?=$key->patan;?></td>
                                                         <td><?=$key->t_t;?></td>
                                                         <td><?=$key->shift;?></td>
-                                                        <td><?=$key->shop;?></td>
+                                                        <td><?=$key->shop_name;?></td>
                                                         <td><?=$key->ss_ppl;?></td>
                                                     </tr>
                                                   <?php } ?>
