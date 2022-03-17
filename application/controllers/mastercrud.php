@@ -171,7 +171,7 @@ function save(){
 					'shift'=>$key->shift,
 					'shop_name'=>$key->shop_name,
 					'sto_ppl'=>$key->sto_ppl,
-					'ss_ppl'=>(($t_t*$key->sto_ppl)/465)*8,
+					'ss_ppl'=>number_format((($t_t*$key->sto_ppl)/465)*8,1),
 					'sto_p1'=>0,
 					'sto_p4'=>0,
 					'sto_kap'=>0,
@@ -190,7 +190,7 @@ function save(){
 			}else{
 				$data1=array(
 					'sto_ppl'=>$key->sto_ppl,
-					'ss_ppl'=>(($t_t*$key->sto_ppl)/465)*8,
+					'ss_ppl'=>number_format((($t_t*$key->sto_ppl)/465)*8,1),
 					'create_date'=>$ppc->create_date,
 					);
 					$this->db->update('tbl_input_ppc',$data1,array('job_no'=>$key->job_no,'create_date'=>$ppc->create_date));

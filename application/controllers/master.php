@@ -907,7 +907,6 @@ function reset(){
 							);
 									$this->db->insert('tbl_input_ppl_temp',$data1);
 									$this->db->insert($table,$data1); 
-																	
 								$no=$no+1;																		
 								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
 						}
