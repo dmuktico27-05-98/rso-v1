@@ -166,7 +166,7 @@
                                                 $kap = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap);
                                                 $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                                 $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process);
-                                                $ss = $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process;
+                                                $ss = number_format($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process,1);
                                             ?>
                                                 <tr class="text-center" style="font-size:13px" >
                                                     <td><?= $i; ?></td>

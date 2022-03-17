@@ -163,7 +163,7 @@
                                                 $ppl = 1.21875 * $key->ss_ppl;
                                                 $receive = 1.21875 * ($key->ss_ppl + $key->ss_r);
                                                 $otw = 1.21875 * ($key->ss_ppl + $key->ss_r + $key->ss_otw);
-                                                $ss = $key->ss_ppl + $key->ss_r + $key->ss_otw;
+                                                $ss = number_format($key->ss_ppl + $key->ss_r + $key->ss_otw,1);
                                             ?>
                                                 <tr class="text-center" style="font-size:13px" >
                                                     <td><?= $i; ?></td>

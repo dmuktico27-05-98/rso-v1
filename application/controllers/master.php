@@ -800,11 +800,11 @@ function reset(){
 								"sto_kap"=>$rowData[0][4],
 								"sto_ppl"=>$rowData[0][5],
 								"sto_process"=>$rowData[0][6],
-								"ss_p1"=>(($t_t*$rowData[0][2])/465)*8,
-								"ss_p4"=>(($t_t*$rowData[0][3])/465)*8,
-								"ss_kap"=>(($t_t*$rowData[0][4])/465)*8,
-								"ss_ppl"=>(($t_t*$rowData[0][5])/465)*8,
-								"ss_process"=>(($t_t*$rowData[0][6])/465)*8,
+								"ss_p1"=>number_format((($t_t*$rowData[0][2])/465)*8,1),
+								"ss_p4"=>number_format((($t_t*$rowData[0][3])/465)*8,1),
+								"ss_kap"=>number_format((($t_t*$rowData[0][4])/465)*8,1),
+								"ss_ppl"=>number_format((($t_t*$rowData[0][5])/465)*8,1),
+								"ss_process"=>number_format((($t_t*$rowData[0][6])/465)*8,1),
 								"area"=>$master['id']->area,
 								"proses"=>$master['id']->proses,
 								"model"=>$master['id']->model,
@@ -821,11 +821,12 @@ function reset(){
 										"sto_kap"=>$rowData[0][4],
 										"sto_ppl"=>$rowData[0][5],
 										"sto_process"=>$rowData[0][6],
-										"ss_p1"=>(($t_t*$rowData[0][2])/465)*8,
-										"ss_p4"=>(($t_t*$rowData[0][3])/465)*8,
-										"ss_kap"=>(($t_t*$rowData[0][4])/465)*8,
-										"ss_ppl"=>(($t_t*$rowData[0][5])/465)*8,
-										"ss_process"=>(($t_t*$rowData[0][6])/465)*8)																						;
+										"ss_p1"=>number_format((($t_t*$rowData[0][2])/465)*8,1),
+										"ss_p4"=>number_format((($t_t*$rowData[0][3])/465)*8,1),
+										"ss_kap"=>number_format((($t_t*$rowData[0][4])/465)*8,1),
+										"ss_ppl"=>number_format((($t_t*$rowData[0][5])/465)*8,1),
+										"ss_process"=>number_format((($t_t*$rowData[0][6])/465)*8,1)
+									);																						
 										$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
 									}else{
 										$this->db->insert($table,$data1); 
@@ -892,11 +893,11 @@ function reset(){
 							"sto_ppl"=>$rowData[0][2],
 							"receive"=>$rowData[0][3],
 							"otw"=>$rowData[0][4],
-							"ss_ppl"=>$rowData[0][2]/$plan_jam,
-							"ss_r"=>$rowData[0][3]/$plan_jam,
-							"ss_otw"=>$rowData[0][4]/$plan_jam,
+							"ss_ppl"=>number_format($rowData[0][2]/$plan_jam,1),
+							"ss_r"=>number_format($rowData[0][3]/$plan_jam,1),
+							"ss_otw"=>number_format($rowData[0][4]/$plan_jam,1),
 							// "ss_otw"=>(($plan_jam*$rowData[0][4])/465)*8,
-							"ss"=>$ss,
+							"ss"=>number_format($ss,1),
 							"area"=>$master['id']->area,
 							"model"=>$master['id']->model,
 							"vendor"=>$master['id']->vendor,
@@ -912,10 +913,10 @@ function reset(){
 										"sto_ppl"=>$rowData[0][2],
 										"receive"=>$rowData[0][3],
 										"otw"=>$rowData[0][4],
-										"ss_ppl"=>$rowData[0][2]/$plan_jam,
-										"ss_r"=>$rowData[0][3]/$plan_jam,
-										"ss_otw"=>$rowData[0][4]/$plan_jam,
-										"ss"=>$ss,
+										"ss_ppl"=>number_format($rowData[0][2]/$plan_jam,1),
+										"ss_r"=>number_format($rowData[0][3]/$plan_jam,1),
+										"ss_otw"=>number_format($rowData[0][4]/$plan_jam,1),
+										"ss"=>number_format($ss,1),
 									);
 									$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'shift' => $data1['shift'], 'DATE(`create_date`)' => $now));																				
 								}else{
