@@ -80,7 +80,7 @@
                                         <li class="dropdown-item"><a href="<?php echo isset($_GET["model"]) ? base_url("andon/pdfppl?model=") . $_GET["model"] . "&vendor=" . $_GET["vendor"] . "&area=" . $_GET["area"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppl"); ?>">PDF</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <select id="Model" class="form-control">
                                             <option value="">Model</option>
@@ -90,7 +90,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <select id="Area" class="form-control">
                                             <option value="">Area</option>
@@ -127,8 +127,17 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <select class="form-control" id="Jam">
+                                      <option value="">Jam</option>
+                                      <?php foreach ($Group as $g) { ?>
+                                        <option><?= date('H:i:s',strtotime($g->create_date)) ?></option>
+                                      <?php } ?>
+                                    </select>
+                                  </div>
+                                </div>
                                 <div class="col-md-12">
-                                    Last Update : <?= $Tanggal . " " . $Jam ?>
                                     <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
                                         <thead class="thead-light">
                                             <tr class="text-center" style="font-size:15px">
@@ -156,16 +165,25 @@
                                             
                                         </thead>
                                         <tbody>
+                                          <?php foreach ($Group as $g) { ?>
                                             <?php $i = 1;
                                             foreach ($List as $key) {
-                                              // 39 itu masksimal graph nya 
-                                              // maksimal kolom (39) / total kolom (4)/ total stack kolom nya (8) 
-                                                $ppl = 1.21875 * $key->ss_ppl;
-                                                $receive = 1.21875 * ($key->ss_ppl + $key->ss_r);
-                                                $otw = 1.21875 * ($key->ss_ppl + $key->ss_r + $key->ss_otw);
-                                                $ss = $key->ss_ppl + $key->ss_r + $key->ss_otw;
+                                              if ($key->create_date == $g->create_date) {
+                                                      // 39 itu masksimal graph nya 
+                                                    // maksimal kolom (39) / total kolom (4)/ total stack kolom nya (8) 
+                                                    $ppl = 1.21875 * $key->ss_ppl;
+                                                    $receive = 1.21875 * ($key->ss_ppl + $key->ss_r);
+                                                    $otw = 1.21875 * ($key->ss_ppl + $key->ss_r + $key->ss_otw);
+                                                    $ss = $key->ss_ppl + $key->ss_r + $key->ss_otw;
+                                                if($i==1){
                                             ?>
-                                                <tr class="text-center" style="font-size:13px" >
+                                              <tr>
+                                                <td colspan="53" class="text-bold">
+                                                  Last Update : <?= date('d/m/Y  H:i:s',strtotime($g->create_date)) ?>
+                                                </td>
+                                              </tr>
+                                            <?php }?>
+                                               <tr class="text-center" style="font-size:13px" >
                                                     <td><?= $i; ?></td>
                                                     <td class="text-left"  style="font-size:12px"><?= $key->part_name; ?></td>
                                                     <td><?= $key->vendor; ?></td>
@@ -176,16 +194,18 @@
                                                     <td><?= $key->sto_ppl; ?></td>
                                                     <td><?= $key->receive; ?></td>
                                                     <td><?= $key->otw; ?></td>
-                                                    <td <?= $ss<=4?'class="invalid"':'';?>><?= $ss; ?> = <?= $shift=="Day" ? date('H:i', strtotime('07:25')+(60*$ss*60)) : date('H:i', strtotime('20:30')+(60*$ss*60));?></td>
+                                                    <td <?= $ss<=4?'class="invalid"':'';?>><?= $ss; ?> = <?= $sip=="Day" ? date('H:i', strtotime('07:25')+(60*$ss*60)) : date('H:i', strtotime('20:30')+(60*$ss*60));?></td>
                                                     <td class="pl-0">
                                                         <div class="bg-warning text-right pr-1 position-absolute" style="width: <?= $otw > 39 ? 39 : $otw; ?>%;z-index: -1;"><?= $key->ss_otw; ?></div>
                                                         <div class="bg-success  text-right pr-1 position-absolute" style="width: <?= $receive > 39 ? 39 : $receive; ?>%;z-index: -1;"><?= $key->ss_r; ?></div>
                                                         <div class="bg-primary  text-right pr-1 position-absolute" style="width: <?= $ppl > 39 ? 39 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
                                                     </td>
-                                                </tr>
-                                        </tbody>
-                                    <?php $i++;
-                                        }  ?>
+                                                </tr> 
+                                          </tbody>
+                                      <?php $i++;
+                                              }
+                                            } ?>
+                                            <?php } ?>
                                     </table>                               
                                 </div>
                             </div>
@@ -275,6 +295,15 @@
                 return false;
             });
 
+            $('#Jam').on('change', function() {
+                var url = "<?= base_url() . 'andon/ppl?' ?>"; // get selected value
+                var fix_url = querybuilder(url);
+                if (fix_url) { // require a URL
+                    window.location = fix_url; // redirect
+                }
+                return false;
+            });
+
             function querybuilder(url) {
                 var fomat = " ";
                 if ($('#Date').datetimepicker('viewDate') != " ") {
@@ -288,7 +317,7 @@
                     //var format = y+"-"+M+"-"+d+" "+h+":"+m+":"+s;
                     format = y + "-" + M + "-" + d;
                 }
-                return url + "model=" + $("#Model").val() + "&vendor=" + $("#Vendor").val() + "&area=" + $("#Area").val() + "&date=" + format + "&shift=" + $("#Shift").val();
+                return url + "model=" + $("#Model").val() + "&vendor=" + $("#Vendor").val() + "&area=" + $("#Area").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
             }
         })
 
@@ -308,6 +337,10 @@
         if (isset($_GET["shift"]) && $_GET["shift"] != "") {
             echo "$('#Shift').val('" . $_GET['shift'] . "').change();";
         }
+
+        if (isset($_GET["jam"]) && $_GET["jam"] != "") {
+          echo "$('#Jam').val('" . $_GET['jam'] . "').change();";
+      }
         ?>
 
         $(function() {

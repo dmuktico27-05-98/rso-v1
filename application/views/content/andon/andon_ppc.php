@@ -319,6 +319,15 @@
         return false;
       });
 
+      $('#Jam').on('change', function() {
+        var url = "<?= base_url() . 'andon/ppc?' ?>"; // get selected value
+        var fix_url = querybuilder(url);
+        if (fix_url) { // require a URL
+          window.location = fix_url; // redirect
+        }
+        return false;
+      });
+
       function querybuilder(url) {
         var fomat = " ";
         if ($('#Date').datetimepicker('viewDate') != " ") {
@@ -331,7 +340,7 @@
           var m = formattedDate.getMinutes();
           format = y + "-" + M + "-" + d;
         }
-        return url + "model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val();
+        return url + "model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
       }
 
 
@@ -352,6 +361,10 @@
 
     if (isset($_GET["shift"]) && $_GET["shift"] != "") {
       echo "$('#Shift').val('" . $_GET['shift'] . "').change();";
+    }
+
+    if (isset($_GET["jam"]) && $_GET["jam"] != "") {
+      echo "$('#Jam').val('" . $_GET['jam'] . "').change();";
     }
     ?>
   </script>

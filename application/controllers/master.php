@@ -800,11 +800,11 @@ function reset(){
 								"sto_kap"=>$rowData[0][4],
 								"sto_ppl"=>$rowData[0][5],
 								"sto_process"=>$rowData[0][6],
-								"ss_p1"=>(($t_t*$rowData[0][2])/465)*8,
-								"ss_p4"=>(($t_t*$rowData[0][3])/465)*8,
-								"ss_kap"=>(($t_t*$rowData[0][4])/465)*8,
-								"ss_ppl"=>(($t_t*$rowData[0][5])/465)*8,
-								"ss_process"=>(($t_t*$rowData[0][6])/465)*8,
+								"ss_p1"=>number_format((($t_t*$rowData[0][2])/465)*8,1),
+								"ss_p4"=>number_format((($t_t*$rowData[0][3])/465)*8,1),
+								"ss_kap"=>number_format((($t_t*$rowData[0][4])/465)*8,1),
+								"ss_ppl"=>number_format((($t_t*$rowData[0][5])/465)*8,1),
+								"ss_process"=>number_format((($t_t*$rowData[0][6])/465)*8,1),
 								"area"=>$master['id']->area,
 								"proses"=>$master['id']->proses,
 								"model"=>$master['id']->model,
@@ -821,11 +821,11 @@ function reset(){
 										"sto_kap"=>$rowData[0][4],
 										"sto_ppl"=>$rowData[0][5],
 										"sto_process"=>$rowData[0][6],
-										"ss_p1"=>(($t_t*$rowData[0][2])/465)*8,
-										"ss_p4"=>(($t_t*$rowData[0][3])/465)*8,
-										"ss_kap"=>(($t_t*$rowData[0][4])/465)*8,
-										"ss_ppl"=>(($t_t*$rowData[0][5])/465)*8,
-										"ss_process"=>(($t_t*$rowData[0][6])/465)*8)																						;
+										"ss_p1"=>number_format((($t_t*$rowData[0][2])/465)*8,1),
+										"ss_p4"=>number_format((($t_t*$rowData[0][3])/465)*8,1),
+										"ss_kap"=>number_format((($t_t*$rowData[0][4])/465)*8,1),
+										"ss_ppl"=>number_format((($t_t*$rowData[0][5])/465)*8,1),
+										"ss_process"=>number_format((($t_t*$rowData[0][6])/465)*8,1));
 										$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'patan' => $data1['patan'], 'DATE(`create_date`)' => $now));																				
 									}else{
 										$this->db->insert($table,$data1); 
@@ -892,11 +892,11 @@ function reset(){
 							"sto_ppl"=>$rowData[0][2],
 							"receive"=>$rowData[0][3],
 							"otw"=>$rowData[0][4],
-							"ss_ppl"=>$rowData[0][2]/$plan_jam,
-							"ss_r"=>$rowData[0][3]/$plan_jam,
-							"ss_otw"=>$rowData[0][4]/$plan_jam,
+							"ss_ppl"=>number_format($rowData[0][2]/$plan_jam,1),
+							"ss_r"=>number_format($rowData[0][3]/$plan_jam,1),
+							"ss_otw"=>number_format($rowData[0][4]/$plan_jam,1),
 							// "ss_otw"=>(($plan_jam*$rowData[0][4])/465)*8,
-							"ss"=>$ss,
+							"ss"=>number_format($ss,1),
 							"area"=>$master['id']->area,
 							"model"=>$master['id']->model,
 							"vendor"=>$master['id']->vendor,
@@ -905,22 +905,9 @@ function reset(){
 							"create_by"=>$this->nama,
 							"create_date"=>$nowtime,
 							);
-							$this->db->insert('tbl_input_ppl_temp',$data1);
-								$found = $this->db->query("select * from $table where job_no='".$data1['job_no']."' AND shift = '".$data1['shift']."' AND DATE(`create_date`) = '$now'")->row();																										
-								if($found && $table=="tbl_input_ppl"){	
-									$ss = array(
-										"sto_ppl"=>$rowData[0][2],
-										"receive"=>$rowData[0][3],
-										"otw"=>$rowData[0][4],
-										"ss_ppl"=>$rowData[0][2]/$plan_jam,
-										"ss_r"=>$rowData[0][3]/$plan_jam,
-										"ss_otw"=>$rowData[0][4]/$plan_jam,
-										"ss"=>$ss,
-									);
-									$this->db->update($table,$ss,array('job_no' => $data1['job_no'], 'shift' => $data1['shift'], 'DATE(`create_date`)' => $now));																				
-								}else{
+									$this->db->insert('tbl_input_ppl_temp',$data1);
 									$this->db->insert($table,$data1); 
-								}									
+																	
 								$no=$no+1;																		
 								delete_files($media['file_path']);                           // menghapus semua file .xls yang diupload
 						}
@@ -1327,21 +1314,21 @@ function reset(){
             	if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
 				if($value->name!='maks_shift'){if($value->name!='patan'){if($value->name!='t_t'){if($value->name!='shift'){if($value->name!='shop_name'){if($value->name!='ss_p1'){
 					if($value->name!='ss_p4'){if($value->name!='ss_kap'){if($value->name!='ss_ppl'){if($value->name!='ss_process'){if($value->name!='create_by'){if($value->name!='create_date'){
-						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){
+						if($value->name!='machine'){if($value->name!='ps'){if($value->name!='area'){if($value->name!='model'){if($value->name!='proses'){if($value->name!='job_master'){
 	            	$ef->setCellValue($abjad[$i].'1', $value->name);
 	            	$i=$i+1;
-           		 }}}}}}}}}}}}}}}}}}}
+           		 }}}}}}}}}}}}}}}}}}}}
            		}
             }
 		}else{
 			foreach ($data_field as $value) {
-            	 if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){
+            	 if($value->name!='id'){ if($value->name!='part_no'){if($value->name!='part_name'){if($value->name!='job_master'){if($value->name!='ss_r'){if($value->name!='ss_otw'){if($value->name!='ss'){
 				if($value->name!='part_category'){if($value->name!='shop_name'){if($value->name!='shift'){if($value->name!='prod_shift'){if($value->name!='plan_jam'){if($value->name!='ss_ppl'){
 					if($value->name!='area'){if($value->name!='model'){if($value->name!='vendor'){if($value->name!='routing'){if($value->name!='jam'){if($value->name!='create_by'){
 						if($value->name!='create_date'){
 	            	$ef->setCellValue($abjad[$i].'1', $value->name);
 	            	$i=$i+1;
-           		 }}}}}}}}}}}}}}}
+           		 }}}}}}}}}}}}}}}}}}}
            		}
             }
 		}
@@ -1358,20 +1345,20 @@ function reset(){
 				 if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
 					if($low->name!='maks_shift'){if($low->name!='patan'){if($low->name!='t_t'){if($low->name!='shift'){if($low->name!='shop_name'){if($low->name!='ss_p1'){
 						if($low->name!='ss_p4'){if($low->name!='ss_kap'){if($low->name!='ss_ppl'){if($low->name!='ss_process'){if($low->name!='create_by'){if($low->name!='create_date'){
-							if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){
+							if($low->name!='machine'){if($low->name!='ps'){if($low->name!='area'){if($low->name!='model'){if($low->name!='proses'){if($low->name!='job_master'){
 			  		 $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
 	            	$i=$i+1;
-            	}}}}}}}}}}}}}}}}}}}}
+            	}}}}}}}}}}}}}}}}}}}}}
 		  	 }
 			}else{
 				foreach ($data_field as $low){	
-					if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){
+					if($low->name!='id'){ if($low->name!='part_no'){if($low->name!='part_name'){if($low->name!='job_master'){if($low->name!='ss_r'){if($low->name!='ss_otw'){if($low->name!='ss'){
 						if($low->name!='part_category'){if($low->name!='shop_name'){if($low->name!='shift'){if($low->name!='prod_shift'){if($low->name!='plan_jam'){if($low->name!='ss_ppl'){
 							if($low->name!='area'){if($low->name!='model'){if($low->name!='vendor'){if($low->name!='routing'){if($low->name!='jam'){if($low->name!='create_by'){
 								if($low->name!='create_date'){
 						  $ex->setCellValue($abjad[$i].$counter, $row[$low->name]);
 					   $i=$i+1;
-				   }}}}}}}}}}}}}}}}
+				   }}}}}}}}}}}}}}}}}}}}
 				  }
 			}
 		  	 $counter = $counter+1;

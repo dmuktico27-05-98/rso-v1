@@ -15,12 +15,7 @@
 <div class="wrapper">
 <section class="content">
 <div class="container-fluid p-2" id="print">
-<?php $counter = 1;
-$count = 0;
-while(count($List)!=0){ 
-    echo (($counter-1) % 38) ==0 && $count != 0? '<div class="html2pdf__page-break"></div>' : '' ;
-    ?>
-    <table style="width: 100%; <?= (($counter-1) % 38) ==0  && $count != 0? 'margin-top: 0.1875cm;':''?>">
+    <table style="width: 100%;">
         <tr>
             <td style="height: 10%;width: 8%;background:url('<?php echo base_url("assets/img/logo-daihatsu.png") ?>');background-repeat: no-repeat;background-size:100% 100%;">&nbsp;
             </td>
@@ -53,8 +48,9 @@ while(count($List)!=0){
         <tr>
             <td colspan="3" class="p-0">
                 <div class="row">
-                    <div class="col-md-12">
-                        <!-- Last Update : <?= $Tanggal . " " . $Jam ?> -->
+                    <?php foreach($Group as $g){?>
+                        <div class="col-md-12">
+                            Last Update : <?= $g->create_date ?>
                         <table class="table table-bordered table-sm mb-0" width="100%" style="table-layout: fixed;">
                             <thead class="thead-light">
                                 <tr class="text-center" style="font-size:12px">
@@ -80,8 +76,8 @@ while(count($List)!=0){
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; for($j=1 ;$j<=38; $j++) {
-                                    $key = $List[$count];
+                            <?php $i = 1;
+                            foreach ($List as $key) { if($key->create_date==$g->create_date){
                                     // 39 itu masksimal graph nya 
                                               // maksimal kolom (39) / total kolom (4)/ total stack kolom nya (8) 
                                               $ppl = 1.21875 * $key->ss_ppl;
@@ -107,16 +103,16 @@ while(count($List)!=0){
                                     <div class="bg-primary  text-right pr-1 position-absolute" style="width: <?= $ppl > 39 ? 39 : $ppl; ?>%;z-index: -1;"><?= $key->ss_ppl; ?></div>
                                     </td>
                                 </tr>
-                                    <?php $counter++;$count++;$i++;  if(($counter-1) == count($List))break;} ?>                              
-                            </tbody>                    
-                        </table>                    
-                    </div>
+                                </tbody>
+                                <?php $i++;
+                                    } } ?>
+                    </table>                         
+                        </div>
+                    <?php }?>
                 </div>          
             </td>
         </tr>    
     </table>
-<?php if($counter-1 == count($List))break;} ?>
-</div>
 </section>
 </div>
 
