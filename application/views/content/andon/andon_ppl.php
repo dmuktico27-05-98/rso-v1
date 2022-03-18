@@ -77,7 +77,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-item"><a href="#">Excel</a></li>
-                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["model"]) ? base_url("andon/pdfppl?model=") . $_GET["model"] . "&vendor=" . $_GET["vendor"] . "&area=" . $_GET["area"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppl"); ?>">PDF</a></li>
+                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppl?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&vendor=" . $_GET["vendor"] . "&area=" . $_GET["area"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppl"); ?>">PDF</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-1">
@@ -317,7 +317,7 @@
                     //var format = y+"-"+M+"-"+d+" "+h+":"+m+":"+s;
                     format = y + "-" + M + "-" + d;
                 }
-                return url + "model=" + $("#Model").val() + "&vendor=" + $("#Vendor").val() + "&area=" + $("#Area").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
+                return url + "proses=<?= $_GET["proses"] ;?>" + "&model=" + $("#Model").val() + "&vendor=" + $("#Vendor").val() + "&area=" + $("#Area").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
             }
         })
 

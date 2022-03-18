@@ -78,7 +78,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li class="dropdown-item"><a href="#">Excel</a></li>
-                    <li class="dropdown-item"><a href="<?php echo isset($_GET["model"]) ? base_url("andon/pdfppc?model=") . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppc"); ?>">PDF</a></li>
+                    <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppc?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppc"); ?>">PDF</a></li>
                   </ul>
                 </div>
                 <div class="col-md-1">
@@ -340,7 +340,7 @@
           var m = formattedDate.getMinutes();
           format = y + "-" + M + "-" + d;
         }
-        return url + "model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
+        return url + "proses=<?= $_GET["proses"] ;?>" + "&model=" + $("#Model").val() + "&machine=" + $("#Machine").val() + "&ps=" + $("#PS").val() + "&date=" + format + "&shift=" + $("#Shift").val() + "&jam=" + $("#Jam").val();
       }
 
 
