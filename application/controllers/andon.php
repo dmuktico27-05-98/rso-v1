@@ -130,8 +130,7 @@ class Andon extends CI_Controller
 	}
 
 
-	function ppc_new()
-	{	
+	function ppc_new(){	
 		date_default_timezone_set('Asia/Jakarta'); 
 
 		$nowtime = date('Y-m-d H:i:s');		
@@ -178,7 +177,6 @@ class Andon extends CI_Controller
 		}
 
 		$query = "select * from tbl_input_general$where  order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";
-		//echo $query;			
 		$hasil = $this->db->query("$query")->result();
 		
 		$i = 1;
@@ -525,6 +523,7 @@ class Andon extends CI_Controller
 			}
 		
 		}	
+		
 		$models = $this->db->query("select model from tbl_input_ppl$where group by model")->result();
 		$vendors = $this->db->query("select vendor from tbl_input_ppl$where group by vendor")->result();
 		$areas = $this->db->query("select area from tbl_input_ppl$where group by area")->result();
@@ -599,6 +598,8 @@ class Andon extends CI_Controller
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),
 			'Tanggal' => $Tanggal,
+			'type_andon' => $_GET["proses"],
+			'time' => date('H:i:s'),
 			'Jam' => $Jam);	
 		
 		$this->load->view('content/andon/andon_ppl',$data);
@@ -670,9 +671,9 @@ class Andon extends CI_Controller
 				}		
 			}
 		}	
-
+		
 		$group = $this->db->query("select create_date from tbl_input_ppc$where group by create_date")->result();						
-
+		
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
 			$where = $where." and `model` = '$model'";			
@@ -692,7 +693,6 @@ class Andon extends CI_Controller
 
 		$query = "select * from tbl_input_ppc$where order by (ss_p1+ss_p4+ss_kap+ss_ppl+ss_process) ASC";	
 		$hasil = $this->db->query("$query")->result();					
-
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
@@ -726,18 +726,16 @@ class Andon extends CI_Controller
 	
 	function pdfppl(){
 		date_default_timezone_set('Asia/Jakarta'); 
-		$nowtime = date('Y-m-d H:i:s');				
+		$nowtime = date('Y-m-d H:i:s');	
 		$now = date('Y-m-d');		
 		$datemin = date('Y-m-d',strtotime($now . "-1 days"));		
 		$where = "";
 		$patan = "";
-		$shift = ""	;		
-					
+		$shift = ""	;
 		
 		if((isset($_GET["date"] ) && $_GET["date"] != "")&&(isset($_GET["shift"] ) && $_GET["shift"] != "")){
 			$shift = $_GET["shift"];
 			$date = $_GET["date"];
-			
 			$dateplus = date('Y-m-d',strtotime($date . "+1 days"));										
 			if($shift == "Day"){
 				$query = "Select `shift` from `tbl_master_patan` Where `dates` = '$date' AND `shift` = 'D'";						
@@ -768,8 +766,7 @@ class Andon extends CI_Controller
 						$where = " Where `shift` = '$shift' AND DATE(`create_date`) = '$now'";		
 					}			
 					$shift = 'D';						
-				}
-									
+				}					
 			}else{				
 				$start = date('Y-m-d').' 07:15:00';		
 				$end = date('Y-m-d').' 20:30:00';
@@ -790,10 +787,11 @@ class Andon extends CI_Controller
 					}							
 					$shift = 'N';						
 				}		
-			}		
-		}	
+			}
 		
-		$group = $this->db->query("select create_date from tbl_input_ppc$where group by create_date")->result();						
+		}
+		
+		$group = $this->db->query("select create_date from tbl_input_ppl$where group by create_date")->result();						
 		
 		if(isset($_GET["model"] ) && $_GET["model"] != ""){				
 			$model = $_GET["model"];			
@@ -814,43 +812,45 @@ class Andon extends CI_Controller
 
 		$query = "select * from tbl_input_ppl$where order by (ss_ppl + ss_r + ss_otw) ASC";		
 		$hasil = $this->db->query("$query")->result();					
-
+		
 		$c = count($hasil)-1;
 		$Tanggal =date('d/m/Y',strtotime($hasil[$c]->create_date));
 		$Jam = date('H:i:s',strtotime($hasil[$c]->create_date));
+
 		if(isset($_GET["proses"] ) && $_GET["proses"] == "special"){
-		$patern = "NULL";
-		switch ($shift) {
-			case 'D':
-				$patern = "Day,Night,Day,Night";
-				break;
-			case 'N':
-				$patern = "Night,Day,Night,Day";
-				break;
-		}
-		if($shift=="D"){
-			$s = "Day";
-		}else{
-			$s = "Night";
-		}
-		
-		}else{
 			$patern = "NULL";
 			switch ($shift) {
 				case 'D':
-					$patern = "Night,Day,Night,Day";
-					break;
-				case 'N':
 					$patern = "Day,Night,Day,Night";
 					break;
+				case 'N':
+					$patern = "Night,Day,Night,Day";
+					break;
 			}
-
 			if($shift=="D"){
-				$s = "Night";
-			}else{
 				$s = "Day";
+			}else{
+				$s = "Night";
 			}
-		}
+			
+			}else{
+				$patern = "NULL";
+				switch ($shift) {
+					case 'D':
+						$patern = "Night,Day,Night,Day";
+						break;
+					case 'N':
+						$patern = "Day,Night,Day,Night";
+						break;
+				}
+	
+				if($shift=="D"){
+					$s = "Night";
+				}else{
+					$s = "Day";
+				}
+			}
+			
 		$data = array('title' => 'Andon',				
 			'List' => $hasil,			
 			'Shift' => $shift,
@@ -859,6 +859,8 @@ class Andon extends CI_Controller
 			'pat' => explode( ',', $patern ),
 			'Scale' => 500 +(35*($c-1)),
 			'Tanggal' => $Tanggal,
+			'type_andon' => $_GET["proses"],
+			'time' => date('H:i:s'),
 			'Jam' => $Jam);	
 		$this->load->view('content/andon/pdfppl',$data);
 	}

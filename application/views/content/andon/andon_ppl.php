@@ -77,7 +77,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-item"><a href="#">Excel</a></li>
-                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppl?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&vendor=" . $_GET["vendor"] . "&area=" . $_GET["area"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] : base_url("andon/pdfppl"); ?>">PDF</a></li>
+                                        <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppl?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&vendor=" . $_GET["vendor"] . "&area=" . $_GET["area"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] . "&jam=" . $_GET["jam"] : base_url("andon/pdfppl"); ?>">PDF</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-1">
@@ -194,7 +194,13 @@
                                                     <td><?= $key->sto_ppl; ?></td>
                                                     <td><?= $key->receive; ?></td>
                                                     <td><?= $key->otw; ?></td>
-                                                    <td <?= $ss<=4?'class="invalid"':'';?>><?= $ss; ?> = <?= $sip=="Day" ? date('H:i', strtotime('07:25')+(60*$ss*60)) : date('H:i', strtotime('20:30')+(60*$ss*60));?></td>
+                                                    <td <?= $ss<=4?'style=" background-color: red;color: white;"':'';?>><?= $ss;?> = 
+                                                        <?php if($type_andon=="special"){ ?>
+                                                            <?= $shift=="Day" ? date('H:i', strtotime($time)+(60*$ss*60)) : date('H:i', strtotime($time)+(60*$ss*60));?>
+                                                        <?php }else{ ?>
+                                                            <?= $shift=="Day" ? date('H:i', strtotime('07:25')+(60*$ss*60)) : date('H:i', strtotime('20:30')+(60*$ss*60));?>
+                                                    <?php } ?>
+                                                        </td>
                                                     <td class="pl-0">
                                                         <div class="bg-warning text-right pr-1 position-absolute" style="width: <?= $otw > 39 ? 39 : $otw; ?>%;z-index: -1;"><?= $key->ss_otw; ?></div>
                                                         <div class="bg-success  text-right pr-1 position-absolute" style="width: <?= $receive > 39 ? 39 : $receive; ?>%;z-index: -1;"><?= $key->ss_r; ?></div>

@@ -871,6 +871,7 @@ function reset(){
 							$ss = $rowData[0][2] + $rowData[0][3] + $rowData[0][4];
 							// $ss = (($plan_jam*$ss)/465)*8;
 							$ss = $ss/$plan_jam;
+							
 							if($shift=="D"){
 								$t = date('H:i', strtotime('07:25')+(60*$ss*60));
 								$x = "Day";

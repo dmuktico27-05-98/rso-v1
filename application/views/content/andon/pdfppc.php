@@ -48,9 +48,8 @@
         <tr>
             <td colspan="3" class="p-0">
                 <div class="row">
-                <?php foreach($Group as $g){?>
+                
                 <div class="col-md-12">
-                    Last Update : <?= $g->create_date ?>
                     <table class="table table-bordered table-sm" width="100%" style="table-layout: fixed;">
                         <thead class="thead-light">
                             <tr class="text-center">
@@ -79,15 +78,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <?php foreach($Group as $g){ ?>
                             <?php $i = 1;
-                            foreach ($List as $key) { if($key->create_date==$g->create_date){
+                            foreach ($List as $key) { 
+                                if($key->create_date==$g->create_date){
                                 $p1 = 0.734375 * $key->ss_p1;
                                 $p4 = 0.734375 * ($key->ss_p1 + $key->ss_p4);
                                 $kap = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap);
                                 $ppl = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl);
                                 $process = 0.734375 * ($key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process);
                                 $ss = $key->ss_p1 + $key->ss_p4 + $key->ss_kap + $key->ss_ppl + $key->ss_process;
+                                if($i==1){
                             ?>
+                            <tr>
+                            <td colspan="21" class="text-bold">
+                              Last Update : <?= $g->create_date ?>
+                            </td>
+                          </tr>
+                                <?php }?>
                                 <tr class="text-center">
                                     <td><?= $i; ?></td>
                                     <td><?= $key->job_no; ?></td>
