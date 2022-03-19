@@ -140,7 +140,7 @@
 <script src="<?php echo base_url() ?>dist/js/adminlte.js"></script>
 
 <script src="<?php echo base_url() ?>plugins/html2pdf/html2pdf.bundle.min.js"></script>
-<!-- 
+
 <script>  
   var opt = {  
     filename:     'Rundown Stock <?= $sip ?> Shift <?= isset($_GET["machine"]) ? $_GET["machine"] : ""; ?> <?= isset($_GET["model"]) ? $_GET["model"] : ""; ?>',
@@ -151,7 +151,7 @@
 
 const print = this.document.getElementById("print");
 html2pdf().set(opt).from(print).save();
-</script> -->
+</script>
 
 
 </body>
