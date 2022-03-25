@@ -194,9 +194,7 @@
                                                     <td><?= $key->sto_ppl; ?></td>
                                                     <td><?= $key->receive; ?></td>
                                                     <td><?= $key->otw; ?></td>
-                                                    <td <?= $ss<=4?'style=" background-color: red;color: white;"':'';?>><?= $ss;?> = 
-                                                      
-                                                            <?= $shift=="Day" ? date('H:i', strtotime('07:25')+(60*$ss*60)) : date('H:i', strtotime('20:30')+(60*$ss*60));?>
+                                                    <td <?= $ss<=4?'style=" background-color: red;color: white;"':'';?>><?= $ss;?> = <?=$key->jam; ?>
                                                    
                                                         </td>
                                                     <td class="pl-0">

@@ -870,13 +870,15 @@ function reset(){
 							$plan_jam = round($plan_jam,2);
 							$ss = $rowData[0][2] + $rowData[0][3] + $rowData[0][4];
 							// $ss = (($plan_jam*$ss)/465)*8;
-							$ss = $ss/$plan_jam;
+							$ss = number_format($ss/$plan_jam,1);
 							
 							if($shift=="D"){
-								$t = date('H:i', strtotime('07:25')+(60*$ss*60));
+								$time = date('H:i');
+								$t = date('H:i', strtotime($time)+(60*$ss*60));
 								$x = "Day";
 							}else{
-								$t = date('H:i', strtotime('20:30')+(60*$ss*60));
+								$time = date('H:i');
+								$t = date('H:i', strtotime($time)+(60*$ss*60));
 								$x = "Night";
 							}
 
