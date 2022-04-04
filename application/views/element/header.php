@@ -65,55 +65,55 @@
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-  <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-  <?php
-        foreach ($menu_mother as $row1) { if($row1->nav!='Security' AND $row1->nav!='Dashboard'){ ?>
-          <div class="dropdown <?=$row1->mother;?>">
-           <?php if($row1->url!="-"){ 
-                if($row1->mother=='andon'){ ?>
-                    <button onclick="window.open ('<?=site_url($row1->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"></i>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+      
+          <?php foreach ($menu_mother as $row1) { if($row1->nav!='Security' AND $row1->nav!='Dashboard'){ ?>
+              <div class="dropdown <?=$row1->mother;?>">
+              <?php if($row1->url!="-"){ 
+                    if($row1->mother=='andon'){ ?>
+                        <button onclick="window.open ('<?=site_url($row1->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"></i>
+                        <?=$row1->nav;?>
+                        </button>
+                    <?php }else{?>
+                        <button onclick="return menu('<?=base_url($row1->url); ?>')">
+                        <?=$row1->nav;?>
+                        </button>
+                  <?php }
+                    }else{?>
+                <button href="#"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?=$row1->nav;?>
-                    </button>
-                <?php }else{?>
-                    <button onclick="return menu('<?=base_url($row1->url); ?>')">
-                    <?=$row1->nav;?>
-                    </button>
-              <?php }
-                }else{?>
-            <button href="#"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <?=$row1->nav;?>
-                  <span class="caret"></span>
-            </button>&nbsp;&nbsp;
-            <?php }?>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <?php foreach ($menu_parent as $row2) { if($row1->mother==$row2->mother) { if($row2->mother=='andon'){ ?>
-                    <li class="<?=$row2->parent;?>"><a onclick="window.open ('<?=site_url($row2->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
-                      <?php }else{?>
-                    <li class="<?=$row2->parent;?>"><a onclick="return menu('<?=base_url($row2->url); ?>','<?=$row2->nav;?>','<?=$row2->tabel.'-'.$row2->add_level.'-'.$row2->edit_level.'-'.$row2->delete_level;?>','<?=$row2->user_level;?>')"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
-                <?php }} } ?>
-                </div>
-        </div>
-      <?php } } ?>
+                      <span class="caret"></span>
+                </button>&nbsp;&nbsp;
+                <?php }?>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <?php foreach ($menu_parent as $row2) { if($row1->mother==$row2->mother) { if($row2->mother=='andon'){ ?>
+                        <li class="<?=$row2->parent;?>"><a onclick="window.open ('<?=site_url($row2->url)?>','','fullscreen=yes, scrollbars=auto'); window.open('','_parent','');"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
+                          <?php }else{?>
+                        <li class="<?=$row2->parent;?>"><a onclick="return menu('<?=base_url($row2->url); ?>','<?=$row2->nav;?>','<?=$row2->tabel.'-'.$row2->add_level.'-'.$row2->edit_level.'-'.$row2->delete_level;?>','<?=$row2->user_level;?>')"><i class="fa fa-circle-o"></i> <?=$row2->nav;?> </a></li>
+                    <?php }} } ?>
+                    </div>
+              </div>
+          <?php } } ?>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-     
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button" style="color:black;">
-          <i class="fas fa-expand-arrows-alt"></i> &nbsp;-&nbsp; <?=$nama;?>&nbsp;-&nbsp; <?=$shop;?>
-        </a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li> -->
-    </ul>
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+      
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button" style="color:black;">
+            <i class="fas fa-expand-arrows-alt"></i> &nbsp;-&nbsp; <?=$nama;?>&nbsp;-&nbsp; <?=$shop;?>
+          </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li> -->
+      </ul>
   </nav>
   <!-- /.navbar -->
 
