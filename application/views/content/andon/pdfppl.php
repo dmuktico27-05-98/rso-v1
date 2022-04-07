@@ -113,10 +113,12 @@
                                 </tr>
                                 </tbody>
                     <?php $i++;
-                           } } ?>
+                            } 
+                           } 
+                        } ?>
                     </table>                    
                 </div>
-                <?php }?>
+               
                 </div>          
             </td>
         </tr>    

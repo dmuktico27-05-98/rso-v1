@@ -204,8 +204,9 @@
                                           </tbody>
                                       <?php $i++;
                                               }
-                                            } ?>
-                                            <?php } ?>
+                                            } 
+                                        } ?>
+                                            
                                     </table>                               
                                 </div>
                             </div>

@@ -74,7 +74,7 @@
                                 <th class="bg-success">P4</th>
                                 <th class="bg-warning">KAP</th>
                                 <th class="bg-danger">PPL</th>
-                                <th class="bg-dark" style="word-wrap: break-word;">Repair</th>
+                                <th class="bg-dark" style="word-wrap: break-word;">RPR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,11 +92,11 @@
                             ?>
                             <tr>
                             <td colspan="21" class="text-bold">
-                              Last Update : <?= $g->create_date ?>
-                            </td>
+                              Last Update : <?= date('d/m/Y  H:i:s',strtotime($g->create_date)) ?>
+                            </td>>
                           </tr>
                                 <?php }?>
-                                <tr class="text-center">
+                                <tr class="text-center" style="font-size:13px">
                                     <td><?= $i; ?></td>
                                     <td><?= $key->job_no; ?></td>
                                     <td><?= $key->ps; ?></td>
@@ -118,10 +118,12 @@
                                 </tr>
                         </tbody>
                     <?php $i++;
-                           } } ?>
+                             } 
+                           } 
+                        } ?>
                     </table>                    
                 </div>
-                <?php }?>
+               
                 </div>          
             </td>
         </tr>    

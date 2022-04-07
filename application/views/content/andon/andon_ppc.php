@@ -78,7 +78,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li class="dropdown-item"><a href="#">Excel</a></li>
-                    <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppc?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] . "&jam=" . $_GET["jam"] : base_url("andon/pdfppc"); ?>">PDF</a></li>
+                    <li class="dropdown-item"><a href="<?php echo isset($_GET["proses"]) ? base_url("andon/pdfppc?proses=") . $_GET["proses"] . "&model=" . $_GET["model"] . "&machine=" . $_GET["machine"] . "&ps=" . $_GET["ps"] . "&date=" . $_GET["date"] . "&shift=" . $_GET["shift"] . "&jam=" . $_GET["jam"] : base_url("andon/pdfppc?proses=") . $_GET["proses"]; ?>">PDF</a></li>
                   </ul>
                 </div>
                 <div class="col-md-1">
@@ -213,8 +213,9 @@
                       </tbody>
                   <?php $i++;
                           }
-                        } ?>
-                        <?php } ?>
+                        } 
+                      } ?>
+                        
                     </table>
                   </div>                
               </div>
