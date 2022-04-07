@@ -971,7 +971,6 @@ function reset(){
 						}
 					}elseif($table=='tbl_master_qr'){
 						$this->db->truncate($table);
-						
 						$i=1;
 							$no=1;
 							for ($row = 2; $row <= $highestRow; $row++) {                           // Read a row of data into an array

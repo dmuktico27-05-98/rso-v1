@@ -27,16 +27,16 @@ html,body {
   <?php $i=1; foreach ($data_table as $key) { for ($z=1; $z <= 4; $z++) { 
     $j=$i % 4;  $x=$i % 28;
   if($x==1){echo '<table style="width: 100%;height:100%;text-align: center;font-family: sans-serif;">';}
-    if($j==1){ echo"<tr style='height: 100%'><td style='padding-top:6px;padding-bottom:6px;padding-left:6px;padding-right:6px;'>"; }else{ echo"<td style='padding:6px'>";} ?>
+    if($j==1){ echo"<tr style='height: 100%'><td style='padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;'>"; }else{ echo"<td style='padding:5px'>";} ?>
   <table style="width: 100%;height:100%;border:1px solid #444;">
     <tr>
       <td style="margin:0px;">
-        <table style="width: 100%;height:100%;text-align: center;margin:4.4px">
+        <table style="width: 100%;height:100%;text-align: center;margin:4px">
           <tr>
             <td  style="padding:0px;margin:0px">  
             <span style="font-size:20px;padding: 0px"><b>SCAN HERE!</b></span><br/>
               <img src="<?=base_url('assets/lte/mpdf60/qrcode/image.php?msg='.urlencode($key->qr_code).'&amp;err='.urlencode('Q'));?>" 
-              style="width:80px;height: 80px;text-align: center;padding:4px;">
+              style="width:75px;height: 75px;text-align: center;padding:4px;">
             <br><span style="font-size:10px;padding: 0px"><?=$key->qr_code;?></span>
             </td>
           </tr>         
