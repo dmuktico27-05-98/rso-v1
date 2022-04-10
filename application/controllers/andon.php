@@ -867,7 +867,7 @@ class Andon extends CI_Controller
 			'List' => $hasil,			
 			'Shift' => $shift,
 			'sip' => $s,
-			'Group' => $group,
+			'Group' => $group, 
 			'Models' => $models,
 			'Vendors' => $vendors,
 			'Areas' => $areas,
